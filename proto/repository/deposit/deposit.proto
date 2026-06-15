@@ -1,0 +1,66 @@
+﻿syntax = "proto3";
+
+package repository;
+
+option go_package = "/";
+
+enum DepositStatus {
+  DEPOSIT_STATUS_CLOSED = 0;
+  DEPOSIT_STATUS_ACTIVE = 1;
+  DEPOSIT_STATUS_REJECTED = 2;
+}
+
+message Empty {}
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message UserIdRequest {
+  int64 user_id = 1;
+}
+
+message DeleteResponse {
+  int64 rows_affected = 1;
+}
+
+message ReplenishDepositRequest {
+  int64 id = 1;
+  int64 amount = 2;
+}
+
+message Deposit {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 currency_id = 3;
+
+  int64 amount = 4;
+  float interest_rate = 5;
+
+  int32 term_months = 6;
+
+  DepositStatus status = 7;
+}
+
+message DepositCreateInput {
+  int64 user_id = 1;
+  int64 currency_id = 2;
+
+  int64 amount = 3;
+  int32 term_months = 4;
+}
+
+message DepositList {
+  repeated Deposit deposits = 1;
+}
+
+service DepositRepository {
+  rpc GetAll(Empty) returns (DepositList);
+  rpc GetByUser(UserIdRequest) returns (DepositList);
+  rpc GetById(IdRequest) returns (Deposit);
+
+  rpc Create(DepositCreateInput) returns (Deposit);
+  rpc Replenish(ReplenishDepositRequest) returns (Deposit);
+
+  rpc Delete(IdRequest) returns (DeleteResponse);
+}

@@ -1,0 +1,64 @@
+﻿syntax = "proto3";
+
+package repository;
+
+option go_package = "/";
+
+enum CardStatus {
+  CARD_STATUS_CLOSED = 0;
+  CARD_STATUS_ACTIVE = 1;
+  CARD_STATUS_BLOCKED = 2;
+  CARD_STATUS_EXPIRED = 3;
+}
+
+message Empty {}
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message UserIdRequest {
+  int64 user_id = 1;
+}
+
+message CardNumberRequest {
+  string number = 1;
+}
+
+message DeleteResponse {
+  int64 rows_affected = 1;
+}
+
+message Card {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 account_id = 3;
+
+  string number = 4;
+
+  int32 expiry_month = 5;
+  int32 expiry_year = 6;
+
+  CardStatus status = 7;
+}
+
+message CardCreateInput {
+  int64 user_id = 1;
+  int64 account_id = 2;
+}
+
+message CardList {
+  repeated Card cards = 1;
+}
+
+service CardRepository {
+  rpc GetAll(Empty) returns (CardList);
+  rpc GetByUser(UserIdRequest) returns (CardList);
+  rpc GetById(IdRequest) returns (Card);
+  rpc GetByNumber(CardNumberRequest) returns (Card);
+
+  rpc Blocking(IdRequest) returns (Card);
+  rpc Create(CardCreateInput) returns (Card);
+
+  rpc Delete(IdRequest) returns (DeleteResponse);
+}

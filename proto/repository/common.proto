@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package repository.common;
+
+option go_package = "/";
+
+message Empty {}
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message UserIdRequest {
+  int64 user_id = 1;
+}
+
+message DeleteResponse {
+  int64 rows_affected = 1;
+}

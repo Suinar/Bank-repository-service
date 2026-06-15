@@ -1,0 +1,67 @@
+﻿syntax = "proto3";
+
+package repository;
+
+option go_package = "/";
+
+enum CreditStatus {
+  CREDIT_STATUS_CLOSED = 0;
+  CREDIT_STATUS_ACTIVE = 1;
+  CREDIT_STATUS_REJECTED = 2;
+}
+
+message Empty {}
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message UserIdRequest {
+  int64 user_id = 1;
+}
+
+message DeleteResponse {
+  int64 rows_affected = 1;
+}
+
+message RepayCreditRequest {
+  int64 id = 1;
+  int64 amount = 2;
+}
+
+message Credit {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 currency_id = 3;
+
+  int64 amount = 4;
+  float interest_rate = 5;
+
+  int32 term_months = 6;
+  int64 monthly_payment = 7;
+
+  CreditStatus status = 8;
+}
+
+message CreditCreateInput {
+  int64 user_id = 1;
+  int64 currency_id = 2;
+
+  int64 amount = 3;
+  int32 term_months = 4;
+}
+
+message CreditList {
+  repeated Credit credits = 1;
+}
+
+service CreditRepository {
+  rpc GetAll(Empty) returns (CreditList);
+  rpc GetByUser(UserIdRequest) returns (CreditList);
+  rpc GetById(IdRequest) returns (Credit);
+
+  rpc Create(CreditCreateInput) returns (Credit);
+  rpc Repay(RepayCreditRequest) returns (Credit);
+
+  rpc Delete(IdRequest) returns (DeleteResponse);
+}
