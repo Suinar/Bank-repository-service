@@ -1,0 +1,73 @@
+﻿syntax = "proto3";
+
+package repository;
+
+option go_package = "/";
+
+message Empty {}
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message IsoCodeRequest {
+  string iso_code = 1;
+}
+
+message SymbolRequest {
+  string symbol = 1;
+}
+
+message DeleteResponse {
+  int64 rows_affected = 1;
+}
+
+message Currency {
+  int64 id = 1;
+
+  string name = 2;
+
+  string symbol = 3;
+  string iso_code = 4;
+
+  int32 minor_units = 5;
+}
+
+message CurrencyCreateInput {
+  string name = 1;
+
+  string symbol = 2;
+  string iso_code = 3;
+
+  int32 minor_units = 4;
+}
+
+message CurrencyUpdateInput {
+  optional string name = 1;
+
+  optional string symbol = 2;
+  optional string iso_code = 3;
+
+  optional int32 minor_units = 4;
+}
+
+message CurrencyList {
+  repeated Currency currencies = 1;
+}
+
+message UpdateCurrencyRequest {
+  int64 id = 1;
+  CurrencyUpdateInput input = 2;
+}
+
+service CurrencyRepository {
+  rpc GetAll(Empty) returns (CurrencyList);
+  rpc GetById(IdRequest) returns (Currency);
+  rpc GetByIso(IsoCodeRequest) returns (Currency);
+  rpc GetBySymbol(SymbolRequest) returns (Currency);
+
+  rpc Create(CurrencyCreateInput) returns (Currency);
+  rpc Update(UpdateCurrencyRequest) returns (Currency);
+
+  rpc Delete(IdRequest) returns (DeleteResponse);
+}
