@@ -1,8 +1,10 @@
 ﻿syntax = "proto3";
 
-package repository;
+package repository.account;
 
-option go_package = "/";
+option go_package = "github.com/Suinar/Bank-repository-service/proto/repository/account";
+
+import "repository/common/common.proto";
 
 enum AccountStatus {
   ACCOUNT_STATUS_CLOSED = 0;
@@ -35,34 +37,33 @@ message AccountList {
   repeated Account accounts = 1;
 }
 
-message IdRequest {
-  int64 id = 1;
-}
-
-message UserIdRequest {
-  int64 user_id = 1;
-}
-
-message Empty {}
-
-message DeleteResponse {
-  int64 rows_affected = 1;
-}
-
 message UpdateAccountRequest {
   int64 id = 1;
   AccountUpdateInput input = 2;
 }
 
 service AccountRepository {
-  rpc GetAll(Empty) returns (AccountList);
-  rpc GetByUser(UserIdRequest) returns (AccountList);
-  rpc GetById(IdRequest) returns (Account);
+  rpc GetAll(repository.common.Empty)
+      returns (AccountList);
 
-  rpc Create(AccountCreateInput) returns (Account);
-  rpc Blocking(IdRequest) returns (Account);
-  rpc Close(IdRequest) returns (Account);
+  rpc GetByUser(repository.common.UserIdRequest)
+      returns (AccountList);
 
-  rpc Update(UpdateAccountRequest) returns (Account);
-  rpc Delete(IdRequest) returns (DeleteResponse);
+  rpc GetById(repository.common.IdRequest)
+      returns (Account);
+
+  rpc Create(AccountCreateInput)
+      returns (Account);
+
+  rpc Blocking(repository.common.IdRequest)
+      returns (Account);
+
+  rpc Close(repository.common.IdRequest)
+      returns (Account);
+
+  rpc Update(UpdateAccountRequest)
+      returns (Account);
+
+  rpc Delete(repository.common.IdRequest)
+      returns (repository.common.DeleteResponse);
 }

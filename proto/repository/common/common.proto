@@ -2,7 +2,7 @@
 
 package repository.common;
 
-option go_package = "/";
+option go_package = "github.com/Suinar/Bank-repository-service/proto/repository/common";
 
 message Empty {}
 
@@ -16,4 +16,9 @@ message UserIdRequest {
 
 message DeleteResponse {
   int64 rows_affected = 1;
+}
+
+message AmountRequest {
+  int64 id = 1;
+  int64 amount = 2;
 }

@@ -1,14 +1,10 @@
 ﻿syntax = "proto3";
 
-package repository;
+package repository.user;
 
-option go_package = "/";
+option go_package = "github.com/Suinar/Bank-repository-service/proto/repository/user";
 
-message Empty {}
-
-message IdRequest {
-  int64 id = 1;
-}
+import "repository/common/common.proto";
 
 message EmailRequest {
   string email = 1;
@@ -62,13 +58,27 @@ message UserList {
 }
 
 service UserRepository {
-  rpc GetAll(Empty) returns (UserList);
-  rpc GetById(IdRequest) returns (User);
-  rpc GetByEmail(EmailRequest) returns (User);
-  rpc GetByPhoneNumber(PhoneNumberRequest) returns (User);
+  rpc GetAll(repository.common.Empty)
+      returns (UserList);
 
-  rpc Create(UserCreateInput) returns (User);
-  rpc ChangePassword(ChangePasswordRequest) returns (Empty);
-  rpc Update(UpdateUserRequest) returns (User);
-  rpc Delete(IdRequest) returns (Empty);
+  rpc GetById(repository.common.IdRequest)
+      returns (User);
+
+  rpc GetByEmail(EmailRequest)
+      returns (User);
+
+  rpc GetByPhoneNumber(PhoneNumberRequest)
+      returns (User);
+
+  rpc Create(UserCreateInput)
+      returns (User);
+
+  rpc ChangePassword(ChangePasswordRequest)
+      returns (repository.common.Empty);
+
+  rpc Update(UpdateUserRequest)
+      returns (User);
+
+  rpc Delete(repository.common.IdRequest)
+      returns (repository.common.Empty);
 }
