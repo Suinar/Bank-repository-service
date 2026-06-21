@@ -1,8 +1,10 @@
 ﻿syntax = "proto3";
 
-package repository;
+package repository.card;
 
-option go_package = "/";
+option go_package = "github.com/Suinar/Bank-repository-service/proto/repository/card";
+
+import "repository/common/common.proto";
 
 enum CardStatus {
   CARD_STATUS_CLOSED = 0;
@@ -11,22 +13,8 @@ enum CardStatus {
   CARD_STATUS_EXPIRED = 3;
 }
 
-message Empty {}
-
-message IdRequest {
-  int64 id = 1;
-}
-
-message UserIdRequest {
-  int64 user_id = 1;
-}
-
 message CardNumberRequest {
   string number = 1;
-}
-
-message DeleteResponse {
-  int64 rows_affected = 1;
 }
 
 message Card {
@@ -52,13 +40,24 @@ message CardList {
 }
 
 service CardRepository {
-  rpc GetAll(Empty) returns (CardList);
-  rpc GetByUser(UserIdRequest) returns (CardList);
-  rpc GetById(IdRequest) returns (Card);
-  rpc GetByNumber(CardNumberRequest) returns (Card);
+  rpc GetAll(repository.common.Empty)
+      returns (CardList);
 
-  rpc Blocking(IdRequest) returns (Card);
-  rpc Create(CardCreateInput) returns (Card);
+  rpc GetByUser(repository.common.UserIdRequest)
+      returns (CardList);
 
-  rpc Delete(IdRequest) returns (DeleteResponse);
+  rpc GetById(repository.common.IdRequest)
+      returns (Card);
+
+  rpc GetByNumber(CardNumberRequest)
+      returns (Card);
+
+  rpc Blocking(repository.common.IdRequest)
+      returns (Card);
+
+  rpc Create(CardCreateInput)
+      returns (Card);
+
+  rpc Delete(repository.common.IdRequest)
+      returns (repository.common.DeleteResponse);
 }
