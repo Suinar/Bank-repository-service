@@ -7,7 +7,7 @@
 package __
 
 import (
-	common "github.com/Suinar/Bank-repository-service/proto/repository/common"
+	common "Bank-repository-service/proto/repository/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
