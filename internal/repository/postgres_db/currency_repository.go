@@ -7,8 +7,9 @@ import (
 	"fmt"
 	"strings"
 
-	core "Bank-repository-service/pkg/core"
 	errror "Bank-repository-service/pkg"
+	core "Bank-repository-service/pkg/core"
+
 	"github.com/jmoiron/sqlx"
 )
 
