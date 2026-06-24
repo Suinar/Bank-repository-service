@@ -22,8 +22,8 @@ type Config struct {
 	}
 }
 
-func LoadConfig() (*Config, error) {
-	viper.SetConfigFile(".env")
+func LoadConfig(fileName string) (*Config, error) {
+	viper.SetConfigFile(fileName)
 	viper.SetConfigType("env")
 
 	viper.AutomaticEnv()
