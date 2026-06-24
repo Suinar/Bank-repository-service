@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/deposit/deposit.proto
 
-package __
+package deposit
 
 import (
 	context "context"
@@ -35,7 +35,7 @@ type DepositRepositoryClient interface {
 	GetAll(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*DepositList, error)
 	GetByUser(ctx context.Context, in *common.UserIdRequest, opts ...grpc.CallOption) (*DepositList, error)
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Deposit, error)
-	Create(ctx context.Context, in *DepositCreateInput, opts ...grpc.CallOption) (*Deposit, error)
+	Create(ctx context.Context, in *Deposit, opts ...grpc.CallOption) (*Deposit, error)
 	Replenish(ctx context.Context, in *common.AmountRequest, opts ...grpc.CallOption) (*Deposit, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
 }
@@ -78,7 +78,7 @@ func (c *depositRepositoryClient) GetById(ctx context.Context, in *common.IdRequ
 	return out, nil
 }
 
-func (c *depositRepositoryClient) Create(ctx context.Context, in *DepositCreateInput, opts ...grpc.CallOption) (*Deposit, error) {
+func (c *depositRepositoryClient) Create(ctx context.Context, in *Deposit, opts ...grpc.CallOption) (*Deposit, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Deposit)
 	err := c.cc.Invoke(ctx, DepositRepository_Create_FullMethodName, in, out, cOpts...)
@@ -115,7 +115,7 @@ type DepositRepositoryServer interface {
 	GetAll(context.Context, *common.Empty) (*DepositList, error)
 	GetByUser(context.Context, *common.UserIdRequest) (*DepositList, error)
 	GetById(context.Context, *common.IdRequest) (*Deposit, error)
-	Create(context.Context, *DepositCreateInput) (*Deposit, error)
+	Create(context.Context, *Deposit) (*Deposit, error)
 	Replenish(context.Context, *common.AmountRequest) (*Deposit, error)
 	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
 	mustEmbedUnimplementedDepositRepositoryServer()
@@ -137,7 +137,7 @@ func (UnimplementedDepositRepositoryServer) GetByUser(context.Context, *common.U
 func (UnimplementedDepositRepositoryServer) GetById(context.Context, *common.IdRequest) (*Deposit, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
-func (UnimplementedDepositRepositoryServer) Create(context.Context, *DepositCreateInput) (*Deposit, error) {
+func (UnimplementedDepositRepositoryServer) Create(context.Context, *Deposit) (*Deposit, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedDepositRepositoryServer) Replenish(context.Context, *common.AmountRequest) (*Deposit, error) {
@@ -222,7 +222,7 @@ func _DepositRepository_GetById_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _DepositRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DepositCreateInput)
+	in := new(Deposit)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -234,7 +234,7 @@ func _DepositRepository_Create_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: DepositRepository_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepositRepositoryServer).Create(ctx, req.(*DepositCreateInput))
+		return srv.(DepositRepositoryServer).Create(ctx, req.(*Deposit))
 	}
 	return interceptor(ctx, in, info, handler)
 }

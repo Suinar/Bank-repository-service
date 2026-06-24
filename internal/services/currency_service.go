@@ -1,4 +1,4 @@
-﻿package serivce
+﻿package service
 
 import (
 	"context"
@@ -53,6 +53,8 @@ func (s *CurrencyService) GetBySymbol(ctx context.Context, symbol rune) (*core.C
 }
 
 func (s *CurrencyService) Create(ctx context.Context, input *core.Currency) (*core.Currency, error) {
+	s.cache.Set(ctx, input)
+
 	return s.repository.Create(ctx, input)
 }
 

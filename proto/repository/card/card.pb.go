@@ -4,7 +4,7 @@
 // 	protoc        v4.25.9
 // source: repository/card/card.proto
 
-package __
+package card
 
 import (
 	common "Bank-repository-service/proto/repository/common"
@@ -210,58 +210,6 @@ func (x *Card) GetStatus() CardStatus {
 	return CardStatus_CARD_STATUS_CLOSED
 }
 
-type CardCreateInput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	AccountId     int64                  `protobuf:"varint,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CardCreateInput) Reset() {
-	*x = CardCreateInput{}
-	mi := &file_repository_card_card_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CardCreateInput) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CardCreateInput) ProtoMessage() {}
-
-func (x *CardCreateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_card_card_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CardCreateInput.ProtoReflect.Descriptor instead.
-func (*CardCreateInput) Descriptor() ([]byte, []int) {
-	return file_repository_card_card_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *CardCreateInput) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *CardCreateInput) GetAccountId() int64 {
-	if x != nil {
-		return x.AccountId
-	}
-	return 0
-}
-
 type CardList struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Cards         []*Card                `protobuf:"bytes,1,rep,name=cards,proto3" json:"cards,omitempty"`
@@ -271,7 +219,7 @@ type CardList struct {
 
 func (x *CardList) Reset() {
 	*x = CardList{}
-	mi := &file_repository_card_card_proto_msgTypes[3]
+	mi := &file_repository_card_card_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -283,7 +231,7 @@ func (x *CardList) String() string {
 func (*CardList) ProtoMessage() {}
 
 func (x *CardList) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_card_card_proto_msgTypes[3]
+	mi := &file_repository_card_card_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -296,7 +244,7 @@ func (x *CardList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CardList.ProtoReflect.Descriptor instead.
 func (*CardList) Descriptor() ([]byte, []int) {
-	return file_repository_card_card_proto_rawDescGZIP(), []int{3}
+	return file_repository_card_card_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CardList) GetCards() []*Card {
@@ -310,7 +258,7 @@ var File_repository_card_card_proto protoreflect.FileDescriptor
 
 const file_repository_card_card_proto_rawDesc = "" +
 	"\n" +
-	"\x1arepository/card/card.proto\x12\x0frepository.card\x1a\x17repository/common.proto\"+\n" +
+	"\x1arepository/card/card.proto\x12\x0frepository.card\x1a\x1erepository/common/common.proto\"+\n" +
 	"\x11CardNumberRequest\x12\x16\n" +
 	"\x06number\x18\x01 \x01(\tR\x06number\"\xdf\x01\n" +
 	"\x04Card\x12\x0e\n" +
@@ -322,11 +270,7 @@ const file_repository_card_card_proto_rawDesc = "" +
 	"\fexpiry_month\x18\x05 \x01(\x05R\vexpiryMonth\x12\x1f\n" +
 	"\vexpiry_year\x18\x06 \x01(\x05R\n" +
 	"expiryYear\x123\n" +
-	"\x06status\x18\a \x01(\x0e2\x1b.repository.card.CardStatusR\x06status\"I\n" +
-	"\x0fCardCreateInput\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1d\n" +
-	"\n" +
-	"account_id\x18\x02 \x01(\x03R\taccountId\"7\n" +
+	"\x06status\x18\a \x01(\x0e2\x1b.repository.card.CardStatusR\x06status\"7\n" +
 	"\bCardList\x12+\n" +
 	"\x05cards\x18\x01 \x03(\v2\x15.repository.card.CardR\x05cards*n\n" +
 	"\n" +
@@ -334,15 +278,15 @@ const file_repository_card_card_proto_rawDesc = "" +
 	"\x12CARD_STATUS_CLOSED\x10\x00\x12\x16\n" +
 	"\x12CARD_STATUS_ACTIVE\x10\x01\x12\x17\n" +
 	"\x13CARD_STATUS_BLOCKED\x10\x02\x12\x17\n" +
-	"\x13CARD_STATUS_EXPIRED\x10\x032\xf2\x03\n" +
+	"\x13CARD_STATUS_EXPIRED\x10\x032\xe7\x03\n" +
 	"\x0eCardRepository\x12=\n" +
 	"\x06GetAll\x12\x18.repository.common.Empty\x1a\x19.repository.card.CardList\x12H\n" +
 	"\tGetByUser\x12 .repository.common.UserIdRequest\x1a\x19.repository.card.CardList\x12>\n" +
 	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x15.repository.card.Card\x12H\n" +
 	"\vGetByNumber\x12\".repository.card.CardNumberRequest\x1a\x15.repository.card.Card\x12?\n" +
-	"\bBlocking\x12\x1c.repository.common.IdRequest\x1a\x15.repository.card.Card\x12A\n" +
-	"\x06Create\x12 .repository.card.CardCreateInput\x1a\x15.repository.card.Card\x12I\n" +
-	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseB\x03Z\x01/b\x06proto3"
+	"\bBlocking\x12\x1c.repository.common.IdRequest\x1a\x15.repository.card.Card\x126\n" +
+	"\x06Create\x12\x15.repository.card.Card\x1a\x15.repository.card.Card\x12I\n" +
+	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseBAZ?github.com/Suinar/Bank-repository-service/proto/repository/cardb\x06proto3"
 
 var (
 	file_repository_card_card_proto_rawDescOnce sync.Once
@@ -357,35 +301,34 @@ func file_repository_card_card_proto_rawDescGZIP() []byte {
 }
 
 var file_repository_card_card_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_repository_card_card_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_repository_card_card_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_repository_card_card_proto_goTypes = []any{
 	(CardStatus)(0),               // 0: repository.card.CardStatus
 	(*CardNumberRequest)(nil),     // 1: repository.card.CardNumberRequest
 	(*Card)(nil),                  // 2: repository.card.Card
-	(*CardCreateInput)(nil),       // 3: repository.card.CardCreateInput
-	(*CardList)(nil),              // 4: repository.card.CardList
-	(*common.Empty)(nil),          // 5: repository.common.Empty
-	(*common.UserIdRequest)(nil),  // 6: repository.common.UserIdRequest
-	(*common.IdRequest)(nil),      // 7: repository.common.IdRequest
-	(*common.DeleteResponse)(nil), // 8: repository.common.DeleteResponse
+	(*CardList)(nil),              // 3: repository.card.CardList
+	(*common.Empty)(nil),          // 4: repository.common.Empty
+	(*common.UserIdRequest)(nil),  // 5: repository.common.UserIdRequest
+	(*common.IdRequest)(nil),      // 6: repository.common.IdRequest
+	(*common.DeleteResponse)(nil), // 7: repository.common.DeleteResponse
 }
 var file_repository_card_card_proto_depIdxs = []int32{
 	0, // 0: repository.card.Card.status:type_name -> repository.card.CardStatus
 	2, // 1: repository.card.CardList.cards:type_name -> repository.card.Card
-	5, // 2: repository.card.CardRepository.GetAll:input_type -> repository.common.Empty
-	6, // 3: repository.card.CardRepository.GetByUser:input_type -> repository.common.UserIdRequest
-	7, // 4: repository.card.CardRepository.GetById:input_type -> repository.common.IdRequest
+	4, // 2: repository.card.CardRepository.GetAll:input_type -> repository.common.Empty
+	5, // 3: repository.card.CardRepository.GetByUser:input_type -> repository.common.UserIdRequest
+	6, // 4: repository.card.CardRepository.GetById:input_type -> repository.common.IdRequest
 	1, // 5: repository.card.CardRepository.GetByNumber:input_type -> repository.card.CardNumberRequest
-	7, // 6: repository.card.CardRepository.Blocking:input_type -> repository.common.IdRequest
-	3, // 7: repository.card.CardRepository.Create:input_type -> repository.card.CardCreateInput
-	7, // 8: repository.card.CardRepository.Delete:input_type -> repository.common.IdRequest
-	4, // 9: repository.card.CardRepository.GetAll:output_type -> repository.card.CardList
-	4, // 10: repository.card.CardRepository.GetByUser:output_type -> repository.card.CardList
+	6, // 6: repository.card.CardRepository.Blocking:input_type -> repository.common.IdRequest
+	2, // 7: repository.card.CardRepository.Create:input_type -> repository.card.Card
+	6, // 8: repository.card.CardRepository.Delete:input_type -> repository.common.IdRequest
+	3, // 9: repository.card.CardRepository.GetAll:output_type -> repository.card.CardList
+	3, // 10: repository.card.CardRepository.GetByUser:output_type -> repository.card.CardList
 	2, // 11: repository.card.CardRepository.GetById:output_type -> repository.card.Card
 	2, // 12: repository.card.CardRepository.GetByNumber:output_type -> repository.card.Card
 	2, // 13: repository.card.CardRepository.Blocking:output_type -> repository.card.Card
 	2, // 14: repository.card.CardRepository.Create:output_type -> repository.card.Card
-	8, // 15: repository.card.CardRepository.Delete:output_type -> repository.common.DeleteResponse
+	7, // 15: repository.card.CardRepository.Delete:output_type -> repository.common.DeleteResponse
 	9, // [9:16] is the sub-list for method output_type
 	2, // [2:9] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -404,7 +347,7 @@ func file_repository_card_card_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_repository_card_card_proto_rawDesc), len(file_repository_card_card_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   4,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

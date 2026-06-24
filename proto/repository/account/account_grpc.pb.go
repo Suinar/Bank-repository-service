@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/account/account.proto
 
-package __
+package account
 
 import (
 	context "context"
@@ -37,7 +37,7 @@ type AccountRepositoryClient interface {
 	GetAll(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*AccountList, error)
 	GetByUser(ctx context.Context, in *common.UserIdRequest, opts ...grpc.CallOption) (*AccountList, error)
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Account, error)
-	Create(ctx context.Context, in *AccountCreateInput, opts ...grpc.CallOption) (*Account, error)
+	Create(ctx context.Context, in *Account, opts ...grpc.CallOption) (*Account, error)
 	Blocking(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Account, error)
 	Close(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Account, error)
 	Update(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*Account, error)
@@ -82,7 +82,7 @@ func (c *accountRepositoryClient) GetById(ctx context.Context, in *common.IdRequ
 	return out, nil
 }
 
-func (c *accountRepositoryClient) Create(ctx context.Context, in *AccountCreateInput, opts ...grpc.CallOption) (*Account, error) {
+func (c *accountRepositoryClient) Create(ctx context.Context, in *Account, opts ...grpc.CallOption) (*Account, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Account)
 	err := c.cc.Invoke(ctx, AccountRepository_Create_FullMethodName, in, out, cOpts...)
@@ -139,7 +139,7 @@ type AccountRepositoryServer interface {
 	GetAll(context.Context, *common.Empty) (*AccountList, error)
 	GetByUser(context.Context, *common.UserIdRequest) (*AccountList, error)
 	GetById(context.Context, *common.IdRequest) (*Account, error)
-	Create(context.Context, *AccountCreateInput) (*Account, error)
+	Create(context.Context, *Account) (*Account, error)
 	Blocking(context.Context, *common.IdRequest) (*Account, error)
 	Close(context.Context, *common.IdRequest) (*Account, error)
 	Update(context.Context, *UpdateAccountRequest) (*Account, error)
@@ -163,7 +163,7 @@ func (UnimplementedAccountRepositoryServer) GetByUser(context.Context, *common.U
 func (UnimplementedAccountRepositoryServer) GetById(context.Context, *common.IdRequest) (*Account, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
-func (UnimplementedAccountRepositoryServer) Create(context.Context, *AccountCreateInput) (*Account, error) {
+func (UnimplementedAccountRepositoryServer) Create(context.Context, *Account) (*Account, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedAccountRepositoryServer) Blocking(context.Context, *common.IdRequest) (*Account, error) {
@@ -254,7 +254,7 @@ func _AccountRepository_GetById_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _AccountRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountCreateInput)
+	in := new(Account)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func _AccountRepository_Create_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: AccountRepository_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountRepositoryServer).Create(ctx, req.(*AccountCreateInput))
+		return srv.(AccountRepositoryServer).Create(ctx, req.(*Account))
 	}
 	return interceptor(ctx, in, info, handler)
 }

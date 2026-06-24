@@ -1,10 +1,12 @@
-﻿package serivce
+﻿package service
 
 import (
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db"
 	core "Bank-repository-service/pkg/core"
+	card "Bank-repository-service/proto/repository/card"
+	common "Bank-repository-service/proto/repository/common"
 )
 
 type CardService struct {
@@ -15,30 +17,111 @@ func NewCardService(repository repository.ICardRepository) *CardService {
 	return &CardService{repository: repository}
 }
 
-func (s *CardService) GetAll(ctx context.Context) ([]core.Card, error) {
-	return s.repository.GetAll(ctx)
+func (s *CardService) GetAll(ctx context.Context, req *common.Empty) (*card.CardList, error) {
+	cards, err := s.repository.GetAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &card.CardList{
+		Cards: make([]*card.Card, len(cards)),
+	}
+
+	for i, c := range cards {
+		res.Cards[i] = s.toProto(&c)
+	}
+
+	return res, nil
 }
 
-func (s *CardService) GetByUser(ctx context.Context, idUser int64) ([]core.Card, error) {
-	return s.repository.GetByUser(ctx, idUser)
+func (s *CardService) GetByUser(ctx context.Context, req *common.UserIdRequest) (*card.CardList, error) {
+	cards, err := s.repository.GetByUser(ctx, req.UserId)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &card.CardList{
+		Cards: make([]*card.Card, len(cards)),
+	}
+
+	for i, c := range cards {
+		res.Cards[i] = s.toProto(&c)
+	}
+
+	return res, nil
 }
 
-func (s *CardService) GetById(ctx context.Context, id int64) (*core.Card, error) {
-	return s.repository.GetById(ctx, id)
+func (s *CardService) GetById(ctx context.Context, req *common.IdRequest) (*card.Card, error) {
+	c, err := s.repository.GetById(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(c), nil
 }
 
-func (s *CardService) GetByNumber(ctx context.Context, number string) (*core.Card, error) {
-	return s.repository.GetByNumber(ctx, number)
+func (s *CardService) GetByNumber(ctx context.Context, req *card.CardNumberRequest) (*card.Card, error) {
+	c, err := s.repository.GetByNumber(ctx, req.Number)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(c), nil
 }
 
-func (s *CardService) Blocking(ctx context.Context, id int64) (core.Card, error) {
-	return s.repository.Blocking(ctx, id)
+func (s *CardService) Blocking(ctx context.Context, req *common.IdRequest) (*card.Card, error) {
+	c, err := s.repository.Blocking(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(&c), nil
 }
 
-func (s *CardService) Create(ctx context.Context, input *core.CardCreateInput) (*core.Card, error) {
-	return s.repository.Create(ctx, input)
+func (s *CardService) Create(ctx context.Context, req *card.Card) (*card.Card, error) {
+	c, err := s.repository.Create(ctx, s.fromProto(req))
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(c), nil
 }
 
-func (s *CardService) Delete(ctx context.Context, id int64) (int64, error) {
-	return s.repository.Delete(ctx, id)
+func (s *CardService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+	userId, err := s.repository.Delete(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &common.DeleteResponse{UserId: userId}, nil
+}
+
+func (s *CardService) toProto(c *core.Card) *card.Card {
+	if c == nil {
+		return nil
+	}
+	return &card.Card{
+		Id:          c.Id,
+		UserId:      c.UserId,
+		AccountId:   c.AccountId,
+		Number:      c.Number,
+		ExpiryMonth: int32(c.ExpiryMonth),
+		ExpiryYear:  int32(c.ExpiryYear),
+		Status:      card.CardStatus(c.Status),
+	}
+}
+
+func (s *CardService) fromProto(c *card.Card) *core.Card {
+	if c == nil {
+		return nil
+	}
+	return &core.Card{
+		Id:          c.Id,
+		UserId:      c.UserId,
+		AccountId:   c.AccountId,
+		Number:      c.Number,
+		ExpiryMonth: int8(c.ExpiryMonth),
+		ExpiryYear:  int8(c.ExpiryYear),
+		Status:      core.CardStatus(c.Status),
+	}
 }

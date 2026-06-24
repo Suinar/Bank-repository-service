@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/user/user.proto
 
-package __
+package user
 
 import (
 	context "context"
@@ -38,7 +38,7 @@ type UserRepositoryClient interface {
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*User, error)
 	GetByEmail(ctx context.Context, in *EmailRequest, opts ...grpc.CallOption) (*User, error)
 	GetByPhoneNumber(ctx context.Context, in *PhoneNumberRequest, opts ...grpc.CallOption) (*User, error)
-	Create(ctx context.Context, in *UserCreateInput, opts ...grpc.CallOption) (*User, error)
+	Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*common.Empty, error)
 	Update(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*User, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
@@ -92,7 +92,7 @@ func (c *userRepositoryClient) GetByPhoneNumber(ctx context.Context, in *PhoneNu
 	return out, nil
 }
 
-func (c *userRepositoryClient) Create(ctx context.Context, in *UserCreateInput, opts ...grpc.CallOption) (*User, error) {
+func (c *userRepositoryClient) Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(User)
 	err := c.cc.Invoke(ctx, UserRepository_Create_FullMethodName, in, out, cOpts...)
@@ -140,7 +140,7 @@ type UserRepositoryServer interface {
 	GetById(context.Context, *common.IdRequest) (*User, error)
 	GetByEmail(context.Context, *EmailRequest) (*User, error)
 	GetByPhoneNumber(context.Context, *PhoneNumberRequest) (*User, error)
-	Create(context.Context, *UserCreateInput) (*User, error)
+	Create(context.Context, *User) (*User, error)
 	ChangePassword(context.Context, *ChangePasswordRequest) (*common.Empty, error)
 	Update(context.Context, *UpdateUserRequest) (*User, error)
 	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
@@ -166,7 +166,7 @@ func (UnimplementedUserRepositoryServer) GetByEmail(context.Context, *EmailReque
 func (UnimplementedUserRepositoryServer) GetByPhoneNumber(context.Context, *PhoneNumberRequest) (*User, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByPhoneNumber not implemented")
 }
-func (UnimplementedUserRepositoryServer) Create(context.Context, *UserCreateInput) (*User, error) {
+func (UnimplementedUserRepositoryServer) Create(context.Context, *User) (*User, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedUserRepositoryServer) ChangePassword(context.Context, *ChangePasswordRequest) (*common.Empty, error) {
@@ -272,7 +272,7 @@ func _UserRepository_GetByPhoneNumber_Handler(srv interface{}, ctx context.Conte
 }
 
 func _UserRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserCreateInput)
+	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -284,7 +284,7 @@ func _UserRepository_Create_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: UserRepository_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserRepositoryServer).Create(ctx, req.(*UserCreateInput))
+		return srv.(UserRepositoryServer).Create(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }

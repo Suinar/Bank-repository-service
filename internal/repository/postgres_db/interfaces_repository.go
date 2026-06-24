@@ -34,7 +34,7 @@ type ICardRepository interface {
 	GetById(ctx context.Context, id int64) (*core.Card, error)
 	GetByNumber(ctx context.Context, number string) (*core.Card, error)
 	Blocking(ctx context.Context, id int64) (core.Card, error)
-	Create(ctx context.Context, input *core.CardCreateInput) (*core.Card, error)
+	Create(ctx context.Context, input *core.Card) (*core.Card, error)
 	Delete(ctx context.Context, id int64) (int64, error)
 }
 

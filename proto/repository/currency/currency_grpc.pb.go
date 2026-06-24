@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/currency/currency.proto
 
-package __
+package currency
 
 import (
 	context "context"
@@ -37,7 +37,7 @@ type CurrencyRepositoryClient interface {
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Currency, error)
 	GetByIso(ctx context.Context, in *IsoCodeRequest, opts ...grpc.CallOption) (*Currency, error)
 	GetBySymbol(ctx context.Context, in *SymbolRequest, opts ...grpc.CallOption) (*Currency, error)
-	Create(ctx context.Context, in *CurrencyCreateInput, opts ...grpc.CallOption) (*Currency, error)
+	Create(ctx context.Context, in *Currency, opts ...grpc.CallOption) (*Currency, error)
 	Update(ctx context.Context, in *UpdateCurrencyRequest, opts ...grpc.CallOption) (*Currency, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
 }
@@ -90,7 +90,7 @@ func (c *currencyRepositoryClient) GetBySymbol(ctx context.Context, in *SymbolRe
 	return out, nil
 }
 
-func (c *currencyRepositoryClient) Create(ctx context.Context, in *CurrencyCreateInput, opts ...grpc.CallOption) (*Currency, error) {
+func (c *currencyRepositoryClient) Create(ctx context.Context, in *Currency, opts ...grpc.CallOption) (*Currency, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Currency)
 	err := c.cc.Invoke(ctx, CurrencyRepository_Create_FullMethodName, in, out, cOpts...)
@@ -128,7 +128,7 @@ type CurrencyRepositoryServer interface {
 	GetById(context.Context, *common.IdRequest) (*Currency, error)
 	GetByIso(context.Context, *IsoCodeRequest) (*Currency, error)
 	GetBySymbol(context.Context, *SymbolRequest) (*Currency, error)
-	Create(context.Context, *CurrencyCreateInput) (*Currency, error)
+	Create(context.Context, *Currency) (*Currency, error)
 	Update(context.Context, *UpdateCurrencyRequest) (*Currency, error)
 	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
 	mustEmbedUnimplementedCurrencyRepositoryServer()
@@ -153,7 +153,7 @@ func (UnimplementedCurrencyRepositoryServer) GetByIso(context.Context, *IsoCodeR
 func (UnimplementedCurrencyRepositoryServer) GetBySymbol(context.Context, *SymbolRequest) (*Currency, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetBySymbol not implemented")
 }
-func (UnimplementedCurrencyRepositoryServer) Create(context.Context, *CurrencyCreateInput) (*Currency, error) {
+func (UnimplementedCurrencyRepositoryServer) Create(context.Context, *Currency) (*Currency, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedCurrencyRepositoryServer) Update(context.Context, *UpdateCurrencyRequest) (*Currency, error) {
@@ -256,7 +256,7 @@ func _CurrencyRepository_GetBySymbol_Handler(srv interface{}, ctx context.Contex
 }
 
 func _CurrencyRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CurrencyCreateInput)
+	in := new(Currency)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -268,7 +268,7 @@ func _CurrencyRepository_Create_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: CurrencyRepository_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyRepositoryServer).Create(ctx, req.(*CurrencyCreateInput))
+		return srv.(CurrencyRepositoryServer).Create(ctx, req.(*Currency))
 	}
 	return interceptor(ctx, in, info, handler)
 }

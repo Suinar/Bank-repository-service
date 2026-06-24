@@ -23,12 +23,6 @@ message Account {
   AccountStatus status = 6;
 }
 
-message AccountCreateInput {
-  int64 user_id = 1;
-  int64 currency_id = 2;
-  string name = 3;
-}
-
 message AccountUpdateInput {
   optional string name = 1;
 }
@@ -52,7 +46,7 @@ service AccountRepository {
   rpc GetById(repository.common.IdRequest)
       returns (Account);
 
-  rpc Create(AccountCreateInput)
+  rpc Create(Account)
       returns (Account);
 
   rpc Blocking(repository.common.IdRequest)

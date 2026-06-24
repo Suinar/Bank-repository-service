@@ -25,15 +25,6 @@ message Currency {
   int32 minor_units = 5;
 }
 
-message CurrencyCreateInput {
-  string name = 1;
-
-  string symbol = 2;
-  string iso_code = 3;
-
-  int32 minor_units = 4;
-}
-
 message CurrencyUpdateInput {
   optional string name = 1;
 
@@ -65,7 +56,7 @@ service CurrencyRepository {
   rpc GetBySymbol(SymbolRequest)
       returns (Currency);
 
-  rpc Create(CurrencyCreateInput)
+  rpc Create(Currency)
       returns (Currency);
 
   rpc Update(UpdateCurrencyRequest)
