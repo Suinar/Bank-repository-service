@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/credit/credit.proto
 
-package __
+package credit
 
 import (
 	context "context"
@@ -23,6 +23,7 @@ const (
 	CreditRepository_GetAll_FullMethodName    = "/repository.credit.CreditRepository/GetAll"
 	CreditRepository_GetByUser_FullMethodName = "/repository.credit.CreditRepository/GetByUser"
 	CreditRepository_GetById_FullMethodName   = "/repository.credit.CreditRepository/GetById"
+	CreditRepository_Create_FullMethodName    = "/repository.credit.CreditRepository/Create"
 	CreditRepository_Repay_FullMethodName     = "/repository.credit.CreditRepository/Repay"
 	CreditRepository_Delete_FullMethodName    = "/repository.credit.CreditRepository/Delete"
 )
@@ -34,6 +35,7 @@ type CreditRepositoryClient interface {
 	GetAll(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*CreditList, error)
 	GetByUser(ctx context.Context, in *common.UserIdRequest, opts ...grpc.CallOption) (*CreditList, error)
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Credit, error)
+	Create(ctx context.Context, in *Credit, opts ...grpc.CallOption) (*Credit, error)
 	Repay(ctx context.Context, in *common.AmountRequest, opts ...grpc.CallOption) (*Credit, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
 }
@@ -76,6 +78,16 @@ func (c *creditRepositoryClient) GetById(ctx context.Context, in *common.IdReque
 	return out, nil
 }
 
+func (c *creditRepositoryClient) Create(ctx context.Context, in *Credit, opts ...grpc.CallOption) (*Credit, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Credit)
+	err := c.cc.Invoke(ctx, CreditRepository_Create_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *creditRepositoryClient) Repay(ctx context.Context, in *common.AmountRequest, opts ...grpc.CallOption) (*Credit, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Credit)
@@ -103,6 +115,7 @@ type CreditRepositoryServer interface {
 	GetAll(context.Context, *common.Empty) (*CreditList, error)
 	GetByUser(context.Context, *common.UserIdRequest) (*CreditList, error)
 	GetById(context.Context, *common.IdRequest) (*Credit, error)
+	Create(context.Context, *Credit) (*Credit, error)
 	Repay(context.Context, *common.AmountRequest) (*Credit, error)
 	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
 	mustEmbedUnimplementedCreditRepositoryServer()
@@ -123,6 +136,9 @@ func (UnimplementedCreditRepositoryServer) GetByUser(context.Context, *common.Us
 }
 func (UnimplementedCreditRepositoryServer) GetById(context.Context, *common.IdRequest) (*Credit, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedCreditRepositoryServer) Create(context.Context, *Credit) (*Credit, error) {
+	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedCreditRepositoryServer) Repay(context.Context, *common.AmountRequest) (*Credit, error) {
 	return nil, status.Error(codes.Unimplemented, "method Repay not implemented")
@@ -205,6 +221,24 @@ func _CreditRepository_GetById_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CreditRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Credit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CreditRepositoryServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CreditRepository_Create_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CreditRepositoryServer).Create(ctx, req.(*Credit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _CreditRepository_Repay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(common.AmountRequest)
 	if err := dec(in); err != nil {
@@ -259,6 +293,10 @@ var CreditRepository_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _CreditRepository_GetById_Handler,
+		},
+		{
+			MethodName: "Create",
+			Handler:    _CreditRepository_Create_Handler,
 		},
 		{
 			MethodName: "Repay",

@@ -4,7 +4,7 @@
 // 	protoc        v4.25.9
 // source: repository/user/user.proto
 
-package __
+package user
 
 import (
 	common "Bank-repository-service/proto/repository/common"
@@ -254,90 +254,6 @@ func (x *User) GetPasswordHash() string {
 	return ""
 }
 
-type UserCreateInput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	FirstName     string                 `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	MiddleName    *string                `protobuf:"bytes,2,opt,name=middle_name,json=middleName,proto3,oneof" json:"middle_name,omitempty"`
-	LastName      string                 `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
-	PhoneNumber   string                 `protobuf:"bytes,5,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
-	PasswordHash  string                 `protobuf:"bytes,6,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UserCreateInput) Reset() {
-	*x = UserCreateInput{}
-	mi := &file_repository_user_user_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UserCreateInput) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UserCreateInput) ProtoMessage() {}
-
-func (x *UserCreateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_user_user_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UserCreateInput.ProtoReflect.Descriptor instead.
-func (*UserCreateInput) Descriptor() ([]byte, []int) {
-	return file_repository_user_user_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *UserCreateInput) GetFirstName() string {
-	if x != nil {
-		return x.FirstName
-	}
-	return ""
-}
-
-func (x *UserCreateInput) GetMiddleName() string {
-	if x != nil && x.MiddleName != nil {
-		return *x.MiddleName
-	}
-	return ""
-}
-
-func (x *UserCreateInput) GetLastName() string {
-	if x != nil {
-		return x.LastName
-	}
-	return ""
-}
-
-func (x *UserCreateInput) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *UserCreateInput) GetPhoneNumber() string {
-	if x != nil {
-		return x.PhoneNumber
-	}
-	return ""
-}
-
-func (x *UserCreateInput) GetPasswordHash() string {
-	if x != nil {
-		return x.PasswordHash
-	}
-	return ""
-}
-
 type UserUpdateInput struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FirstName     *string                `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3,oneof" json:"first_name,omitempty"`
@@ -349,7 +265,7 @@ type UserUpdateInput struct {
 
 func (x *UserUpdateInput) Reset() {
 	*x = UserUpdateInput{}
-	mi := &file_repository_user_user_proto_msgTypes[5]
+	mi := &file_repository_user_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -361,7 +277,7 @@ func (x *UserUpdateInput) String() string {
 func (*UserUpdateInput) ProtoMessage() {}
 
 func (x *UserUpdateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_user_user_proto_msgTypes[5]
+	mi := &file_repository_user_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -374,7 +290,7 @@ func (x *UserUpdateInput) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserUpdateInput.ProtoReflect.Descriptor instead.
 func (*UserUpdateInput) Descriptor() ([]byte, []int) {
-	return file_repository_user_user_proto_rawDescGZIP(), []int{5}
+	return file_repository_user_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UserUpdateInput) GetFirstName() string {
@@ -408,7 +324,7 @@ type UpdateUserRequest struct {
 
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
-	mi := &file_repository_user_user_proto_msgTypes[6]
+	mi := &file_repository_user_user_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -420,7 +336,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_user_user_proto_msgTypes[6]
+	mi := &file_repository_user_user_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -433,7 +349,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_repository_user_user_proto_rawDescGZIP(), []int{6}
+	return file_repository_user_user_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdateUserRequest) GetId() int64 {
@@ -459,7 +375,7 @@ type UserList struct {
 
 func (x *UserList) Reset() {
 	*x = UserList{}
-	mi := &file_repository_user_user_proto_msgTypes[7]
+	mi := &file_repository_user_user_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -471,7 +387,7 @@ func (x *UserList) String() string {
 func (*UserList) ProtoMessage() {}
 
 func (x *UserList) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_user_user_proto_msgTypes[7]
+	mi := &file_repository_user_user_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -484,7 +400,7 @@ func (x *UserList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserList.ProtoReflect.Descriptor instead.
 func (*UserList) Descriptor() ([]byte, []int) {
-	return file_repository_user_user_proto_rawDescGZIP(), []int{7}
+	return file_repository_user_user_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UserList) GetUsers() []*User {
@@ -498,7 +414,7 @@ var File_repository_user_user_proto protoreflect.FileDescriptor
 
 const file_repository_user_user_proto_rawDesc = "" +
 	"\n" +
-	"\x1arepository/user/user.proto\x12\x0frepository.user\x1a\x17repository/common.proto\"$\n" +
+	"\x1arepository/user/user.proto\x12\x0frepository.user\x1a\x1erepository/common/common.proto\"$\n" +
 	"\fEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"7\n" +
 	"\x12PhoneNumberRequest\x12!\n" +
@@ -516,16 +432,6 @@ const file_repository_user_user_proto_rawDesc = "" +
 	"\x05email\x18\x05 \x01(\tR\x05email\x12!\n" +
 	"\fphone_number\x18\x06 \x01(\tR\vphoneNumber\x12#\n" +
 	"\rpassword_hash\x18\a \x01(\tR\fpasswordHashB\x0e\n" +
-	"\f_middle_name\"\xe1\x01\n" +
-	"\x0fUserCreateInput\x12\x1d\n" +
-	"\n" +
-	"first_name\x18\x01 \x01(\tR\tfirstName\x12$\n" +
-	"\vmiddle_name\x18\x02 \x01(\tH\x00R\n" +
-	"middleName\x88\x01\x01\x12\x1b\n" +
-	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x14\n" +
-	"\x05email\x18\x04 \x01(\tR\x05email\x12!\n" +
-	"\fphone_number\x18\x05 \x01(\tR\vphoneNumber\x12#\n" +
-	"\rpassword_hash\x18\x06 \x01(\tR\fpasswordHashB\x0e\n" +
 	"\f_middle_name\"\xaa\x01\n" +
 	"\x0fUserUpdateInput\x12\"\n" +
 	"\n" +
@@ -541,17 +447,17 @@ const file_repository_user_user_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x126\n" +
 	"\x05input\x18\x02 \x01(\v2 .repository.user.UserUpdateInputR\x05input\"7\n" +
 	"\bUserList\x12+\n" +
-	"\x05users\x18\x01 \x03(\v2\x15.repository.user.UserR\x05users2\xc1\x04\n" +
+	"\x05users\x18\x01 \x03(\v2\x15.repository.user.UserR\x05users2\xb6\x04\n" +
 	"\x0eUserRepository\x12=\n" +
 	"\x06GetAll\x12\x18.repository.common.Empty\x1a\x19.repository.user.UserList\x12>\n" +
 	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x15.repository.user.User\x12B\n" +
 	"\n" +
 	"GetByEmail\x12\x1d.repository.user.EmailRequest\x1a\x15.repository.user.User\x12N\n" +
-	"\x10GetByPhoneNumber\x12#.repository.user.PhoneNumberRequest\x1a\x15.repository.user.User\x12A\n" +
-	"\x06Create\x12 .repository.user.UserCreateInput\x1a\x15.repository.user.User\x12R\n" +
+	"\x10GetByPhoneNumber\x12#.repository.user.PhoneNumberRequest\x1a\x15.repository.user.User\x126\n" +
+	"\x06Create\x12\x15.repository.user.User\x1a\x15.repository.user.User\x12R\n" +
 	"\x0eChangePassword\x12&.repository.user.ChangePasswordRequest\x1a\x18.repository.common.Empty\x12C\n" +
 	"\x06Update\x12\".repository.user.UpdateUserRequest\x1a\x15.repository.user.User\x12@\n" +
-	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a\x18.repository.common.EmptyB\x03Z\x01/b\x06proto3"
+	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a\x18.repository.common.EmptyBAZ?github.com/Suinar/Bank-repository-service/proto/repository/userb\x06proto3"
 
 var (
 	file_repository_user_user_proto_rawDescOnce sync.Once
@@ -565,38 +471,37 @@ func file_repository_user_user_proto_rawDescGZIP() []byte {
 	return file_repository_user_user_proto_rawDescData
 }
 
-var file_repository_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_repository_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_repository_user_user_proto_goTypes = []any{
 	(*EmailRequest)(nil),          // 0: repository.user.EmailRequest
 	(*PhoneNumberRequest)(nil),    // 1: repository.user.PhoneNumberRequest
 	(*ChangePasswordRequest)(nil), // 2: repository.user.ChangePasswordRequest
 	(*User)(nil),                  // 3: repository.user.User
-	(*UserCreateInput)(nil),       // 4: repository.user.UserCreateInput
-	(*UserUpdateInput)(nil),       // 5: repository.user.UserUpdateInput
-	(*UpdateUserRequest)(nil),     // 6: repository.user.UpdateUserRequest
-	(*UserList)(nil),              // 7: repository.user.UserList
-	(*common.Empty)(nil),          // 8: repository.common.Empty
-	(*common.IdRequest)(nil),      // 9: repository.common.IdRequest
+	(*UserUpdateInput)(nil),       // 4: repository.user.UserUpdateInput
+	(*UpdateUserRequest)(nil),     // 5: repository.user.UpdateUserRequest
+	(*UserList)(nil),              // 6: repository.user.UserList
+	(*common.Empty)(nil),          // 7: repository.common.Empty
+	(*common.IdRequest)(nil),      // 8: repository.common.IdRequest
 }
 var file_repository_user_user_proto_depIdxs = []int32{
-	5,  // 0: repository.user.UpdateUserRequest.input:type_name -> repository.user.UserUpdateInput
+	4,  // 0: repository.user.UpdateUserRequest.input:type_name -> repository.user.UserUpdateInput
 	3,  // 1: repository.user.UserList.users:type_name -> repository.user.User
-	8,  // 2: repository.user.UserRepository.GetAll:input_type -> repository.common.Empty
-	9,  // 3: repository.user.UserRepository.GetById:input_type -> repository.common.IdRequest
+	7,  // 2: repository.user.UserRepository.GetAll:input_type -> repository.common.Empty
+	8,  // 3: repository.user.UserRepository.GetById:input_type -> repository.common.IdRequest
 	0,  // 4: repository.user.UserRepository.GetByEmail:input_type -> repository.user.EmailRequest
 	1,  // 5: repository.user.UserRepository.GetByPhoneNumber:input_type -> repository.user.PhoneNumberRequest
-	4,  // 6: repository.user.UserRepository.Create:input_type -> repository.user.UserCreateInput
+	3,  // 6: repository.user.UserRepository.Create:input_type -> repository.user.User
 	2,  // 7: repository.user.UserRepository.ChangePassword:input_type -> repository.user.ChangePasswordRequest
-	6,  // 8: repository.user.UserRepository.Update:input_type -> repository.user.UpdateUserRequest
-	9,  // 9: repository.user.UserRepository.Delete:input_type -> repository.common.IdRequest
-	7,  // 10: repository.user.UserRepository.GetAll:output_type -> repository.user.UserList
+	5,  // 8: repository.user.UserRepository.Update:input_type -> repository.user.UpdateUserRequest
+	8,  // 9: repository.user.UserRepository.Delete:input_type -> repository.common.IdRequest
+	6,  // 10: repository.user.UserRepository.GetAll:output_type -> repository.user.UserList
 	3,  // 11: repository.user.UserRepository.GetById:output_type -> repository.user.User
 	3,  // 12: repository.user.UserRepository.GetByEmail:output_type -> repository.user.User
 	3,  // 13: repository.user.UserRepository.GetByPhoneNumber:output_type -> repository.user.User
 	3,  // 14: repository.user.UserRepository.Create:output_type -> repository.user.User
-	8,  // 15: repository.user.UserRepository.ChangePassword:output_type -> repository.common.Empty
+	7,  // 15: repository.user.UserRepository.ChangePassword:output_type -> repository.common.Empty
 	3,  // 16: repository.user.UserRepository.Update:output_type -> repository.user.User
-	8,  // 17: repository.user.UserRepository.Delete:output_type -> repository.common.Empty
+	7,  // 17: repository.user.UserRepository.Delete:output_type -> repository.common.Empty
 	10, // [10:18] is the sub-list for method output_type
 	2,  // [2:10] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name
@@ -611,14 +516,13 @@ func file_repository_user_user_proto_init() {
 	}
 	file_repository_user_user_proto_msgTypes[3].OneofWrappers = []any{}
 	file_repository_user_user_proto_msgTypes[4].OneofWrappers = []any{}
-	file_repository_user_user_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_repository_user_user_proto_rawDesc), len(file_repository_user_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

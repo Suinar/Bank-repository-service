@@ -30,11 +30,6 @@ message Card {
   CardStatus status = 7;
 }
 
-message CardCreateInput {
-  int64 user_id = 1;
-  int64 account_id = 2;
-}
-
 message CardList {
   repeated Card cards = 1;
 }
@@ -55,7 +50,7 @@ service CardRepository {
   rpc Blocking(repository.common.IdRequest)
       returns (Card);
 
-  rpc Create(CardCreateInput)
+  rpc Create(Card)
       returns (Card);
 
   rpc Delete(repository.common.IdRequest)

@@ -4,7 +4,7 @@
 // 	protoc        v4.25.9
 // source: repository/account/account.proto
 
-package __
+package account
 
 import (
 	common "Bank-repository-service/proto/repository/common"
@@ -155,66 +155,6 @@ func (x *Account) GetStatus() AccountStatus {
 	return AccountStatus_ACCOUNT_STATUS_CLOSED
 }
 
-type AccountCreateInput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	CurrencyId    int64                  `protobuf:"varint,2,opt,name=currency_id,json=currencyId,proto3" json:"currency_id,omitempty"`
-	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AccountCreateInput) Reset() {
-	*x = AccountCreateInput{}
-	mi := &file_repository_account_account_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AccountCreateInput) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AccountCreateInput) ProtoMessage() {}
-
-func (x *AccountCreateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_account_account_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AccountCreateInput.ProtoReflect.Descriptor instead.
-func (*AccountCreateInput) Descriptor() ([]byte, []int) {
-	return file_repository_account_account_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *AccountCreateInput) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *AccountCreateInput) GetCurrencyId() int64 {
-	if x != nil {
-		return x.CurrencyId
-	}
-	return 0
-}
-
-func (x *AccountCreateInput) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
 type AccountUpdateInput struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          *string                `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
@@ -224,7 +164,7 @@ type AccountUpdateInput struct {
 
 func (x *AccountUpdateInput) Reset() {
 	*x = AccountUpdateInput{}
-	mi := &file_repository_account_account_proto_msgTypes[2]
+	mi := &file_repository_account_account_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -236,7 +176,7 @@ func (x *AccountUpdateInput) String() string {
 func (*AccountUpdateInput) ProtoMessage() {}
 
 func (x *AccountUpdateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_account_account_proto_msgTypes[2]
+	mi := &file_repository_account_account_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +189,7 @@ func (x *AccountUpdateInput) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AccountUpdateInput.ProtoReflect.Descriptor instead.
 func (*AccountUpdateInput) Descriptor() ([]byte, []int) {
-	return file_repository_account_account_proto_rawDescGZIP(), []int{2}
+	return file_repository_account_account_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *AccountUpdateInput) GetName() string {
@@ -268,7 +208,7 @@ type AccountList struct {
 
 func (x *AccountList) Reset() {
 	*x = AccountList{}
-	mi := &file_repository_account_account_proto_msgTypes[3]
+	mi := &file_repository_account_account_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -280,7 +220,7 @@ func (x *AccountList) String() string {
 func (*AccountList) ProtoMessage() {}
 
 func (x *AccountList) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_account_account_proto_msgTypes[3]
+	mi := &file_repository_account_account_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -293,7 +233,7 @@ func (x *AccountList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AccountList.ProtoReflect.Descriptor instead.
 func (*AccountList) Descriptor() ([]byte, []int) {
-	return file_repository_account_account_proto_rawDescGZIP(), []int{3}
+	return file_repository_account_account_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AccountList) GetAccounts() []*Account {
@@ -313,7 +253,7 @@ type UpdateAccountRequest struct {
 
 func (x *UpdateAccountRequest) Reset() {
 	*x = UpdateAccountRequest{}
-	mi := &file_repository_account_account_proto_msgTypes[4]
+	mi := &file_repository_account_account_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -325,7 +265,7 @@ func (x *UpdateAccountRequest) String() string {
 func (*UpdateAccountRequest) ProtoMessage() {}
 
 func (x *UpdateAccountRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_account_account_proto_msgTypes[4]
+	mi := &file_repository_account_account_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +278,7 @@ func (x *UpdateAccountRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAccountRequest.ProtoReflect.Descriptor instead.
 func (*UpdateAccountRequest) Descriptor() ([]byte, []int) {
-	return file_repository_account_account_proto_rawDescGZIP(), []int{4}
+	return file_repository_account_account_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UpdateAccountRequest) GetId() int64 {
@@ -359,7 +299,7 @@ var File_repository_account_account_proto protoreflect.FileDescriptor
 
 const file_repository_account_account_proto_rawDesc = "" +
 	"\n" +
-	" repository/account/account.proto\x12\x12repository.account\x1a\x17repository/common.proto\"\xbc\x01\n" +
+	" repository/account/account.proto\x12\x12repository.account\x1a\x1erepository/common/common.proto\"\xbc\x01\n" +
 	"\aAccount\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x1f\n" +
@@ -367,12 +307,7 @@ const file_repository_account_account_proto_rawDesc = "" +
 	"currencyId\x12\x12\n" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x18\n" +
 	"\abalance\x18\x05 \x01(\x03R\abalance\x129\n" +
-	"\x06status\x18\x06 \x01(\x0e2!.repository.account.AccountStatusR\x06status\"b\n" +
-	"\x12AccountCreateInput\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1f\n" +
-	"\vcurrency_id\x18\x02 \x01(\x03R\n" +
-	"currencyId\x12\x12\n" +
-	"\x04name\x18\x03 \x01(\tR\x04name\"6\n" +
+	"\x06status\x18\x06 \x01(\x0e2!.repository.account.AccountStatusR\x06status\"6\n" +
 	"\x12AccountUpdateInput\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01B\a\n" +
 	"\x05_name\"F\n" +
@@ -384,16 +319,16 @@ const file_repository_account_account_proto_rawDesc = "" +
 	"\rAccountStatus\x12\x19\n" +
 	"\x15ACCOUNT_STATUS_CLOSED\x10\x00\x12\x19\n" +
 	"\x15ACCOUNT_STATUS_ACTIVE\x10\x01\x12\x1a\n" +
-	"\x16ACCOUNT_STATUS_BLOCKED\x10\x022\xe4\x04\n" +
+	"\x16ACCOUNT_STATUS_BLOCKED\x10\x022\xd9\x04\n" +
 	"\x11AccountRepository\x12C\n" +
 	"\x06GetAll\x12\x18.repository.common.Empty\x1a\x1f.repository.account.AccountList\x12N\n" +
 	"\tGetByUser\x12 .repository.common.UserIdRequest\x1a\x1f.repository.account.AccountList\x12D\n" +
-	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x1b.repository.account.Account\x12M\n" +
-	"\x06Create\x12&.repository.account.AccountCreateInput\x1a\x1b.repository.account.Account\x12E\n" +
+	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x1b.repository.account.Account\x12B\n" +
+	"\x06Create\x12\x1b.repository.account.Account\x1a\x1b.repository.account.Account\x12E\n" +
 	"\bBlocking\x12\x1c.repository.common.IdRequest\x1a\x1b.repository.account.Account\x12B\n" +
 	"\x05Close\x12\x1c.repository.common.IdRequest\x1a\x1b.repository.account.Account\x12O\n" +
 	"\x06Update\x12(.repository.account.UpdateAccountRequest\x1a\x1b.repository.account.Account\x12I\n" +
-	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseB\x03Z\x01/b\x06proto3"
+	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseBDZBgithub.com/Suinar/Bank-repository-service/proto/repository/accountb\x06proto3"
 
 var (
 	file_repository_account_account_proto_rawDescOnce sync.Once
@@ -408,39 +343,38 @@ func file_repository_account_account_proto_rawDescGZIP() []byte {
 }
 
 var file_repository_account_account_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_repository_account_account_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_repository_account_account_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_repository_account_account_proto_goTypes = []any{
 	(AccountStatus)(0),            // 0: repository.account.AccountStatus
 	(*Account)(nil),               // 1: repository.account.Account
-	(*AccountCreateInput)(nil),    // 2: repository.account.AccountCreateInput
-	(*AccountUpdateInput)(nil),    // 3: repository.account.AccountUpdateInput
-	(*AccountList)(nil),           // 4: repository.account.AccountList
-	(*UpdateAccountRequest)(nil),  // 5: repository.account.UpdateAccountRequest
-	(*common.Empty)(nil),          // 6: repository.common.Empty
-	(*common.UserIdRequest)(nil),  // 7: repository.common.UserIdRequest
-	(*common.IdRequest)(nil),      // 8: repository.common.IdRequest
-	(*common.DeleteResponse)(nil), // 9: repository.common.DeleteResponse
+	(*AccountUpdateInput)(nil),    // 2: repository.account.AccountUpdateInput
+	(*AccountList)(nil),           // 3: repository.account.AccountList
+	(*UpdateAccountRequest)(nil),  // 4: repository.account.UpdateAccountRequest
+	(*common.Empty)(nil),          // 5: repository.common.Empty
+	(*common.UserIdRequest)(nil),  // 6: repository.common.UserIdRequest
+	(*common.IdRequest)(nil),      // 7: repository.common.IdRequest
+	(*common.DeleteResponse)(nil), // 8: repository.common.DeleteResponse
 }
 var file_repository_account_account_proto_depIdxs = []int32{
 	0,  // 0: repository.account.Account.status:type_name -> repository.account.AccountStatus
 	1,  // 1: repository.account.AccountList.accounts:type_name -> repository.account.Account
-	3,  // 2: repository.account.UpdateAccountRequest.input:type_name -> repository.account.AccountUpdateInput
-	6,  // 3: repository.account.AccountRepository.GetAll:input_type -> repository.common.Empty
-	7,  // 4: repository.account.AccountRepository.GetByUser:input_type -> repository.common.UserIdRequest
-	8,  // 5: repository.account.AccountRepository.GetById:input_type -> repository.common.IdRequest
-	2,  // 6: repository.account.AccountRepository.Create:input_type -> repository.account.AccountCreateInput
-	8,  // 7: repository.account.AccountRepository.Blocking:input_type -> repository.common.IdRequest
-	8,  // 8: repository.account.AccountRepository.Close:input_type -> repository.common.IdRequest
-	5,  // 9: repository.account.AccountRepository.Update:input_type -> repository.account.UpdateAccountRequest
-	8,  // 10: repository.account.AccountRepository.Delete:input_type -> repository.common.IdRequest
-	4,  // 11: repository.account.AccountRepository.GetAll:output_type -> repository.account.AccountList
-	4,  // 12: repository.account.AccountRepository.GetByUser:output_type -> repository.account.AccountList
+	2,  // 2: repository.account.UpdateAccountRequest.input:type_name -> repository.account.AccountUpdateInput
+	5,  // 3: repository.account.AccountRepository.GetAll:input_type -> repository.common.Empty
+	6,  // 4: repository.account.AccountRepository.GetByUser:input_type -> repository.common.UserIdRequest
+	7,  // 5: repository.account.AccountRepository.GetById:input_type -> repository.common.IdRequest
+	1,  // 6: repository.account.AccountRepository.Create:input_type -> repository.account.Account
+	7,  // 7: repository.account.AccountRepository.Blocking:input_type -> repository.common.IdRequest
+	7,  // 8: repository.account.AccountRepository.Close:input_type -> repository.common.IdRequest
+	4,  // 9: repository.account.AccountRepository.Update:input_type -> repository.account.UpdateAccountRequest
+	7,  // 10: repository.account.AccountRepository.Delete:input_type -> repository.common.IdRequest
+	3,  // 11: repository.account.AccountRepository.GetAll:output_type -> repository.account.AccountList
+	3,  // 12: repository.account.AccountRepository.GetByUser:output_type -> repository.account.AccountList
 	1,  // 13: repository.account.AccountRepository.GetById:output_type -> repository.account.Account
 	1,  // 14: repository.account.AccountRepository.Create:output_type -> repository.account.Account
 	1,  // 15: repository.account.AccountRepository.Blocking:output_type -> repository.account.Account
 	1,  // 16: repository.account.AccountRepository.Close:output_type -> repository.account.Account
 	1,  // 17: repository.account.AccountRepository.Update:output_type -> repository.account.Account
-	9,  // 18: repository.account.AccountRepository.Delete:output_type -> repository.common.DeleteResponse
+	8,  // 18: repository.account.AccountRepository.Delete:output_type -> repository.common.DeleteResponse
 	11, // [11:19] is the sub-list for method output_type
 	3,  // [3:11] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
@@ -453,14 +387,14 @@ func file_repository_account_account_proto_init() {
 	if File_repository_account_account_proto != nil {
 		return
 	}
-	file_repository_account_account_proto_msgTypes[2].OneofWrappers = []any{}
+	file_repository_account_account_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_repository_account_account_proto_rawDesc), len(file_repository_account_account_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   5,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

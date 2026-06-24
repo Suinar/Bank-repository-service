@@ -25,14 +25,6 @@ message Deposit {
   DepositStatus status = 7;
 }
 
-message DepositCreateInput {
-  int64 user_id = 1;
-  int64 currency_id = 2;
-
-  int64 amount = 3;
-  int32 term_months = 4;
-}
-
 message DepositList {
   repeated Deposit deposits = 1;
 }
@@ -47,7 +39,7 @@ service DepositRepository {
   rpc GetById(repository.common.IdRequest)
       returns (Deposit);
 
-  rpc Create(DepositCreateInput)
+  rpc Create(Deposit)
       returns (Deposit);
 
   rpc Replenish(repository.common.AmountRequest)

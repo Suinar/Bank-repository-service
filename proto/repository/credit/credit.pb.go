@@ -4,7 +4,7 @@
 // 	protoc        v4.25.9
 // source: repository/credit/credit.proto
 
-package __
+package credit
 
 import (
 	common "Bank-repository-service/proto/repository/common"
@@ -287,7 +287,7 @@ var File_repository_credit_credit_proto protoreflect.FileDescriptor
 
 const file_repository_credit_credit_proto_rawDesc = "" +
 	"\n" +
-	"\x1erepository/credit/credit.proto\x12\x11repository.credit\x1a\x17repository/common.proto\"\x92\x02\n" +
+	"\x1erepository/credit/credit.proto\x12\x11repository.credit\x1a\x1erepository/common/common.proto\"\x92\x02\n" +
 	"\x06Credit\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x1f\n" +
@@ -312,13 +312,14 @@ const file_repository_credit_credit_proto_rawDesc = "" +
 	"\fCreditStatus\x12\x18\n" +
 	"\x14CREDIT_STATUS_CLOSED\x10\x00\x12\x18\n" +
 	"\x14CREDIT_STATUS_ACTIVE\x10\x01\x12\x1a\n" +
-	"\x16CREDIT_STATUS_REJECTED\x10\x022\xf8\x02\n" +
+	"\x16CREDIT_STATUS_REJECTED\x10\x022\xb8\x03\n" +
 	"\x10CreditRepository\x12A\n" +
 	"\x06GetAll\x12\x18.repository.common.Empty\x1a\x1d.repository.credit.CreditList\x12L\n" +
 	"\tGetByUser\x12 .repository.common.UserIdRequest\x1a\x1d.repository.credit.CreditList\x12B\n" +
-	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x19.repository.credit.Credit\x12D\n" +
+	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x19.repository.credit.Credit\x12>\n" +
+	"\x06Create\x12\x19.repository.credit.Credit\x1a\x19.repository.credit.Credit\x12D\n" +
 	"\x05Repay\x12 .repository.common.AmountRequest\x1a\x19.repository.credit.Credit\x12I\n" +
-	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseB\x03Z\x01/b\x06proto3"
+	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseBCZAgithub.com/Suinar/Bank-repository-service/proto/repository/creditb\x06proto3"
 
 var (
 	file_repository_credit_credit_proto_rawDescOnce sync.Once
@@ -351,15 +352,17 @@ var file_repository_credit_credit_proto_depIdxs = []int32{
 	4, // 2: repository.credit.CreditRepository.GetAll:input_type -> repository.common.Empty
 	5, // 3: repository.credit.CreditRepository.GetByUser:input_type -> repository.common.UserIdRequest
 	6, // 4: repository.credit.CreditRepository.GetById:input_type -> repository.common.IdRequest
-	7, // 5: repository.credit.CreditRepository.Repay:input_type -> repository.common.AmountRequest
-	6, // 6: repository.credit.CreditRepository.Delete:input_type -> repository.common.IdRequest
-	3, // 7: repository.credit.CreditRepository.GetAll:output_type -> repository.credit.CreditList
-	3, // 8: repository.credit.CreditRepository.GetByUser:output_type -> repository.credit.CreditList
-	1, // 9: repository.credit.CreditRepository.GetById:output_type -> repository.credit.Credit
-	1, // 10: repository.credit.CreditRepository.Repay:output_type -> repository.credit.Credit
-	8, // 11: repository.credit.CreditRepository.Delete:output_type -> repository.common.DeleteResponse
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
+	1, // 5: repository.credit.CreditRepository.Create:input_type -> repository.credit.Credit
+	7, // 6: repository.credit.CreditRepository.Repay:input_type -> repository.common.AmountRequest
+	6, // 7: repository.credit.CreditRepository.Delete:input_type -> repository.common.IdRequest
+	3, // 8: repository.credit.CreditRepository.GetAll:output_type -> repository.credit.CreditList
+	3, // 9: repository.credit.CreditRepository.GetByUser:output_type -> repository.credit.CreditList
+	1, // 10: repository.credit.CreditRepository.GetById:output_type -> repository.credit.Credit
+	1, // 11: repository.credit.CreditRepository.Create:output_type -> repository.credit.Credit
+	1, // 12: repository.credit.CreditRepository.Repay:output_type -> repository.credit.Credit
+	8, // 13: repository.credit.CreditRepository.Delete:output_type -> repository.common.DeleteResponse
+	8, // [8:14] is the sub-list for method output_type
+	2, // [2:8] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name

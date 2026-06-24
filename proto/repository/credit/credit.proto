@@ -48,6 +48,9 @@ service CreditRepository {
   rpc GetById(repository.common.IdRequest)
       returns (Credit);
 
+  rpc Create(Credit)
+      returns (Credit);
+
   rpc Repay(repository.common.AmountRequest)
       returns (Credit);
 

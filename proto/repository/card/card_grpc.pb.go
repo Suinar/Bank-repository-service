@@ -4,7 +4,7 @@
 // - protoc             v4.25.9
 // source: repository/card/card.proto
 
-package __
+package card
 
 import (
 	context "context"
@@ -38,7 +38,7 @@ type CardRepositoryClient interface {
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Card, error)
 	GetByNumber(ctx context.Context, in *CardNumberRequest, opts ...grpc.CallOption) (*Card, error)
 	Blocking(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Card, error)
-	Create(ctx context.Context, in *CardCreateInput, opts ...grpc.CallOption) (*Card, error)
+	Create(ctx context.Context, in *Card, opts ...grpc.CallOption) (*Card, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
 }
 
@@ -100,7 +100,7 @@ func (c *cardRepositoryClient) Blocking(ctx context.Context, in *common.IdReques
 	return out, nil
 }
 
-func (c *cardRepositoryClient) Create(ctx context.Context, in *CardCreateInput, opts ...grpc.CallOption) (*Card, error) {
+func (c *cardRepositoryClient) Create(ctx context.Context, in *Card, opts ...grpc.CallOption) (*Card, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Card)
 	err := c.cc.Invoke(ctx, CardRepository_Create_FullMethodName, in, out, cOpts...)
@@ -129,7 +129,7 @@ type CardRepositoryServer interface {
 	GetById(context.Context, *common.IdRequest) (*Card, error)
 	GetByNumber(context.Context, *CardNumberRequest) (*Card, error)
 	Blocking(context.Context, *common.IdRequest) (*Card, error)
-	Create(context.Context, *CardCreateInput) (*Card, error)
+	Create(context.Context, *Card) (*Card, error)
 	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
 	mustEmbedUnimplementedCardRepositoryServer()
 }
@@ -156,7 +156,7 @@ func (UnimplementedCardRepositoryServer) GetByNumber(context.Context, *CardNumbe
 func (UnimplementedCardRepositoryServer) Blocking(context.Context, *common.IdRequest) (*Card, error) {
 	return nil, status.Error(codes.Unimplemented, "method Blocking not implemented")
 }
-func (UnimplementedCardRepositoryServer) Create(context.Context, *CardCreateInput) (*Card, error) {
+func (UnimplementedCardRepositoryServer) Create(context.Context, *Card) (*Card, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedCardRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
@@ -274,7 +274,7 @@ func _CardRepository_Blocking_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _CardRepository_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CardCreateInput)
+	in := new(Card)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func _CardRepository_Create_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: CardRepository_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CardRepositoryServer).Create(ctx, req.(*CardCreateInput))
+		return srv.(CardRepositoryServer).Create(ctx, req.(*Card))
 	}
 	return interceptor(ctx, in, info, handler)
 }

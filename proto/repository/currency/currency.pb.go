@@ -4,7 +4,7 @@
 // 	protoc        v4.25.9
 // source: repository/currency/currency.proto
 
-package __
+package currency
 
 import (
 	common "Bank-repository-service/proto/repository/common"
@@ -186,74 +186,6 @@ func (x *Currency) GetMinorUnits() int32 {
 	return 0
 }
 
-type CurrencyCreateInput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Symbol        string                 `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	IsoCode       string                 `protobuf:"bytes,3,opt,name=iso_code,json=isoCode,proto3" json:"iso_code,omitempty"`
-	MinorUnits    int32                  `protobuf:"varint,4,opt,name=minor_units,json=minorUnits,proto3" json:"minor_units,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CurrencyCreateInput) Reset() {
-	*x = CurrencyCreateInput{}
-	mi := &file_repository_currency_currency_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CurrencyCreateInput) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CurrencyCreateInput) ProtoMessage() {}
-
-func (x *CurrencyCreateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_currency_currency_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CurrencyCreateInput.ProtoReflect.Descriptor instead.
-func (*CurrencyCreateInput) Descriptor() ([]byte, []int) {
-	return file_repository_currency_currency_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *CurrencyCreateInput) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *CurrencyCreateInput) GetSymbol() string {
-	if x != nil {
-		return x.Symbol
-	}
-	return ""
-}
-
-func (x *CurrencyCreateInput) GetIsoCode() string {
-	if x != nil {
-		return x.IsoCode
-	}
-	return ""
-}
-
-func (x *CurrencyCreateInput) GetMinorUnits() int32 {
-	if x != nil {
-		return x.MinorUnits
-	}
-	return 0
-}
-
 type CurrencyUpdateInput struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          *string                `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
@@ -266,7 +198,7 @@ type CurrencyUpdateInput struct {
 
 func (x *CurrencyUpdateInput) Reset() {
 	*x = CurrencyUpdateInput{}
-	mi := &file_repository_currency_currency_proto_msgTypes[4]
+	mi := &file_repository_currency_currency_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -278,7 +210,7 @@ func (x *CurrencyUpdateInput) String() string {
 func (*CurrencyUpdateInput) ProtoMessage() {}
 
 func (x *CurrencyUpdateInput) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_currency_currency_proto_msgTypes[4]
+	mi := &file_repository_currency_currency_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +223,7 @@ func (x *CurrencyUpdateInput) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CurrencyUpdateInput.ProtoReflect.Descriptor instead.
 func (*CurrencyUpdateInput) Descriptor() ([]byte, []int) {
-	return file_repository_currency_currency_proto_rawDescGZIP(), []int{4}
+	return file_repository_currency_currency_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CurrencyUpdateInput) GetName() string {
@@ -331,7 +263,7 @@ type CurrencyList struct {
 
 func (x *CurrencyList) Reset() {
 	*x = CurrencyList{}
-	mi := &file_repository_currency_currency_proto_msgTypes[5]
+	mi := &file_repository_currency_currency_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -343,7 +275,7 @@ func (x *CurrencyList) String() string {
 func (*CurrencyList) ProtoMessage() {}
 
 func (x *CurrencyList) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_currency_currency_proto_msgTypes[5]
+	mi := &file_repository_currency_currency_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -356,7 +288,7 @@ func (x *CurrencyList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CurrencyList.ProtoReflect.Descriptor instead.
 func (*CurrencyList) Descriptor() ([]byte, []int) {
-	return file_repository_currency_currency_proto_rawDescGZIP(), []int{5}
+	return file_repository_currency_currency_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CurrencyList) GetCurrencies() []*Currency {
@@ -376,7 +308,7 @@ type UpdateCurrencyRequest struct {
 
 func (x *UpdateCurrencyRequest) Reset() {
 	*x = UpdateCurrencyRequest{}
-	mi := &file_repository_currency_currency_proto_msgTypes[6]
+	mi := &file_repository_currency_currency_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -388,7 +320,7 @@ func (x *UpdateCurrencyRequest) String() string {
 func (*UpdateCurrencyRequest) ProtoMessage() {}
 
 func (x *UpdateCurrencyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_repository_currency_currency_proto_msgTypes[6]
+	mi := &file_repository_currency_currency_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -401,7 +333,7 @@ func (x *UpdateCurrencyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCurrencyRequest.ProtoReflect.Descriptor instead.
 func (*UpdateCurrencyRequest) Descriptor() ([]byte, []int) {
-	return file_repository_currency_currency_proto_rawDescGZIP(), []int{6}
+	return file_repository_currency_currency_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdateCurrencyRequest) GetId() int64 {
@@ -422,7 +354,7 @@ var File_repository_currency_currency_proto protoreflect.FileDescriptor
 
 const file_repository_currency_currency_proto_rawDesc = "" +
 	"\n" +
-	"\"repository/currency/currency.proto\x12\x13repository.currency\x1a\x17repository/common.proto\"+\n" +
+	"\"repository/currency/currency.proto\x12\x13repository.currency\x1a\x1erepository/common/common.proto\"+\n" +
 	"\x0eIsoCodeRequest\x12\x19\n" +
 	"\biso_code\x18\x01 \x01(\tR\aisoCode\"'\n" +
 	"\rSymbolRequest\x12\x16\n" +
@@ -433,12 +365,6 @@ const file_repository_currency_currency_proto_rawDesc = "" +
 	"\x06symbol\x18\x03 \x01(\tR\x06symbol\x12\x19\n" +
 	"\biso_code\x18\x04 \x01(\tR\aisoCode\x12\x1f\n" +
 	"\vminor_units\x18\x05 \x01(\x05R\n" +
-	"minorUnits\"}\n" +
-	"\x13CurrencyCreateInput\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
-	"\x06symbol\x18\x02 \x01(\tR\x06symbol\x12\x19\n" +
-	"\biso_code\x18\x03 \x01(\tR\aisoCode\x12\x1f\n" +
-	"\vminor_units\x18\x04 \x01(\x05R\n" +
 	"minorUnits\"\xc2\x01\n" +
 	"\x13CurrencyUpdateInput\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1b\n" +
@@ -456,15 +382,15 @@ const file_repository_currency_currency_proto_rawDesc = "" +
 	"currencies\"g\n" +
 	"\x15UpdateCurrencyRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12>\n" +
-	"\x05input\x18\x02 \x01(\v2(.repository.currency.CurrencyUpdateInputR\x05input2\xb8\x04\n" +
+	"\x05input\x18\x02 \x01(\v2(.repository.currency.CurrencyUpdateInputR\x05input2\xad\x04\n" +
 	"\x12CurrencyRepository\x12E\n" +
 	"\x06GetAll\x12\x18.repository.common.Empty\x1a!.repository.currency.CurrencyList\x12F\n" +
 	"\aGetById\x12\x1c.repository.common.IdRequest\x1a\x1d.repository.currency.Currency\x12N\n" +
 	"\bGetByIso\x12#.repository.currency.IsoCodeRequest\x1a\x1d.repository.currency.Currency\x12P\n" +
-	"\vGetBySymbol\x12\".repository.currency.SymbolRequest\x1a\x1d.repository.currency.Currency\x12Q\n" +
-	"\x06Create\x12(.repository.currency.CurrencyCreateInput\x1a\x1d.repository.currency.Currency\x12S\n" +
+	"\vGetBySymbol\x12\".repository.currency.SymbolRequest\x1a\x1d.repository.currency.Currency\x12F\n" +
+	"\x06Create\x12\x1d.repository.currency.Currency\x1a\x1d.repository.currency.Currency\x12S\n" +
 	"\x06Update\x12*.repository.currency.UpdateCurrencyRequest\x1a\x1d.repository.currency.Currency\x12I\n" +
-	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseB\x03Z\x01/b\x06proto3"
+	"\x06Delete\x12\x1c.repository.common.IdRequest\x1a!.repository.common.DeleteResponseBEZCgithub.com/Suinar/Bank-repository-service/proto/repository/currencyb\x06proto3"
 
 var (
 	file_repository_currency_currency_proto_rawDescOnce sync.Once
@@ -478,36 +404,35 @@ func file_repository_currency_currency_proto_rawDescGZIP() []byte {
 	return file_repository_currency_currency_proto_rawDescData
 }
 
-var file_repository_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_repository_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_repository_currency_currency_proto_goTypes = []any{
 	(*IsoCodeRequest)(nil),        // 0: repository.currency.IsoCodeRequest
 	(*SymbolRequest)(nil),         // 1: repository.currency.SymbolRequest
 	(*Currency)(nil),              // 2: repository.currency.Currency
-	(*CurrencyCreateInput)(nil),   // 3: repository.currency.CurrencyCreateInput
-	(*CurrencyUpdateInput)(nil),   // 4: repository.currency.CurrencyUpdateInput
-	(*CurrencyList)(nil),          // 5: repository.currency.CurrencyList
-	(*UpdateCurrencyRequest)(nil), // 6: repository.currency.UpdateCurrencyRequest
-	(*common.Empty)(nil),          // 7: repository.common.Empty
-	(*common.IdRequest)(nil),      // 8: repository.common.IdRequest
-	(*common.DeleteResponse)(nil), // 9: repository.common.DeleteResponse
+	(*CurrencyUpdateInput)(nil),   // 3: repository.currency.CurrencyUpdateInput
+	(*CurrencyList)(nil),          // 4: repository.currency.CurrencyList
+	(*UpdateCurrencyRequest)(nil), // 5: repository.currency.UpdateCurrencyRequest
+	(*common.Empty)(nil),          // 6: repository.common.Empty
+	(*common.IdRequest)(nil),      // 7: repository.common.IdRequest
+	(*common.DeleteResponse)(nil), // 8: repository.common.DeleteResponse
 }
 var file_repository_currency_currency_proto_depIdxs = []int32{
 	2, // 0: repository.currency.CurrencyList.currencies:type_name -> repository.currency.Currency
-	4, // 1: repository.currency.UpdateCurrencyRequest.input:type_name -> repository.currency.CurrencyUpdateInput
-	7, // 2: repository.currency.CurrencyRepository.GetAll:input_type -> repository.common.Empty
-	8, // 3: repository.currency.CurrencyRepository.GetById:input_type -> repository.common.IdRequest
+	3, // 1: repository.currency.UpdateCurrencyRequest.input:type_name -> repository.currency.CurrencyUpdateInput
+	6, // 2: repository.currency.CurrencyRepository.GetAll:input_type -> repository.common.Empty
+	7, // 3: repository.currency.CurrencyRepository.GetById:input_type -> repository.common.IdRequest
 	0, // 4: repository.currency.CurrencyRepository.GetByIso:input_type -> repository.currency.IsoCodeRequest
 	1, // 5: repository.currency.CurrencyRepository.GetBySymbol:input_type -> repository.currency.SymbolRequest
-	3, // 6: repository.currency.CurrencyRepository.Create:input_type -> repository.currency.CurrencyCreateInput
-	6, // 7: repository.currency.CurrencyRepository.Update:input_type -> repository.currency.UpdateCurrencyRequest
-	8, // 8: repository.currency.CurrencyRepository.Delete:input_type -> repository.common.IdRequest
-	5, // 9: repository.currency.CurrencyRepository.GetAll:output_type -> repository.currency.CurrencyList
+	2, // 6: repository.currency.CurrencyRepository.Create:input_type -> repository.currency.Currency
+	5, // 7: repository.currency.CurrencyRepository.Update:input_type -> repository.currency.UpdateCurrencyRequest
+	7, // 8: repository.currency.CurrencyRepository.Delete:input_type -> repository.common.IdRequest
+	4, // 9: repository.currency.CurrencyRepository.GetAll:output_type -> repository.currency.CurrencyList
 	2, // 10: repository.currency.CurrencyRepository.GetById:output_type -> repository.currency.Currency
 	2, // 11: repository.currency.CurrencyRepository.GetByIso:output_type -> repository.currency.Currency
 	2, // 12: repository.currency.CurrencyRepository.GetBySymbol:output_type -> repository.currency.Currency
 	2, // 13: repository.currency.CurrencyRepository.Create:output_type -> repository.currency.Currency
 	2, // 14: repository.currency.CurrencyRepository.Update:output_type -> repository.currency.Currency
-	9, // 15: repository.currency.CurrencyRepository.Delete:output_type -> repository.common.DeleteResponse
+	8, // 15: repository.currency.CurrencyRepository.Delete:output_type -> repository.common.DeleteResponse
 	9, // [9:16] is the sub-list for method output_type
 	2, // [2:9] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -520,14 +445,14 @@ func file_repository_currency_currency_proto_init() {
 	if File_repository_currency_currency_proto != nil {
 		return
 	}
-	file_repository_currency_currency_proto_msgTypes[4].OneofWrappers = []any{}
+	file_repository_currency_currency_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_repository_currency_currency_proto_rawDesc), len(file_repository_currency_currency_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
