@@ -22,8 +22,8 @@ type IAccountRepository interface {
 	GetByUser(ctx context.Context, userId int64) ([]core.Account, error)
 	GetById(ctx context.Context, id int64) (*core.Account, error)
 	Create(ctx context.Context, input *core.Account) (*core.Account, error)
-	Blocking(ctx context.Context, id int64) (core.Account, error)
-	Close(ctx context.Context, id int64) (core.Account, error)
+	Blocking(ctx context.Context, id int64) (*core.Account, error)
+	Close(ctx context.Context, id int64) (*core.Account, error)
 	Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error)
 	Delete(ctx context.Context, id int64) (int64, error)
 }
@@ -33,7 +33,7 @@ type ICardRepository interface {
 	GetByUser(ctx context.Context, idUser int64) ([]core.Card, error)
 	GetById(ctx context.Context, id int64) (*core.Card, error)
 	GetByNumber(ctx context.Context, number string) (*core.Card, error)
-	Blocking(ctx context.Context, id int64) (core.Card, error)
+	Blocking(ctx context.Context, id int64) (*core.Card, error)
 	Create(ctx context.Context, input *core.Card) (*core.Card, error)
 	Delete(ctx context.Context, id int64) (int64, error)
 }

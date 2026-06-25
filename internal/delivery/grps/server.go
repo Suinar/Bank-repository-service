@@ -1,19 +1,19 @@
 ﻿package grpc
 
 import (
-	handler "Bank-repository-service/internal/delivery/grps/handlers"
-	account "Bank-repository-service/proto/repository/account"
-	card "Bank-repository-service/proto/repository/card"
-	credit "Bank-repository-service/proto/repository/credit"
-	currency "Bank-repository-service/proto/repository/currency"
-	deposit "Bank-repository-service/proto/repository/deposit"
-	user "Bank-repository-service/proto/repository/user"
 	"log"
 	"net"
 
-	service "Bank-repository-service/internal/services"
-
 	"google.golang.org/grpc"
+
+	handler "Bank-repository-service/internal/delivery/grps/handlers"
+	service "Bank-repository-service/internal/services"
+	account "Bank-repository-service/proto/repository/account"
+	card "Bank-repository-service/proto/repository/card"
+	credit "Bank-repository-service/proto/repository/credit"
+	currency `Bank-repository-service/proto/repository/currency`
+	deposit "Bank-repository-service/proto/repository/deposit"
+	user "Bank-repository-service/proto/repository/user"
 )
 
 func RunGrpcServer(services *service.Services) {

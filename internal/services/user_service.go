@@ -1,10 +1,12 @@
 package service
 
 import (
+	"Bank-repository-service/pkg/core"
+	"Bank-repository-service/proto/repository/common"
+	"Bank-repository-service/proto/repository/user"
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db"
-	core "Bank-repository-service/pkg/core"
 )
 
 type UserService struct {
@@ -15,34 +17,116 @@ func NewUserService(repo repository.IUserRepository) *UserService {
 	return &UserService{repo: repo}
 }
 
-func (s *UserService) GetAll(ctx context.Context) ([]core.User, error) {
-	return s.repo.GetAll(ctx)
+func (s *UserService) GetAll(ctx context.Context, req *common.Empty) (*user.UserList, error) {
+	users, err := s.repo.GetAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &user.UserList{
+		Users: make([]*user.User, len(users)),
+	}
+
+	for i, u := range users {
+		res.Users[i] = s.toProto(&u)
+	}
+
+	return res, nil
 }
 
-func (s *UserService) GetById(ctx context.Context, id int64) (*core.User, error) {
-	return s.repo.GetById(ctx, id)
+func (s *UserService) GetById(ctx context.Context, req *common.IdRequest) (*user.User, error) {
+	user, err := s.repo.GetById(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(user), nil
 }
 
-func (s *UserService) GetByEmail(ctx context.Context, email string) (*core.User, error) {
-	return s.repo.GetByEmail(ctx, email)
+func (s *UserService) GetByEmail(ctx context.Context, req *user.EmailRequest) (*user.User, error) {
+	user, err := s.repo.GetByEmail(ctx, req.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(user), nil
 }
 
-func (s *UserService) GetByPhoneNumber(ctx context.Context, phoneNumber string) (*core.User, error) {
-	return s.repo.GetByPhoneNumber(ctx, phoneNumber)
+func (s *UserService) GetByPhoneNumber(ctx context.Context, req *user.PhoneNumberRequest) (*user.User, error) {
+	user, err := s.repo.GetByPhoneNumber(ctx, req.PhoneNumber)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(user), nil
 }
 
-func (s *UserService) Create(ctx context.Context, input *core.User) (*core.User, error) {
-	return s.repo.Create(ctx, input)
+func (s *UserService) Create(ctx context.Context, req *user.User) (*user.User, error) {
+	user, err := s.repo.Create(ctx, s.fromProto(req))
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(user), nil
 }
 
-func (s *UserService) ChangePassword(ctx context.Context, id int64, newPassword string) error {
-	return s.repo.ChangePassword(ctx, id, newPassword)
+func (s *UserService) ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error) {
+	err := s.repo.ChangePassword(ctx, req.Id, req.NewPassword)
+	if err != nil {
+		return nil, err
+	}
+
+	return &common.Empty{}, nil
 }
 
-func (s *UserService) Update(ctx context.Context, id int64, input *core.UserUpdateInput) (*core.User, error) {
-	return s.repo.Update(ctx, id, input)
+func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error) {
+	u, err := s.repo.Update(ctx, req.Id, &core.UserUpdateInput{
+		FirstName: req.Input.FirstName,
+		LastName:  req.Input.LastName,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return s.toProto(u), nil
 }
 
-func (s *UserService) Delete(ctx context.Context, id int64) error {
-	return s.repo.Delete(ctx, id)
+func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repo.Delete(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &common.Empty{}, nil
+}
+
+func (s *UserService) toProto(input *core.User) *user.User {
+	if input == nil {
+		return nil
+	}
+
+	return &user.User{
+		Id:           input.Id,
+		FirstName:    input.FirstName,
+		LastName:     input.LastName,
+		Email:        input.Email,
+		PhoneNumber:  input.PhoneNumber,
+		PasswordHash: input.PasswordHash,
+	}
+}
+
+func (s *UserService) fromProto(input *user.User) *core.User {
+	if input == nil {
+		return nil
+	}
+
+	return &core.User{
+		Id:           input.Id,
+		FirstName:    input.FirstName,
+		LastName:     input.LastName,
+		Email:        input.Email,
+		PhoneNumber:  input.PhoneNumber,
+		PasswordHash: input.PasswordHash,
+	}
 }

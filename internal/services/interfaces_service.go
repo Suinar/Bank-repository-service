@@ -10,7 +10,6 @@ import (
 	currency "Bank-repository-service/proto/repository/currency"
 	deposit "Bank-repository-service/proto/repository/deposit"
 	user "Bank-repository-service/proto/repository/user"
-	core "Bank-repository-service/pkg/core"
 )
 
 type IUserService interface {

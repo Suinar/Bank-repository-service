@@ -1,4 +1,4 @@
 ﻿FROM ubuntu:latest
-LABEL authors="suina"
+LABEL authors="suinar"
 
 ENTRYPOINT ["top", "-b"]

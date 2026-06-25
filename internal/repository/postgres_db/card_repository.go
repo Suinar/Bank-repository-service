@@ -91,7 +91,7 @@ WHERE number = $1`
 	return &card, nil
 }
 
-func (r *CardRepository) Blocking(ctx context.Context, id int64) (core.Card, error) {
+func (r *CardRepository) Blocking(ctx context.Context, id int64) (*core.Card, error) {
 	query := `
 	UPDATE cards
 	SET status = $1, updated_at = $2
@@ -106,13 +106,13 @@ func (r *CardRepository) Blocking(ctx context.Context, id int64) (core.Card, err
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return core.Card{}, errror.NotFound
+			return nil, errror.NotFound
 		}
 
-		return core.Card{}, errror.InternalServerError
+		return nil, errror.InternalServerError
 	}
 
-	return card, nil
+	return &card, nil
 }
 
 func (r *CardRepository) Create(ctx context.Context, input *core.Card) (*core.Card, error) {
