@@ -15,7 +15,7 @@ message UserIdRequest {
 }
 
 message DeleteResponse {
-  int64 rows_affected = 1;
+  int64 entity_id = 1;
 }
 
 message AmountRequest {

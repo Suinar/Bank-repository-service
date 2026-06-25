@@ -98,7 +98,7 @@ RETURNING id, user_id, currency_id, name, balance, status;`
 	return nil, errror.InternalServerError
 }
 
-func (r *AccountRepository) Blocking(ctx context.Context, id int64) (core.Account, error) {
+func (r *AccountRepository) Blocking(ctx context.Context, id int64) (*core.Account, error) {
 	query := `
 	UPDATE accounts
 	SET status = $1, updated_at = $2
@@ -113,16 +113,16 @@ func (r *AccountRepository) Blocking(ctx context.Context, id int64) (core.Accoun
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return core.Account{}, errror.NotFound
+			return nil, errror.NotFound
 		}
 
-		return core.Account{}, errror.InternalServerError
+		return nil, errror.InternalServerError
 	}
 
-	return account, nil
+	return &account, nil
 }
 
-func (r *AccountRepository) Close(ctx context.Context, id int64) (core.Account, error) {
+func (r *AccountRepository) Close(ctx context.Context, id int64) (*core.Account, error) {
 	query := `
 	UPDATE accounts
 	SET status = $1, updated_at = $2
@@ -137,13 +137,13 @@ func (r *AccountRepository) Close(ctx context.Context, id int64) (core.Account, 
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return core.Account{}, errror.NotFound
+			return nil, errror.NotFound
 		}
 
-		return core.Account{}, errror.InternalServerError
+		return nil, errror.InternalServerError
 	}
 
-	return account, nil
+	return &account, nil
 }
 
 func (r *AccountRepository) Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error) {

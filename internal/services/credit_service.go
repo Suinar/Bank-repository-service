@@ -79,42 +79,44 @@ func (s *CreditService) Repay(ctx context.Context, req *common.AmountRequest) (*
 }
 
 func (s *CreditService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	userId, err := s.repository.Delete(ctx, req.Id)
+	entityId, err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{UserId: userId}, nil
+	return &common.DeleteResponse{EntityId: entityId}, nil
 }
 
-func (s *CreditService) toProto(c *core.Credit) *credit.Credit {
-	if c == nil {
+func (s *CreditService) toProto(input *core.Credit) *credit.Credit {
+	if input == nil {
 		return nil
 	}
+
 	return &credit.Credit{
-		Id:             c.Id,
-		UserId:         c.UserId,
-		CurrencyId:     c.CurrencyId,
-		Amount:         c.Amount,
-		InterestRate:   c.InterestRate,
-		TermMonths:     int32(c.TermMonths),
-		MonthlyPayment: c.MonthlyPayment,
-		Status:         credit.CreditStatus(c.Status),
+		Id:             input.Id,
+		UserId:         input.UserId,
+		CurrencyId:     input.CurrencyId,
+		Amount:         input.Amount,
+		InterestRate:   input.InterestRate,
+		TermMonths:     int32(input.TermMonths),
+		MonthlyPayment: input.MonthlyPayment,
+		Status:         credit.CreditStatus(input.Status),
 	}
 }
 
-func (s *CreditService) fromProto(c *credit.Credit) *core.Credit {
-	if c == nil {
+func (s *CreditService) fromProto(input *credit.Credit) *core.Credit {
+	if input == nil {
 		return nil
 	}
+
 	return &core.Credit{
-		Id:             c.Id,
-		UserId:         c.UserId,
-		CurrencyId:     c.CurrencyId,
-		Amount:         c.Amount,
-		InterestRate:   c.InterestRate,
-		TermMonths:     int8(c.TermMonths),
-		MonthlyPayment: c.MonthlyPayment,
-		Status:         core.CreditStatus(c.Status),
+		Id:             input.Id,
+		UserId:         input.UserId,
+		CurrencyId:     input.CurrencyId,
+		Amount:         input.Amount,
+		InterestRate:   input.InterestRate,
+		TermMonths:     int8(input.TermMonths),
+		MonthlyPayment: input.MonthlyPayment,
+		Status:         core.CreditStatus(input.Status),
 	}
 }

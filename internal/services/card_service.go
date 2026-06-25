@@ -52,76 +52,78 @@ func (s *CardService) GetByUser(ctx context.Context, req *common.UserIdRequest) 
 }
 
 func (s *CardService) GetById(ctx context.Context, req *common.IdRequest) (*card.Card, error) {
-	c, err := s.repository.GetById(ctx, req.Id)
+	card, err := s.repository.GetById(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return s.toProto(c), nil
+	return s.toProto(card), nil
 }
 
 func (s *CardService) GetByNumber(ctx context.Context, req *card.CardNumberRequest) (*card.Card, error) {
-	c, err := s.repository.GetByNumber(ctx, req.Number)
+	card, err := s.repository.GetByNumber(ctx, req.Number)
 	if err != nil {
 		return nil, err
 	}
 
-	return s.toProto(c), nil
+	return s.toProto(card), nil
 }
 
 func (s *CardService) Blocking(ctx context.Context, req *common.IdRequest) (*card.Card, error) {
-	c, err := s.repository.Blocking(ctx, req.Id)
+	card, err := s.repository.Blocking(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return s.toProto(&c), nil
+	return s.toProto(card), nil
 }
 
 func (s *CardService) Create(ctx context.Context, req *card.Card) (*card.Card, error) {
-	c, err := s.repository.Create(ctx, s.fromProto(req))
+	card, err := s.repository.Create(ctx, s.fromProto(req))
 	if err != nil {
 		return nil, err
 	}
 
-	return s.toProto(c), nil
+	return s.toProto(card), nil
 }
 
 func (s *CardService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	userId, err := s.repository.Delete(ctx, req.Id)
+	entityId, err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{UserId: userId}, nil
+	return &common.DeleteResponse{EntityId: entityId}, nil
 }
 
-func (s *CardService) toProto(c *core.Card) *card.Card {
-	if c == nil {
+func (s *CardService) toProto(input *core.Card) *card.Card {
+	if input == nil {
 		return nil
 	}
+
 	return &card.Card{
-		Id:          c.Id,
-		UserId:      c.UserId,
-		AccountId:   c.AccountId,
-		Number:      c.Number,
-		ExpiryMonth: int32(c.ExpiryMonth),
-		ExpiryYear:  int32(c.ExpiryYear),
-		Status:      card.CardStatus(c.Status),
+		Id:          input.Id,
+		UserId:      input.UserId,
+		AccountId:   input.AccountId,
+		Number:      input.Number,
+		ExpiryMonth: int32(input.ExpiryMonth),
+		ExpiryYear:  int32(input.ExpiryYear),
+		Status:      card.CardStatus(input.Status),
 	}
 }
 
-func (s *CardService) fromProto(c *card.Card) *core.Card {
-	if c == nil {
+func (s *CardService) fromProto(input *card.Card) *core.Card {
+	if input == nil {
 		return nil
 	}
+
 	return &core.Card{
-		Id:          c.Id,
-		UserId:      c.UserId,
-		AccountId:   c.AccountId,
-		Number:      c.Number,
-		ExpiryMonth: int8(c.ExpiryMonth),
-		ExpiryYear:  int8(c.ExpiryYear),
-		Status:      core.CardStatus(c.Status),
+		Id:          input.Id,
+		UserId:      input.UserId,
+		AccountId:   input.AccountId,
+		Number:      input.Number,
+		ExpiryMonth: int8(input.ExpiryMonth),
+		ExpiryYear:  int8(input.ExpiryYear),
+		Status:      core.CardStatus(input.Status),
 	}
 }

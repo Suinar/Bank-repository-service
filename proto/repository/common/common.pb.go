@@ -147,7 +147,7 @@ func (x *UserIdRequest) GetUserId() int64 {
 
 type DeleteResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RowsAffected  int64                  `protobuf:"varint,1,opt,name=rows_affected,json=rowsAffected,proto3" json:"rows_affected,omitempty"`
+	EntityId      int64                  `protobuf:"varint,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -182,9 +182,9 @@ func (*DeleteResponse) Descriptor() ([]byte, []int) {
 	return file_repository_common_common_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *DeleteResponse) GetRowsAffected() int64 {
+func (x *DeleteResponse) GetEntityId() int64 {
 	if x != nil {
-		return x.RowsAffected
+		return x.EntityId
 	}
 	return 0
 }
@@ -250,9 +250,9 @@ const file_repository_common_common_proto_rawDesc = "" +
 	"\tIdRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"(\n" +
 	"\rUserIdRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"5\n" +
-	"\x0eDeleteResponse\x12#\n" +
-	"\rrows_affected\x18\x01 \x01(\x03R\frowsAffected\"7\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\"-\n" +
+	"\x0eDeleteResponse\x12\x1b\n" +
+	"\tentity_id\x18\x01 \x01(\x03R\bentityId\"7\n" +
 	"\rAmountRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
 	"\x06amount\x18\x02 \x01(\x03R\x06amountBCZAgithub.com/Suinar/Bank-repository-service/proto/repository/commonb\x06proto3"
