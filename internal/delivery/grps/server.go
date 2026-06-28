@@ -1,19 +1,24 @@
 ﻿package grpc
 
 import (
+	accountHandler "Bank-repository-service/internal/delivery/grps/handlers/account"
+	cardHandler "Bank-repository-service/internal/delivery/grps/handlers/card"
+	creditHandler "Bank-repository-service/internal/delivery/grps/handlers/credit"
+	currencyHandler "Bank-repository-service/internal/delivery/grps/handlers/currency"
+	depositHandler "Bank-repository-service/internal/delivery/grps/handlers/deposit"
+	userHandler "Bank-repository-service/internal/delivery/grps/handlers/user"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
 
-	handler "Bank-repository-service/internal/delivery/grps/handlers"
 	service "Bank-repository-service/internal/services"
-	account "Bank-repository-service/proto/repository/account"
-	card "Bank-repository-service/proto/repository/card"
-	credit "Bank-repository-service/proto/repository/credit"
-	currency `Bank-repository-service/proto/repository/currency`
-	deposit "Bank-repository-service/proto/repository/deposit"
-	user "Bank-repository-service/proto/repository/user"
+	accountProto "Bank-repository-service/proto/repository/account"
+	cardProto "Bank-repository-service/proto/repository/card"
+	creditProto "Bank-repository-service/proto/repository/credit"
+	currencyProto "Bank-repository-service/proto/repository/currency"
+	depositProto "Bank-repository-service/proto/repository/deposit"
+	userProto "Bank-repository-service/proto/repository/user"
 )
 
 func RunGrpcServer(services *service.Services) {
@@ -36,28 +41,28 @@ func RunGrpcServer(services *service.Services) {
 func RegisterServices(
 	grpcServer *grpc.Server,
 	services *service.Services) {
-	account.RegisterAccountRepositoryServer(
+	accountProto.RegisterAccountRepositoryServer(
 		grpcServer,
-		handler.NewAccountHandler(services.AccountService),
+		accountHandler.NewAccountHandler(services.AccountService),
 	)
-	card.RegisterCardRepositoryServer(
+	cardProto.RegisterCardRepositoryServer(
 		grpcServer,
-		handler.NewCardHandler(services.CardService),
+		cardHandler.NewCardHandler(services.CardService),
 	)
-	credit.RegisterCreditRepositoryServer(
+	creditProto.RegisterCreditRepositoryServer(
 		grpcServer,
-		handler.NewCreditHandler(services.CreditService),
+		creditHandler.NewCreditHandler(services.CreditService),
 	)
-	currency.RegisterCurrencyRepositoryServer(
+	currencyProto.RegisterCurrencyRepositoryServer(
 		grpcServer,
-		handler.NewCurrencyHandler(services.CurrencyService),
+		currencyHandler.NewCurrencyHandler(services.CurrencyService),
 	)
-	deposit.RegisterDepositRepositoryServer(
+	depositProto.RegisterDepositRepositoryServer(
 		grpcServer,
-		handler.NewDepositHandler(services.DepositService),
+		depositHandler.NewDepositHandler(services.DepositService),
 	)
-	user.RegisterUserRepositoryServer(
+	userProto.RegisterUserRepositoryServer(
 		grpcServer,
-		handler.NewUserHandler(services.UserService),
+		userHandler.NewUserHandler(services.UserService),
 	)
 }

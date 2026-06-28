@@ -3,6 +3,7 @@ module Bank-repository-service
 go 1.25.5
 
 require (
+	github.com/golang/mock v1.6.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/redis/go-redis/v9 v9.20.1
 	github.com/spf13/viper v1.21.0
