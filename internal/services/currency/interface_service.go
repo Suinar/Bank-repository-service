@@ -6,6 +6,8 @@ import (
 	"context"
 )
 
+//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/currency.go -package=mocks
+
 type ICurrencyService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*currency.CurrencyList, error)
 	GetById(ctx context.Context, req *common.IdRequest) (*currency.Currency, error)

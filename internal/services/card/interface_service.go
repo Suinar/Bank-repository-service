@@ -6,6 +6,8 @@ import (
 	"context"
 )
 
+//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/card.go -package=mocks
+
 type ICardService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*card.CardList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*card.CardList, error)

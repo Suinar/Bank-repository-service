@@ -11,4 +11,5 @@ var (
 	CacheSetError        = errors.New("redis HSet failed")
 	CacheDeleteError     = errors.New("redis HDel failed")
 	CacheMapError        = errors.New("redis mapping failed")
+	TestError            = errors.New("test error")
 )

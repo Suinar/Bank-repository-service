@@ -6,6 +6,8 @@ import (
 	"context"
 )
 
+//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/account.go -package=mocks
+
 type IAccountService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*account.AccountList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*account.AccountList, error)

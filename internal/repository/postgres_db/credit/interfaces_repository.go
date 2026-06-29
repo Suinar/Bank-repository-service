@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/credit_repository_mock.go -package=mocks
+//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/reposit/credit.go -package=mocks
 
 type ICreditRepository interface {
 	GetAll(ctx context.Context) ([]core.Credit, error)

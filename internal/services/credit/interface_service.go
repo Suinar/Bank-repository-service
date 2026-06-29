@@ -6,6 +6,8 @@ import (
 	"context"
 )
 
+//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/credit.go -package=mocks
+
 type ICreditService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*credit.CreditList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*credit.CreditList, error)
