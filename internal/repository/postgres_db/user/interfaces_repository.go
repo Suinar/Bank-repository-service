@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/user_repository_mock.go -package=mocks
+//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/reposit/user.go -package=mocks
 
 type IUserRepository interface {
 	GetAll(ctx context.Context) ([]core.User, error)

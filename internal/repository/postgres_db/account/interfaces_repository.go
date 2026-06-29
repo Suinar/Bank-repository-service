@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/account_repository_mock.go -package=mocks
+//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/repository/account.go -package=mocks
 
 type IAccountRepository interface {
 	GetAll(ctx context.Context) ([]core.Account, error)
