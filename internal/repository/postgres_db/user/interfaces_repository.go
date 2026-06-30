@@ -15,5 +15,5 @@ type IUserRepository interface {
 	Create(ctx context.Context, input *core.User) (*core.User, error)
 	ChangePassword(ctx context.Context, id int64, newPassword string) error
 	Update(ctx context.Context, id int64, input *core.UserUpdateInput) (*core.User, error)
-	Delete(ctx context.Context, id int64) error
+	Delete(ctx context.Context, id int64) (int64, error)
 }

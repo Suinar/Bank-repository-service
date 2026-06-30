@@ -92,13 +92,15 @@ func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (
 	return s.toProto(u), nil
 }
 
-func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
-	err := s.repo.Delete(ctx, req.Id)
+func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+	id, err := s.repo.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.Empty{}, nil
+	return &common.DeleteResponse{
+		EntityId: id,
+	}, nil
 }
 
 func (s *UserService) toProto(input *core.User) *user.User {

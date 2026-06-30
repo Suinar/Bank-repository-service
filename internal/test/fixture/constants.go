@@ -3,7 +3,8 @@
 const (
 	TestId int64 = 1
 
-	TestName = "Test"
+	TestName       = "Test"
+	TestUpdateName = "TestUpdate"
 
 	TestAmount       int64 = 100_000
 	TestUpdateAmount int64 = 200_000
@@ -26,11 +27,11 @@ const (
 
 	TestTermMonths = 24
 
-	TestISOCode            = "USD"
+	TestIsoCode            = "USD"
 	TestCurrencyName       = "US Dollar"
 	TestSymbol             = "$"
 	TestMinorUnits         = 2
-	TestUpdateISOCode      = "EUR"
+	TestUpdateIsoCode      = "EUR"
 	TestUpdateCurrencyName = "Euro"
 	TestUpdateSymbol       = "€"
 	TestUpdateMinorUnits   = 3

@@ -16,5 +16,5 @@ type IUserService interface {
 	Create(ctx context.Context, req *user.User) (*user.User, error)
 	ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error)
 	Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error)
-	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
+	Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error)
 }
