@@ -189,24 +189,21 @@ func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserU
 	return &updated, nil
 }
 
-func (r *UserRepository) Delete(ctx context.Context, id int64) error {
+func (r *UserRepository) Delete(ctx context.Context, id int64) (int64, error) {
 	query := `
 DELETE FROM users 
-WHERE id = $1`
+WHERE id = $1
+RETURNING id`
 
-	result, err := r.db.ExecContext(ctx, query, id)
+	var userId int64
+
+	err := r.db.QueryRowContext(ctx, query, id).Scan(&userId)
 	if err != nil {
-		return errror.InternalServerError
+		if errors.Is(err, sql.ErrNoRows) {
+			return 0, errror.NotFound
+		}
+		return 0, errror.InternalServerError
 	}
 
-	rowsAffected, err := result.RowsAffected()
-	if err != nil {
-		return errror.InternalServerError
-	}
-
-	if rowsAffected == 0 {
-		return errror.NotFound
-	}
-
-	return nil
+	return userId, nil
 }

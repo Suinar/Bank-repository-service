@@ -41,7 +41,7 @@ func NewCurrencyUpdateInput() *currency.CurrencyUpdateInput {
 	return &currency.CurrencyUpdateInput{
 		Name:       String(TestUpdateCurrencyName),
 		Symbol:     String(TestUpdateSymbol),
-		IsoCode:    String(TestUpdateISOCode),
+		IsoCode:    String(TestUpdateIsoCode),
 		MinorUnits: Int32(TestUpdateMinorUnits),
 	}
 }
