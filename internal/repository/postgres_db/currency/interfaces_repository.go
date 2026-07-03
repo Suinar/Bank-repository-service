@@ -14,5 +14,5 @@ type ICurrencyRepository interface {
 	GetBySymbol(ctx context.Context, symbol rune) (*core.Currency, error)
 	Create(ctx context.Context, input *core.Currency) (*core.Currency, error)
 	Update(ctx context.Context, id int64, input *core.CurrencyUpdateInput) (*core.Currency, error)
-	Delete(ctx context.Context, id int64) error
+	Delete(ctx context.Context, id int64) (int64, error)
 }

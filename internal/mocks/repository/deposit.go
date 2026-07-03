@@ -111,7 +111,7 @@ func (mr *MockIDepositRepositoryMockRecorder) GetByUser(ctx, idUser interface{})
 }
 
 // Replenish mocks base method.
-func (m *MockIDepositRepository) Replenish(ctx context.Context, id int64, amount int) (*core.Deposit, error) {
+func (m *MockIDepositRepository) Replenish(ctx context.Context, id, amount int64) (*core.Deposit, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Replenish", ctx, id, amount)
 	ret0, _ := ret[0].(*core.Deposit)

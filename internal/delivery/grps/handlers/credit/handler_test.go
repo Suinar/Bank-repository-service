@@ -2,7 +2,7 @@
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
-	fixture "Bank-repository-service/internal/test/fixture"
+	"Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	"context"
 	"testing"
@@ -17,9 +17,9 @@ func TestCreditHandler_GetAll_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmpty()
+	req := fixture.NewEmptyProto()
 
-	expected := fixture.NewCreditList()
+	expected := fixture.NewCreditListProto()
 
 	service.
 		EXPECT().
@@ -39,7 +39,7 @@ func TestCreditHandler_GetAll_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmpty()
+	req := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().
@@ -61,9 +61,9 @@ func TestCreditHandler_GetByUser_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUserIdRequest()
+	req := fixture.NewUserIdRequestProto()
 
-	expected := fixture.NewCreditList()
+	expected := fixture.NewCreditListProto()
 
 	service.
 		EXPECT().
@@ -83,7 +83,7 @@ func TestCreditHandler_GetByUser_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUserIdRequest()
+	req := fixture.NewUserIdRequestProto()
 
 	service.
 		EXPECT().
@@ -105,9 +105,9 @@ func TestCreditHandler_GetById_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewCredit()
+	expected := fixture.NewCreditProto()
 
 	service.
 		EXPECT().
@@ -127,7 +127,7 @@ func TestCreditHandler_GetById_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
 	service.
 		EXPECT().
@@ -149,9 +149,9 @@ func TestCreditHandler_Create_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewCredit()
+	req := fixture.NewCreditProto()
 
-	expected := fixture.NewCredit()
+	expected := fixture.NewCreditProto()
 
 	service.
 		EXPECT().
@@ -171,7 +171,7 @@ func TestCreditHandler_Create_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewCredit()
+	req := fixture.NewCreditProto()
 
 	service.
 		EXPECT().
@@ -193,9 +193,9 @@ func TestCreditHandler_Repay_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewAmountRequest(fixture.TestAmount)
+	req := fixture.NewAmountRequestProto(fixture.TestAmount)
 
-	expected := fixture.NewCredit()
+	expected := fixture.NewCreditProto()
 
 	service.
 		EXPECT().
@@ -215,7 +215,7 @@ func TestCreditHandler_Repay_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewAmountRequest(fixture.TestAmount)
+	req := fixture.NewAmountRequestProto(fixture.TestAmount)
 
 	service.
 		EXPECT().
@@ -237,9 +237,9 @@ func TestCreditHandler_Delete_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponse()
+	expected := fixture.NewDeleteResponseProto()
 
 	service.
 		EXPECT().
@@ -259,7 +259,7 @@ func TestCreditHandler_Delete_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
 	service.
 		EXPECT().

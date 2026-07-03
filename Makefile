@@ -1,2 +1,9 @@
-﻿generate:
+﻿generate_mocks:
 	go generate ./...
+
+test:
+	go clean -testcache
+	go test -v ./...
+
+test_cover:
+	go test -cover ./...

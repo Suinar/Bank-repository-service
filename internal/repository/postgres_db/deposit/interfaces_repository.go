@@ -12,6 +12,6 @@ type IDepositRepository interface {
 	GetByUser(ctx context.Context, idUser int64) ([]core.Deposit, error)
 	GetById(ctx context.Context, id int64) (*core.Deposit, error)
 	Create(ctx context.Context, input *core.Deposit) (*core.Deposit, error)
-	Replenish(ctx context.Context, id int64, amount int) (*core.Deposit, error)
+	Replenish(ctx context.Context, id int64, amount int64) (*core.Deposit, error)
 	Delete(ctx context.Context, id int64) (int64, error)
 }

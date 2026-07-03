@@ -1,29 +1,44 @@
 ﻿package fixture
 
-import card "Bank-repository-service/proto/repository/card"
+import (
+	core "Bank-repository-service/pkg/core"
+	card "Bank-repository-service/proto/repository/card"
+)
 
-func NewCard() *card.Card {
+func NewCardCore() core.Card {
+	return core.Card{
+		Id:          TestId,
+		UserId:      TestId,
+		AccountId:   TestId,
+		Number:      TestCardNumber,
+		ExpiryMonth: TestTermMonths,
+		ExpiryYear:  30,
+		Status:      core.CardStatusActive,
+	}
+}
+
+func NewCardProto() *card.Card {
 	return &card.Card{
 		Id:          TestId,
 		UserId:      TestId,
 		AccountId:   TestId,
 		Number:      TestCardNumber,
 		ExpiryMonth: TestTermMonths,
-		ExpiryYear:  2030,
+		ExpiryYear:  30,
 		Status:      card.CardStatus_CARD_STATUS_ACTIVE,
 	}
 }
 
-func NewCardList() *card.CardList {
+func NewCardListProto() *card.CardList {
 	return &card.CardList{
 		Cards: []*card.Card{
-			NewCard(),
-			NewCard(),
+			NewCardProto(),
+			NewCardProto(),
 		},
 	}
 }
 
-func NewCardNumberRequest() *card.CardNumberRequest {
+func NewCardNumberRequestProto() *card.CardNumberRequest {
 	return &card.CardNumberRequest{
 		Number: TestCardNumber,
 	}

@@ -81,8 +81,9 @@ func (s *UserService) ChangePassword(ctx context.Context, req *user.ChangePasswo
 
 func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error) {
 	u, err := s.repo.Update(ctx, req.Id, &core.UserUpdateInput{
-		FirstName: req.Input.FirstName,
-		LastName:  req.Input.LastName,
+		FirstName:  req.Input.FirstName,
+		MiddleName: req.Input.MiddleName,
+		LastName:   req.Input.LastName,
 	})
 
 	if err != nil {
@@ -111,6 +112,7 @@ func (s *UserService) toProto(input *core.User) *user.User {
 	return &user.User{
 		Id:           input.Id,
 		FirstName:    input.FirstName,
+		MiddleName:   input.MiddleName,
 		LastName:     input.LastName,
 		Email:        input.Email,
 		PhoneNumber:  input.PhoneNumber,
@@ -126,6 +128,7 @@ func (s *UserService) fromProto(input *user.User) *core.User {
 	return &core.User{
 		Id:           input.Id,
 		FirstName:    input.FirstName,
+		MiddleName:   input.MiddleName,
 		LastName:     input.LastName,
 		Email:        input.Email,
 		PhoneNumber:  input.PhoneNumber,

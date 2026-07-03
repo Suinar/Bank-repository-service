@@ -94,7 +94,7 @@ RETURNING user_id, currency_id, amount, interest_rate, term_month, monthly_payme
 	return nil, errror.InternalServerError
 }
 
-func (r *DepositRepository) Replenish(ctx context.Context, id int64, amount int) (*core.Deposit, error) {
+func (r *DepositRepository) Replenish(ctx context.Context, id int64, amount int64) (*core.Deposit, error) {
 	query := `
 UPDATE deposits
 SET amount = amount + $2

@@ -1,8 +1,23 @@
 ﻿package fixture
 
-import credit "Bank-repository-service/proto/repository/credit"
+import (
+	core "Bank-repository-service/pkg/core"
+	credit "Bank-repository-service/proto/repository/credit"
+)
 
-func NewCredit() *credit.Credit {
+func NewCreditCore() core.Credit {
+	return core.Credit{
+		Id:             TestId,
+		UserId:         TestId,
+		Amount:         TestAmount,
+		InterestRate:   12.5,
+		TermMonths:     TestTermMonths,
+		MonthlyPayment: 4_700,
+		Status:         core.CreditStatusActive,
+	}
+}
+
+func NewCreditProto() *credit.Credit {
 	return &credit.Credit{
 		Id:             TestId,
 		UserId:         TestId,
@@ -14,11 +29,11 @@ func NewCredit() *credit.Credit {
 	}
 }
 
-func NewCreditList() *credit.CreditList {
+func NewCreditListProto() *credit.CreditList {
 	return &credit.CreditList{
 		Credits: []*credit.Credit{
-			NewCredit(),
-			NewCredit(),
+			NewCreditProto(),
+			NewCreditProto(),
 		},
 	}
 }

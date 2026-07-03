@@ -1,8 +1,23 @@
 ﻿package fixture
 
-import "Bank-repository-service/proto/repository/deposit"
+import (
+	core "Bank-repository-service/pkg/core"
+	deposit "Bank-repository-service/proto/repository/deposit"
+)
 
-func NewDeposit() *deposit.Deposit {
+func NewDepositCore() core.Deposit {
+	return core.Deposit{
+		Id:           TestId,
+		UserId:       TestId,
+		CurrencyId:   TestId,
+		Amount:       TestAmount,
+		InterestRate: 8.5,
+		TermMonths:   TestTermMonths,
+		Status:       core.DepositStatusActive,
+	}
+}
+
+func NewDepositProto() *deposit.Deposit {
 	return &deposit.Deposit{
 		Id:           TestId,
 		UserId:       TestId,
@@ -14,11 +29,11 @@ func NewDeposit() *deposit.Deposit {
 	}
 }
 
-func NewDepositList() *deposit.DepositList {
+func NewDepositListProto() *deposit.DepositList {
 	return &deposit.DepositList{
 		Deposits: []*deposit.Deposit{
-			NewDeposit(),
-			NewDeposit(),
+			NewDepositProto(),
+			NewDepositProto(),
 		},
 	}
 }

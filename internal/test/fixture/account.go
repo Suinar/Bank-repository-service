@@ -1,8 +1,28 @@
 ﻿package fixture
 
-import account "Bank-repository-service/proto/repository/account"
+import (
+	core "Bank-repository-service/pkg/core"
+	account "Bank-repository-service/proto/repository/account"
+)
 
-func NewAccount(name string) *account.Account {
+func NewAccountCore(name string) core.Account {
+	return core.Account{
+		Id:         TestId,
+		UserId:     TestId,
+		CurrencyId: TestId,
+		Name:       name,
+		Balance:    TestAmount,
+		Status:     core.AccountStatusActive,
+	}
+}
+
+func NewAccountUpdateInputCore(name string) *core.AccountUpdateInput {
+	return &core.AccountUpdateInput{
+		Name: StringPointer(name),
+	}
+}
+
+func NewAccountProto(name string) *account.Account {
 	return &account.Account{
 		Id:         TestId,
 		UserId:     TestId,
@@ -13,24 +33,24 @@ func NewAccount(name string) *account.Account {
 	}
 }
 
-func NewAccountList(nameFirst string, nameSecond string) *account.AccountList {
+func NewAccountListProto(nameFirst string, nameSecond string) *account.AccountList {
 	return &account.AccountList{
 		Accounts: []*account.Account{
-			NewAccount(nameFirst),
-			NewAccount(nameSecond),
+			NewAccountProto(nameFirst),
+			NewAccountProto(nameSecond),
 		},
 	}
 }
 
-func NewAccountUpdateInput(name string) *account.AccountUpdateInput {
+func NewUpdateAccountInputProto(name string) *account.AccountUpdateInput {
 	return &account.AccountUpdateInput{
-		Name: String(name),
+		Name: StringPointer(name),
 	}
 }
 
-func NewUpdateAccountRequest(name string) *account.UpdateAccountRequest {
+func NewUpdateAccountRequestProto(name string) *account.UpdateAccountRequest {
 	return &account.UpdateAccountRequest{
 		Id:    TestId,
-		Input: NewAccountUpdateInput(name),
+		Input: NewUpdateAccountInputProto(name),
 	}
 }
