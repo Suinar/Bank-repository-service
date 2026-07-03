@@ -26,5 +26,5 @@ type CurrencyUpdateInput struct {
 	Symbol  *rune   `json:"symbol" db:"symbol"`
 	IsoCode *string `json:"iso_code" db:"iso_code"`
 
-	MinorUnits *int `json:"minor_units" db:"minor_units"`
+	MinorUnits *int8 `json:"minor_units" db:"minor_units"`
 }

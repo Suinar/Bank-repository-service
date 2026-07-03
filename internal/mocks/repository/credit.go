@@ -111,7 +111,7 @@ func (mr *MockICreditRepositoryMockRecorder) GetByUser(ctx, idUser interface{}) 
 }
 
 // Repay mocks base method.
-func (m *MockICreditRepository) Repay(ctx context.Context, id int64, amount int) (*core.Credit, error) {
+func (m *MockICreditRepository) Repay(ctx context.Context, id, amount int64) (*core.Credit, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Repay", ctx, id, amount)
 	ret0, _ := ret[0].(*core.Credit)

@@ -70,7 +70,7 @@ func (s *DepositService) Create(ctx context.Context, req *deposit.Deposit) (*dep
 }
 
 func (s *DepositService) Replenish(ctx context.Context, req *common.AmountRequest) (*deposit.Deposit, error) {
-	d, err := s.repo.Replenish(ctx, req.Id, int(req.Amount))
+	d, err := s.repo.Replenish(ctx, req.Id, req.Amount)
 	if err != nil {
 		return nil, err
 	}

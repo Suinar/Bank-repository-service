@@ -2,7 +2,7 @@
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
-	fixture "Bank-repository-service/internal/test/fixture"
+	"Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	"context"
 	"testing"
@@ -17,9 +17,9 @@ func TestUserHandler_GetAll_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmpty()
+	req := fixture.NewEmptyProto()
 
-	expected := fixture.NewUserList(
+	expected := fixture.NewUserListProto(
 		fixture.TestFirstName, fixture.TestFirstName,
 		fixture.TestMidlName, fixture.TestMidlName,
 		fixture.TestLastName, fixture.TestLastName)
@@ -42,7 +42,7 @@ func TestUserHandler_GetAll_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmpty()
+	req := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().
@@ -64,9 +64,9 @@ func TestUserHandler_GetById_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewUser(fixture.TestName, fixture.TestEmail, fixture.TestPassword)
+	expected := fixture.NewUserProto(fixture.TestName, fixture.TestEmail, fixture.TestPassword)
 
 	service.
 		EXPECT().
@@ -86,7 +86,7 @@ func TestUserHandler_GetById_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
 	service.
 		EXPECT().
@@ -108,9 +108,9 @@ func TestUserHandler_GetByEmail_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmailRequest()
+	req := fixture.NewEmailRequestProto()
 
-	expected := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
 	service.
 		EXPECT().
@@ -130,7 +130,7 @@ func TestUserHandler_GetByEmail_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewEmailRequest()
+	req := fixture.NewEmailRequestProto()
 
 	service.
 		EXPECT().
@@ -152,9 +152,9 @@ func TestUserHandler_GetByPhoneNumber_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewPhoneNumberRequest()
+	req := fixture.NewPhoneNumberRequestProto()
 
-	expected := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
 	service.
 		EXPECT().
@@ -174,7 +174,7 @@ func TestUserHandler_GetByPhoneNumber_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewPhoneNumberRequest()
+	req := fixture.NewPhoneNumberRequestProto()
 
 	service.
 		EXPECT().
@@ -196,9 +196,9 @@ func TestUserHandler_Create_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
-	expected := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
 	service.
 		EXPECT().
@@ -218,7 +218,7 @@ func TestUserHandler_Create_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
 	service.
 		EXPECT().
@@ -240,9 +240,9 @@ func TestUserHandler_ChangePassword_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewChangePasswordRequest()
+	req := fixture.NewChangePasswordRequestProto()
 
-	expected := fixture.NewEmpty()
+	expected := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().
@@ -262,7 +262,7 @@ func TestUserHandler_ChangePassword_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewChangePasswordRequest()
+	req := fixture.NewChangePasswordRequestProto()
 
 	service.
 		EXPECT().
@@ -284,9 +284,9 @@ func TestUserHandler_Update_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateUserRequest(fixture.TestUpdateName, fixture.TestUpdateMidlName, fixture.TestUpdateLastName)
+	req := fixture.NewUpdateUserRequestProto(fixture.TestUpdateFirstName, fixture.TestUpdateMidlName, fixture.TestUpdateLastName)
 
-	expected := fixture.NewUser(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
 
 	service.
 		EXPECT().
@@ -306,7 +306,7 @@ func TestUserHandler_Update_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateUserRequest(fixture.TestUpdateName, fixture.TestUpdateMidlName, fixture.TestUpdateLastName)
+	req := fixture.NewUpdateUserRequestProto(fixture.TestUpdateFirstName, fixture.TestUpdateMidlName, fixture.TestUpdateLastName)
 
 	service.
 		EXPECT().
@@ -328,9 +328,9 @@ func TestUserHandler_Delete_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponse()
+	expected := fixture.NewDeleteResponseProto()
 
 	service.
 		EXPECT().
@@ -350,7 +350,7 @@ func TestUserHandler_Delete_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIdRequest()
+	req := fixture.NewIdRequestProto()
 
 	service.
 		EXPECT().

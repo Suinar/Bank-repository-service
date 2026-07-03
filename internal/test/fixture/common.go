@@ -1,36 +1,34 @@
 ﻿package fixture
 
-import common "Bank-repository-service/proto/repository/common"
+import (
+	common "Bank-repository-service/proto/repository/common"
+)
 
-func NewEmpty() *common.Empty {
+func NewEmptyProto() *common.Empty {
 	return &common.Empty{}
 }
 
-func NewIdRequest() *common.IdRequest {
+func NewIdRequestProto() *common.IdRequest {
 	return &common.IdRequest{
 		Id: TestId,
 	}
 }
 
-func NewUserIdRequest() *common.UserIdRequest {
+func NewUserIdRequestProto() *common.UserIdRequest {
 	return &common.UserIdRequest{
 		UserId: TestId,
 	}
 }
 
-func NewDeleteResponse() *common.DeleteResponse {
+func NewDeleteResponseProto() *common.DeleteResponse {
 	return &common.DeleteResponse{
 		EntityId: TestId,
 	}
 }
 
-func NewAmountRequest(amount int64) *common.AmountRequest {
+func NewAmountRequestProto(amount int64) *common.AmountRequest {
 	return &common.AmountRequest{
 		Id:     TestId,
 		Amount: amount,
 	}
 }
-
-func String(v string) *string { return &v }
-
-func Int32(v int32) *int32 { return &v }

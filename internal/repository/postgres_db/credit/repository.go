@@ -94,7 +94,7 @@ Returning id, user_id, currency_id, amount, interest_rate, term_month, monthly_p
 	return nil, errror.InternalServerError
 }
 
-func (r *CreditRepository) Repay(ctx context.Context, id int64, amount int) (*core.Credit, error) {
+func (r *CreditRepository) Repay(ctx context.Context, id int64, amount int64) (*core.Credit, error) {
 	query := `
 UPDATE credits
 SET amount = amount - $2

@@ -70,7 +70,7 @@ func (s *CreditService) Create(ctx context.Context, req *credit.Credit) (*credit
 }
 
 func (s *CreditService) Repay(ctx context.Context, req *common.AmountRequest) (*credit.Credit, error) {
-	c, err := s.repository.Repay(ctx, req.Id, int(req.Amount))
+	c, err := s.repository.Repay(ctx, req.Id, req.Amount)
 	if err != nil {
 		return nil, err
 	}
