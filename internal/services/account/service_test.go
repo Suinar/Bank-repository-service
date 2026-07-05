@@ -22,8 +22,8 @@ func TestAccountService_GetAll_Success(t *testing.T) {
 	req := fixture.NewEmptyProto()
 
 	expected := []core.Account{
-		fixture.NewAccountCore(fixture.TestName),
-		fixture.NewAccountCore(fixture.TestName),
+		fixture.NewAccountCore(),
+		fixture.NewAccountCore(),
 	}
 
 	repository.
@@ -71,8 +71,8 @@ func TestAccountService_GetByUser_Success(t *testing.T) {
 	req := fixture.NewUserIdRequestProto()
 
 	expected := []core.Account{
-		fixture.NewAccountCore(fixture.TestName),
-		fixture.NewAccountCore(fixture.TestName),
+		fixture.NewAccountCore(),
+		fixture.NewAccountCore(),
 	}
 
 	repository.
@@ -119,7 +119,7 @@ func TestAccountService_GetById_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
 	repository.
 		EXPECT().
@@ -159,10 +159,10 @@ func TestAccountService_Create_Success(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewAccountProto(fixture.TestName)
-	reqCore := fixture.NewAccountCore(fixture.TestName)
+	reqProto := fixture.NewAccountProto()
+	reqCore := fixture.NewAccountCore()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
 	repository.
 		EXPECT().
@@ -182,8 +182,8 @@ func TestAccountService_Create_Error(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewAccountProto(fixture.TestName)
-	reqCore := fixture.NewAccountCore(fixture.TestName)
+	reqProto := fixture.NewAccountProto()
+	reqCore := fixture.NewAccountCore()
 
 	repository.
 		EXPECT().
@@ -205,7 +205,7 @@ func TestAccountService_Blocking_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
 	repository.
 		EXPECT().
@@ -248,7 +248,7 @@ func TestAccountService_Close_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
 	repository.
 		EXPECT().
@@ -289,11 +289,11 @@ func TestAccountService_Update_Success(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateAccountRequestProto(fixture.TestName)
+	req := fixture.NewUpdateAccountRequestProto()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
-	expectedInput := fixture.NewAccountUpdateInputCore(fixture.TestName)
+	expectedInput := fixture.NewAccountUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -322,9 +322,9 @@ func TestAccountService_Update_Error(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateAccountRequestProto(fixture.TestName)
+	req := fixture.NewUpdateAccountRequestProto()
 
-	expectedInput := fixture.NewAccountUpdateInputCore(fixture.TestName)
+	expectedInput := fixture.NewAccountUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -354,7 +354,7 @@ func TestAccountService_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	repository.
 		EXPECT().
@@ -394,9 +394,9 @@ func TestAccountService_toProto_Success(t *testing.T) {
 
 	_, sut, _ := NewSUT(t)
 
-	req := fixture.NewAccountCore(fixture.TestName)
+	req := fixture.NewAccountCore()
 
-	expected := fixture.NewAccountProto(fixture.TestName)
+	expected := fixture.NewAccountProto()
 
 	result := sut.toProto(&req)
 
@@ -408,9 +408,9 @@ func TestAccountService_toCore_Success(t *testing.T) {
 
 	_, sut, _ := NewSUT(t)
 
-	req := fixture.NewAccountProto(fixture.TestName)
+	req := fixture.NewAccountProto()
 
-	expected := fixture.NewAccountCore(fixture.TestName)
+	expected := fixture.NewAccountCore()
 
 	result := sut.fromProto(req)
 

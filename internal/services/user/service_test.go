@@ -22,8 +22,8 @@ func TestUserService_GetAll_Success(t *testing.T) {
 	req := fixture.NewEmptyProto()
 
 	expected := []core.User{
-		fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName),
-		fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName),
+		fixture.NewUserCore(),
+		fixture.NewUserCore(),
 	}
 
 	repository.
@@ -70,7 +70,7 @@ func TestUserService_GetById_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
 	repository.
 		EXPECT().
@@ -112,7 +112,7 @@ func TestUserService_GetByEmail_Success(t *testing.T) {
 
 	req := fixture.NewEmailRequestProto()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
 	repository.
 		EXPECT().
@@ -154,7 +154,7 @@ func TestUserService_GetByPhoneNumber_Success(t *testing.T) {
 
 	req := fixture.NewPhoneNumberRequestProto()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
 	repository.
 		EXPECT().
@@ -194,10 +194,10 @@ func TestUserService_Create_Success(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
-	reqCore := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	reqProto := fixture.NewUserProto()
+	reqCore := fixture.NewUserCore()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
 	repository.
 		EXPECT().
@@ -217,8 +217,8 @@ func TestUserService_Create_Error(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
-	reqCore := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	reqProto := fixture.NewUserProto()
+	reqCore := fixture.NewUserCore()
 
 	repository.
 		EXPECT().
@@ -238,11 +238,11 @@ func TestUserService_Update_Success(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateUserRequestProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUpdateUserRequestProto()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
-	expectedInput := fixture.NewUserUpdateInputCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expectedInput := fixture.NewUserUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -271,9 +271,9 @@ func TestUserService_Update_Error(t *testing.T) {
 
 	repository, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateUserRequestProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUpdateUserRequestProto()
 
-	expectedInput := fixture.NewUserUpdateInputCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expectedInput := fixture.NewUserUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -303,7 +303,7 @@ func TestUserService_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	repository.
 		EXPECT().
@@ -343,9 +343,9 @@ func TestUserService_toProto_Success(t *testing.T) {
 
 	_, sut, _ := NewSUT(t)
 
-	req := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUserCore()
 
-	expected := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserProto()
 
 	result := sut.toProto(&req)
 
@@ -357,9 +357,9 @@ func TestUserService_toCore_Success(t *testing.T) {
 
 	_, sut, _ := NewSUT(t)
 
-	req := fixture.NewUserProto(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	req := fixture.NewUserProto()
 
-	expected := fixture.NewUserCore(fixture.TestFirstName, fixture.TestMidlName, fixture.TestLastName)
+	expected := fixture.NewUserCore()
 
 	result := sut.fromProto(req)
 

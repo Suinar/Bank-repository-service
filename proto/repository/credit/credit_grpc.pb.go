@@ -37,7 +37,7 @@ type CreditRepositoryClient interface {
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Credit, error)
 	Create(ctx context.Context, in *Credit, opts ...grpc.CallOption) (*Credit, error)
 	Repay(ctx context.Context, in *common.AmountRequest, opts ...grpc.CallOption) (*Credit, error)
-	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
 
 type creditRepositoryClient struct {
@@ -98,9 +98,9 @@ func (c *creditRepositoryClient) Repay(ctx context.Context, in *common.AmountReq
 	return out, nil
 }
 
-func (c *creditRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error) {
+func (c *creditRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.DeleteResponse)
+	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, CreditRepository_Delete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -117,7 +117,7 @@ type CreditRepositoryServer interface {
 	GetById(context.Context, *common.IdRequest) (*Credit, error)
 	Create(context.Context, *Credit) (*Credit, error)
 	Repay(context.Context, *common.AmountRequest) (*Credit, error)
-	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedCreditRepositoryServer()
 }
 
@@ -143,7 +143,7 @@ func (UnimplementedCreditRepositoryServer) Create(context.Context, *Credit) (*Cr
 func (UnimplementedCreditRepositoryServer) Repay(context.Context, *common.AmountRequest) (*Credit, error) {
 	return nil, status.Error(codes.Unimplemented, "method Repay not implemented")
 }
-func (UnimplementedCreditRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
+func (UnimplementedCreditRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedCreditRepositoryServer) mustEmbedUnimplementedCreditRepositoryServer() {}

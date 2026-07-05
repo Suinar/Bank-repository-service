@@ -2,15 +2,15 @@
 
 import (
 	"Bank-repository-service/internal/configs"
-	"fmt"
+	"log"
 
 	"github.com/jmoiron/sqlx"
 )
 
-func NewPostgres(cfg *configs.Config) (*sqlx.DB, error) {
-	db, err := sqlx.Connect("pgx", cfg.Postgres.DbUrl)
+func NewPostgresDB(cfg *configs.Config) *sqlx.DB {
+	db, err := sqlx.Connect("pgx", cfg.Postgres.DBUrl)
 	if err != nil {
-		return nil, fmt.Errorf("connect postgres: %w", err)
+		log.Fatal(err)
 	}
 
 	db.SetMaxOpenConns(cfg.Postgres.MaxOpenConns)
@@ -18,8 +18,8 @@ func NewPostgres(cfg *configs.Config) (*sqlx.DB, error) {
 
 	if err := db.Ping(); err != nil {
 		db.Close()
-		return nil, fmt.Errorf("ping postgres: %w", err)
+		log.Fatal(err)
 	}
 
-	return db, nil
+	return db
 }

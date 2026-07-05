@@ -39,7 +39,7 @@ type CardRepositoryClient interface {
 	GetByNumber(ctx context.Context, in *CardNumberRequest, opts ...grpc.CallOption) (*Card, error)
 	Blocking(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Card, error)
 	Create(ctx context.Context, in *Card, opts ...grpc.CallOption) (*Card, error)
-	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
 
 type cardRepositoryClient struct {
@@ -110,9 +110,9 @@ func (c *cardRepositoryClient) Create(ctx context.Context, in *Card, opts ...grp
 	return out, nil
 }
 
-func (c *cardRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error) {
+func (c *cardRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.DeleteResponse)
+	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, CardRepository_Delete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -130,7 +130,7 @@ type CardRepositoryServer interface {
 	GetByNumber(context.Context, *CardNumberRequest) (*Card, error)
 	Blocking(context.Context, *common.IdRequest) (*Card, error)
 	Create(context.Context, *Card) (*Card, error)
-	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedCardRepositoryServer()
 }
 
@@ -159,7 +159,7 @@ func (UnimplementedCardRepositoryServer) Blocking(context.Context, *common.IdReq
 func (UnimplementedCardRepositoryServer) Create(context.Context, *Card) (*Card, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedCardRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
+func (UnimplementedCardRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedCardRepositoryServer) mustEmbedUnimplementedCardRepositoryServer() {}

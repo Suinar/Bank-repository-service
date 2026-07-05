@@ -37,7 +37,7 @@ type DepositRepositoryClient interface {
 	GetById(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Deposit, error)
 	Create(ctx context.Context, in *Deposit, opts ...grpc.CallOption) (*Deposit, error)
 	Replenish(ctx context.Context, in *common.AmountRequest, opts ...grpc.CallOption) (*Deposit, error)
-	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
 
 type depositRepositoryClient struct {
@@ -98,9 +98,9 @@ func (c *depositRepositoryClient) Replenish(ctx context.Context, in *common.Amou
 	return out, nil
 }
 
-func (c *depositRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error) {
+func (c *depositRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.DeleteResponse)
+	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, DepositRepository_Delete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -117,7 +117,7 @@ type DepositRepositoryServer interface {
 	GetById(context.Context, *common.IdRequest) (*Deposit, error)
 	Create(context.Context, *Deposit) (*Deposit, error)
 	Replenish(context.Context, *common.AmountRequest) (*Deposit, error)
-	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedDepositRepositoryServer()
 }
 
@@ -143,7 +143,7 @@ func (UnimplementedDepositRepositoryServer) Create(context.Context, *Deposit) (*
 func (UnimplementedDepositRepositoryServer) Replenish(context.Context, *common.AmountRequest) (*Deposit, error) {
 	return nil, status.Error(codes.Unimplemented, "method Replenish not implemented")
 }
-func (UnimplementedDepositRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
+func (UnimplementedDepositRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedDepositRepositoryServer) mustEmbedUnimplementedDepositRepositoryServer() {}

@@ -14,5 +14,5 @@ type ICreditService interface {
 	GetById(ctx context.Context, req *common.IdRequest) (*credit.Credit, error)
 	Create(ctx context.Context, req *credit.Credit) (*credit.Credit, error)
 	Repay(ctx context.Context, req *common.AmountRequest) (*credit.Credit, error)
-	Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }

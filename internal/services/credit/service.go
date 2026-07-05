@@ -78,13 +78,13 @@ func (s *CreditService) Repay(ctx context.Context, req *common.AmountRequest) (*
 	return s.toProto(c), nil
 }
 
-func (s *CreditService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	entityId, err := s.repository.Delete(ctx, req.Id)
+func (s *CreditService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{EntityId: entityId}, nil
+	return &common.Empty{}, nil
 }
 
 func (s *CreditService) toProto(input *core.Credit) *credit.Credit {

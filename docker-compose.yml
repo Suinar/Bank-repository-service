@@ -1,10 +1,8 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16
     container_name: bank_core_db
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -12,29 +10,48 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/fixture
+      - postgres_data:/var/lib/postgresql/data
       - ./migration/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - bank_net
 
   redis:
     image: redis:7-alpine
     container_name: bank_redis
-    restart: always
+    restart: unless-stopped
     ports:
       - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - bank_net
 
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: bank_repository_service
-    restart: always
+    restart: unless-stopped
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_NAME: bank_repository
+      DB_NAME: bank
 
       REDIS_ADDR: redis:6379
       REDIS_PASSWORD: ""
@@ -43,6 +60,12 @@ services:
       API_PORT: 8080
     ports:
       - "8080:8080"
+    networks:
+      - bank_net
 
 volumes:
   postgres_data:
+
+networks:
+  bank_net:
+    driver: bridge

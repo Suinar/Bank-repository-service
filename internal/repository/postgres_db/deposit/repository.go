@@ -116,23 +116,26 @@ RETURNING id, user_id, currency_id, amount, interest_rate, term_month, status`
 	return &deposit, nil
 }
 
-func (r *DepositRepository) Delete(ctx context.Context, id int64) (int64, error) {
+func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM deposits
 	WHERE id = $1
 	RETURNING user_id
 	`
 
-	var userId int64
-
-	err := r.db.QueryRowContext(ctx, query, id).Scan(&userId)
+	result, err := r.db.ExecContext(ctx, query, id)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return 0, errror.NotFound
-		}
-
-		return 0, errror.InternalServerError
+		return errror.InternalServerError
 	}
 
-	return userId, nil
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return errror.InternalServerError
+	}
+
+	if rowsAffected == 0 {
+		return errror.NotFound
+	}
+
+	return nil
 }

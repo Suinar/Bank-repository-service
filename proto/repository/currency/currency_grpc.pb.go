@@ -39,7 +39,7 @@ type CurrencyRepositoryClient interface {
 	GetBySymbol(ctx context.Context, in *SymbolRequest, opts ...grpc.CallOption) (*Currency, error)
 	Create(ctx context.Context, in *Currency, opts ...grpc.CallOption) (*Currency, error)
 	Update(ctx context.Context, in *UpdateCurrencyRequest, opts ...grpc.CallOption) (*Currency, error)
-	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
 
 type currencyRepositoryClient struct {
@@ -110,9 +110,9 @@ func (c *currencyRepositoryClient) Update(ctx context.Context, in *UpdateCurrenc
 	return out, nil
 }
 
-func (c *currencyRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error) {
+func (c *currencyRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.DeleteResponse)
+	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, CurrencyRepository_Delete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -130,7 +130,7 @@ type CurrencyRepositoryServer interface {
 	GetBySymbol(context.Context, *SymbolRequest) (*Currency, error)
 	Create(context.Context, *Currency) (*Currency, error)
 	Update(context.Context, *UpdateCurrencyRequest) (*Currency, error)
-	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedCurrencyRepositoryServer()
 }
 
@@ -159,7 +159,7 @@ func (UnimplementedCurrencyRepositoryServer) Create(context.Context, *Currency) 
 func (UnimplementedCurrencyRepositoryServer) Update(context.Context, *UpdateCurrencyRequest) (*Currency, error) {
 	return nil, status.Error(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedCurrencyRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
+func (UnimplementedCurrencyRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedCurrencyRepositoryServer) mustEmbedUnimplementedCurrencyRepositoryServer() {}

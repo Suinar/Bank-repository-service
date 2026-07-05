@@ -1,11 +1,17 @@
 ﻿package cache
 
-import currency "Bank-repository-service/internal/repository/cache/currency"
+import (
+	currency "Bank-repository-service/internal/repository/cache/currency"
+
+	"github.com/redis/go-redis/v9"
+)
 
 type Caches struct {
-	currency currency.ICurrencyCache
+	Currency currency.ICurrencyCache
 }
 
-func InitCaches(currency currency.ICurrencyCache) *Caches {
-	return &Caches{currency: currency}
+func InitCaches(rdb *redis.Client) *Caches {
+	return &Caches{
+		Currency: currency.NewCurrencyCache(rdb),
+	}
 }

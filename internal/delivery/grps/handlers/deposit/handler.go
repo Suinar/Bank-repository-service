@@ -37,6 +37,6 @@ func (h *DepositHandler) Replenish(ctx context.Context, req *common.AmountReques
 	return h.service.Replenish(ctx, req)
 }
 
-func (h *DepositHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (h *DepositHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }

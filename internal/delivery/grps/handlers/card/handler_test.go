@@ -283,7 +283,7 @@ func TestCardHandler_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().

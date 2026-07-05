@@ -16,5 +16,5 @@ type IAccountService interface {
 	Blocking(ctx context.Context, req *common.IdRequest) (*account.Account, error)
 	Close(ctx context.Context, req *common.IdRequest) (*account.Account, error)
 	Update(ctx context.Context, req *account.UpdateAccountRequest) (*account.Account, error)
-	Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }

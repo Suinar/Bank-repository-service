@@ -1,4 +1,20 @@
-﻿FROM ubuntu:latest
-LABEL authors="suinar"
+﻿FROM golang:1.25-alpine AS builder
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN go build -o app ./cmd/api
+
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/app .
+
+EXPOSE 8080
+
+CMD ["./app"]

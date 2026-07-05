@@ -5,72 +5,68 @@ import (
 	currency "Bank-repository-service/proto/repository/currency"
 )
 
-func NewCurrencyCore(isoCode string, name string, symbol rune, minorUnits int8) core.Currency {
+func NewCurrencyCore() core.Currency {
 	return core.Currency{
 		Id:         TestId,
-		IsoCode:    isoCode,
-		Name:       name,
-		Symbol:     symbol,
-		MinorUnits: minorUnits,
+		IsoCode:    TestIsoCode,
+		Name:       TestName,
+		Symbol:     TestSymbolRune,
+		MinorUnits: TestMinorUnitsInt8,
 	}
 }
 
-func NewCurrencyUpdateInputCore(isoCode string, name string, symbol rune, minorUnits int8) *core.CurrencyUpdateInput {
+func NewCurrencyUpdateInputCore() *core.CurrencyUpdateInput {
 	return &core.CurrencyUpdateInput{
-		Name:       StringPointer(name),
-		Symbol:     RunePointer(symbol),
-		IsoCode:    StringPointer(isoCode),
-		MinorUnits: Int8Pointer(minorUnits),
+		Name:       StringPointer(TestCurrencyName),
+		Symbol:     RunePointer(TestSymbolRune),
+		IsoCode:    StringPointer(TestIsoCode),
+		MinorUnits: Int8Pointer(TestMinorUnitsInt8),
 	}
 }
 
-func NewCurrencyProto(isoCode string, name string, symbol string, minorUnits int32) *currency.Currency {
+func NewCurrencyProto() *currency.Currency {
 	return &currency.Currency{
 		Id:         TestId,
-		IsoCode:    isoCode,
-		Name:       name,
-		Symbol:     symbol,
-		MinorUnits: minorUnits,
+		IsoCode:    TestIsoCode,
+		Name:       TestName,
+		Symbol:     TestSymbolString,
+		MinorUnits: TestMinorUnitsInt32,
 	}
 }
 
-func NewCurrencyListProto(
-	isoCodeFirst string, isoCodeSecond string,
-	nameFirst string, nameSecond string,
-	symbolFirst string, symbolSecond string,
-	minorUnitsFirst int32, minorUnitsSecond int32) *currency.CurrencyList {
+func NewCurrencyListProto() *currency.CurrencyList {
 	return &currency.CurrencyList{
 		Currencies: []*currency.Currency{
-			NewCurrencyProto(isoCodeFirst, nameFirst, symbolFirst, minorUnitsFirst),
-			NewCurrencyProto(isoCodeSecond, nameSecond, symbolSecond, minorUnitsSecond),
+			NewCurrencyProto(),
+			NewCurrencyProto(),
 		},
 	}
 }
 
-func NewIsoCodeRequestProto(iso string) *currency.IsoCodeRequest {
+func NewIsoCodeRequestProto() *currency.IsoCodeRequest {
 	return &currency.IsoCodeRequest{
-		IsoCode: iso,
+		IsoCode: TestIsoCode,
 	}
 }
 
-func NewSymbolRequestProto(symbol string) *currency.SymbolRequest {
+func NewSymbolRequestProto() *currency.SymbolRequest {
 	return &currency.SymbolRequest{
-		Symbol: symbol,
+		Symbol: TestSymbolString,
 	}
 }
 
-func NewCurrencyUpdateInputProto(isoCode string, name string, symbol string, minorUnits int32) *currency.CurrencyUpdateInput {
+func NewCurrencyUpdateInputProto() *currency.CurrencyUpdateInput {
 	return &currency.CurrencyUpdateInput{
-		Name:       StringPointer(name),
-		Symbol:     StringPointer(symbol),
-		IsoCode:    StringPointer(isoCode),
-		MinorUnits: Int32Pointer(minorUnits),
+		Name:       StringPointer(TestCurrencyName),
+		Symbol:     StringPointer(TestSymbolString),
+		IsoCode:    StringPointer(TestIsoCode),
+		MinorUnits: Int32Pointer(TestMinorUnitsInt32),
 	}
 }
 
-func NewUpdateCurrencyRequestProto(isoCode string, name string, symbol string, minorUnits int32) *currency.UpdateCurrencyRequest {
+func NewUpdateCurrencyRequestProto() *currency.UpdateCurrencyRequest {
 	return &currency.UpdateCurrencyRequest{
 		Id:    1,
-		Input: NewCurrencyUpdateInputProto(isoCode, name, symbol, minorUnits),
+		Input: NewCurrencyUpdateInputProto(),
 	}
 }

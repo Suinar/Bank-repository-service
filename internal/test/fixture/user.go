@@ -5,46 +5,43 @@ import (
 	user "Bank-repository-service/proto/repository/user"
 )
 
-func NewUserCore(firstName string, mildName string, lastName string) core.User {
+func NewUserCore() core.User {
 	return core.User{
 		Id:           TestId,
-		FirstName:    firstName,
-		MiddleName:   StringPointer(mildName),
-		LastName:     lastName,
+		FirstName:    TestFirstName,
+		MiddleName:   StringPointer(TestMidlName),
+		LastName:     TestLastName,
 		Email:        TestEmail,
 		PhoneNumber:  TestPhoneNumber,
 		PasswordHash: TestPasswordHash,
 	}
 }
 
-func NewUserProto(firstName string, mildName string, lastName string) *user.User {
+func NewUserProto() *user.User {
 	return &user.User{
 		Id:           TestId,
-		FirstName:    firstName,
-		MiddleName:   StringPointer(mildName),
-		LastName:     lastName,
+		FirstName:    TestFirstName,
+		MiddleName:   StringPointer(TestMidlName),
+		LastName:     TestLastName,
 		Email:        TestEmail,
 		PhoneNumber:  TestPhoneNumber,
 		PasswordHash: TestPasswordHash,
 	}
 }
 
-func NewUserUpdateInputCore(firstName string, mildName string, lastName string) *core.UserUpdateInput {
+func NewUserUpdateInputCore() *core.UserUpdateInput {
 	return &core.UserUpdateInput{
-		FirstName:  StringPointer(firstName),
-		MiddleName: StringPointer(mildName),
-		LastName:   StringPointer(lastName),
+		FirstName:  StringPointer(TestFirstName),
+		MiddleName: StringPointer(TestMidlName),
+		LastName:   StringPointer(TestLastName),
 	}
 }
 
-func NewUserListProto(
-	firstNameFirst string, firstNameSecond string,
-	mildNameFirst string, mildNameSecond string,
-	lastNameFirst string, lastNameSecond string) *user.UserList {
+func NewUserListProto() *user.UserList {
 	return &user.UserList{
 		Users: []*user.User{
-			NewUserProto(firstNameFirst, mildNameFirst, lastNameFirst),
-			NewUserProto(firstNameSecond, mildNameSecond, lastNameSecond),
+			NewUserProto(),
+			NewUserProto(),
 		},
 	}
 }
@@ -68,17 +65,17 @@ func NewChangePasswordRequestProto() *user.ChangePasswordRequest {
 	}
 }
 
-func NewUserUpdateInputProto(firstName string, mildName string, lastName string) *user.UserUpdateInput {
+func NewUserUpdateInputProto() *user.UserUpdateInput {
 	return &user.UserUpdateInput{
-		FirstName:  StringPointer(firstName),
-		MiddleName: StringPointer(mildName),
-		LastName:   StringPointer(lastName),
+		FirstName:  StringPointer(TestFirstName),
+		MiddleName: StringPointer(TestMidlName),
+		LastName:   StringPointer(TestLastName),
 	}
 }
 
-func NewUpdateUserRequestProto(firstName string, mildName string, lastName string) *user.UpdateUserRequest {
+func NewUpdateUserRequestProto() *user.UpdateUserRequest {
 	return &user.UpdateUserRequest{
 		Id:    1,
-		Input: NewUserUpdateInputProto(firstName, mildName, lastName),
+		Input: NewUserUpdateInputProto(),
 	}
 }

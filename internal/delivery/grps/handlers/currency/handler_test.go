@@ -19,11 +19,7 @@ func TestCurrencyHandler_GetAll_Success(t *testing.T) {
 
 	req := fixture.NewEmptyProto()
 
-	expected := fixture.NewCurrencyListProto(
-		fixture.TestIsoCode, fixture.TestIsoCode,
-		fixture.TestCurrencyName, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestSymbolString,
-		fixture.TestMinorUnitsInt32, fixture.TestUpdateMinorUnitsInt32)
+	expected := fixture.NewCurrencyListProto()
 
 	service.
 		EXPECT().
@@ -67,8 +63,7 @@ func TestCurrencyHandler_GetById_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	expected := fixture.NewCurrencyProto()
 
 	service.
 		EXPECT().
@@ -110,10 +105,9 @@ func TestCurrencyHandler_GetByIso_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIsoCodeRequestProto(fixture.TestIsoCode)
+	req := fixture.NewIsoCodeRequestProto()
 
-	expected := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	expected := fixture.NewCurrencyProto()
 
 	service.
 		EXPECT().
@@ -133,7 +127,7 @@ func TestCurrencyHandler_GetByIso_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIsoCodeRequestProto(fixture.TestIsoCode)
+	req := fixture.NewIsoCodeRequestProto()
 
 	service.
 		EXPECT().
@@ -155,11 +149,9 @@ func TestCurrencyHandler_Create_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	req := fixture.NewCurrencyProto()
 
-	expected := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	expected := fixture.NewCurrencyProto()
 
 	service.
 		EXPECT().
@@ -179,8 +171,7 @@ func TestCurrencyHandler_Create_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName,
-		fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	req := fixture.NewCurrencyProto()
 
 	service.
 		EXPECT().
@@ -204,8 +195,7 @@ func TestCurrencyHandler_Update_Success(t *testing.T) {
 
 	req := fixture.NewUpdateCurrencyRequestProto()
 
-	expected := fixture.NewCurrencyProto(fixture.TestUpdateIsoCode, fixture.TestUpdateCurrencyName,
-		fixture.TestUpdateSymbolString, fixture.TestUpdateMinorUnitsInt32)
+	expected := fixture.NewCurrencyProto()
 
 	service.
 		EXPECT().
@@ -249,7 +239,7 @@ func TestCurrencyHandler_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().

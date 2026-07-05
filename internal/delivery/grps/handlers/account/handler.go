@@ -45,6 +45,6 @@ func (h *AccountHandler) Update(ctx context.Context, req *account.UpdateAccountR
 	return h.service.Update(ctx, req)
 }
 
-func (h *AccountHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (h *AccountHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }

@@ -67,10 +67,10 @@ func (mr *MockIUserServiceMockRecorder) Create(ctx, req interface{}) *gomock.Cal
 }
 
 // Delete mocks base method.
-func (m *MockIUserService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (m *MockIUserService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", ctx, req)
-	ret0, _ := ret[0].(*common.DeleteResponse)
+	ret0, _ := ret[0].(*common.Empty)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
