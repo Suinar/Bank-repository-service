@@ -41,6 +41,6 @@ func (h *CardHandler) Create(ctx context.Context, req *card.Card) (*card.Card, e
 	return h.service.Create(ctx, req)
 }
 
-func (h *CardHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (h *CardHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }

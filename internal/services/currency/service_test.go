@@ -24,8 +24,8 @@ func TestCurrencyService_GetAll_Success(t *testing.T) {
 	req := fixture.NewEmptyProto()
 
 	expected := []core.Currency{
-		fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8),
-		fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8),
+		fixture.NewCurrencyCore(),
+		fixture.NewCurrencyCore(),
 	}
 
 	cache.
@@ -86,7 +86,7 @@ func TestCurrencyService_GetById_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expected := fixture.NewCurrencyCore()
 
 	cache.
 		EXPECT().
@@ -140,9 +140,9 @@ func TestCurrencyService_GetByIso_Success(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIsoCodeRequestProto(fixture.TestIsoCode)
+	req := fixture.NewIsoCodeRequestProto()
 
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expected := fixture.NewCurrencyCore()
 
 	cache.
 		EXPECT().
@@ -172,7 +172,7 @@ func TestCurrencyService_GetByIso_Error(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	req := fixture.NewIsoCodeRequestProto(fixture.TestIsoCode)
+	req := fixture.NewIsoCodeRequestProto()
 
 	cache.
 		EXPECT().
@@ -197,8 +197,8 @@ func TestCurrencyService_GetBySymbol_Success(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	req := fixture.NewSymbolRequestProto(fixture.TestSymbolString)
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	req := fixture.NewSymbolRequestProto()
+	expected := fixture.NewCurrencyCore()
 
 	cache.
 		EXPECT().
@@ -229,7 +229,7 @@ func TestCurrencyService_GetBySymbol_Error(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	req := fixture.NewSymbolRequestProto(fixture.TestSymbolString)
+	req := fixture.NewSymbolRequestProto()
 
 	cache.
 		EXPECT().
@@ -255,10 +255,10 @@ func TestCurrencyService_Create_Success(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
-	reqCore := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	reqProto := fixture.NewCurrencyProto()
+	reqCore := fixture.NewCurrencyCore()
 
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expected := fixture.NewCurrencyCore()
 
 	repository.
 		EXPECT().
@@ -283,8 +283,8 @@ func TestCurrencyService_Create_Error(t *testing.T) {
 
 	repository, _, sut, ctx := NewSUT(t)
 
-	reqProto := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
-	reqCore := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	reqProto := fixture.NewCurrencyProto()
+	reqCore := fixture.NewCurrencyCore()
 
 	repository.
 		EXPECT().
@@ -304,11 +304,11 @@ func TestCurrencyService_Update_Success(t *testing.T) {
 
 	repository, cache, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateCurrencyRequestProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	req := fixture.NewUpdateCurrencyRequestProto()
 
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expected := fixture.NewCurrencyCore()
 
-	expectedInput := fixture.NewCurrencyUpdateInputCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expectedInput := fixture.NewCurrencyUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -342,9 +342,9 @@ func TestCurrencyService_Update_Error(t *testing.T) {
 
 	repository, _, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateCurrencyRequestProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	req := fixture.NewUpdateCurrencyRequestProto()
 
-	expectedInput := fixture.NewCurrencyUpdateInputCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expectedInput := fixture.NewCurrencyUpdateInputCore()
 
 	repository.
 		EXPECT().
@@ -374,7 +374,7 @@ func TestCurrencyService_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	repository.
 		EXPECT().
@@ -419,9 +419,9 @@ func TestCurrencyService_toProto(t *testing.T) {
 
 	_, _, sut, _ := NewSUT(t)
 
-	req := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	req := fixture.NewCurrencyCore()
 
-	expected := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	expected := fixture.NewCurrencyProto()
 
 	result := sut.toProto(&req)
 
@@ -433,9 +433,9 @@ func TestCurrencyService_toCore(t *testing.T) {
 
 	_, _, sut, _ := NewSUT(t)
 
-	req := fixture.NewCurrencyProto(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolString, fixture.TestMinorUnitsInt32)
+	req := fixture.NewCurrencyProto()
 
-	expected := fixture.NewCurrencyCore(fixture.TestIsoCode, fixture.TestCurrencyName, fixture.TestSymbolRune, fixture.TestMinorUnitsInt8)
+	expected := fixture.NewCurrencyCore()
 
 	result := sut.fromProto(req)
 

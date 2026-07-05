@@ -17,9 +17,7 @@ type CurrencyService struct {
 	cache      cache.ICurrencyCache
 }
 
-func NewCurrencyService(repository repository.ICurrencyRepository,
-	cache cache.ICurrencyCache,
-) *CurrencyService {
+func NewCurrencyService(repository repository.ICurrencyRepository, cache cache.ICurrencyCache) *CurrencyService {
 	return &CurrencyService{
 		repository: repository,
 		cache:      cache,
@@ -132,8 +130,8 @@ func (s *CurrencyService) Update(ctx context.Context, req *currency.UpdateCurren
 	return s.toProto(currency), nil
 }
 
-func (s *CurrencyService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	id, err := s.repository.Delete(ctx, req.Id)
+func (s *CurrencyService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -143,9 +141,7 @@ func (s *CurrencyService) Delete(ctx context.Context, req *common.IdRequest) (*c
 		return nil, err
 	}
 
-	return &common.DeleteResponse{
-		EntityId: id,
-	}, nil
+	return &common.Empty{}, nil
 }
 
 func (s *CurrencyService) toProto(input *core.Currency) *currency.Currency {

@@ -5,52 +5,52 @@ import (
 	account "Bank-repository-service/proto/repository/account"
 )
 
-func NewAccountCore(name string) core.Account {
+func NewAccountCore() core.Account {
 	return core.Account{
 		Id:         TestId,
 		UserId:     TestId,
 		CurrencyId: TestId,
-		Name:       name,
+		Name:       TestName,
 		Balance:    TestAmount,
 		Status:     core.AccountStatusActive,
 	}
 }
 
-func NewAccountUpdateInputCore(name string) *core.AccountUpdateInput {
+func NewAccountUpdateInputCore() *core.AccountUpdateInput {
 	return &core.AccountUpdateInput{
-		Name: StringPointer(name),
+		Name: StringPointer(TestName),
 	}
 }
 
-func NewAccountProto(name string) *account.Account {
+func NewAccountProto() *account.Account {
 	return &account.Account{
 		Id:         TestId,
 		UserId:     TestId,
 		CurrencyId: TestId,
-		Name:       name,
+		Name:       TestName,
 		Balance:    TestAmount,
 		Status:     account.AccountStatus_ACCOUNT_STATUS_ACTIVE,
 	}
 }
 
-func NewAccountListProto(nameFirst string, nameSecond string) *account.AccountList {
+func NewAccountListProto() *account.AccountList {
 	return &account.AccountList{
 		Accounts: []*account.Account{
-			NewAccountProto(nameFirst),
-			NewAccountProto(nameSecond),
+			NewAccountProto(),
+			NewAccountProto(),
 		},
 	}
 }
 
-func NewUpdateAccountInputProto(name string) *account.AccountUpdateInput {
+func NewUpdateAccountInputProto() *account.AccountUpdateInput {
 	return &account.AccountUpdateInput{
-		Name: StringPointer(name),
+		Name: StringPointer(TestName),
 	}
 }
 
-func NewUpdateAccountRequestProto(name string) *account.UpdateAccountRequest {
+func NewUpdateAccountRequestProto() *account.UpdateAccountRequest {
 	return &account.UpdateAccountRequest{
 		Id:    TestId,
-		Input: NewUpdateAccountInputProto(name),
+		Input: NewUpdateAccountInputProto(),
 	}
 }

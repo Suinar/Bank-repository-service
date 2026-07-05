@@ -15,5 +15,5 @@ type ICardService interface {
 	GetByNumber(ctx context.Context, req *card.CardNumberRequest) (*card.Card, error)
 	Blocking(ctx context.Context, req *common.IdRequest) (*card.Card, error)
 	Create(ctx context.Context, req *card.Card) (*card.Card, error)
-	Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }

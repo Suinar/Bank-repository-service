@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/reposit/card.go -package=mocks
+//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/repository/card.go -package=mocks
 
 type ICardRepository interface {
 	GetAll(ctx context.Context) ([]core.Card, error)
@@ -14,5 +14,5 @@ type ICardRepository interface {
 	GetByNumber(ctx context.Context, number string) (*core.Card, error)
 	Blocking(ctx context.Context, id int64) (*core.Card, error)
 	Create(ctx context.Context, input *core.Card) (*core.Card, error)
-	Delete(ctx context.Context, id int64) (int64, error)
+	Delete(ctx context.Context, id int64) error
 }

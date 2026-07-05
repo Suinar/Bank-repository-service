@@ -98,13 +98,13 @@ func (s *AccountService) Update(ctx context.Context, req *account.UpdateAccountR
 	return s.toProto(acc), nil
 }
 
-func (s *AccountService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	entityId, err := s.repository.Delete(ctx, req.Id)
+func (s *AccountService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{EntityId: entityId}, nil
+	return &common.Empty{}, nil
 }
 
 func (s *AccountService) toProto(input *core.Account) *account.Account {

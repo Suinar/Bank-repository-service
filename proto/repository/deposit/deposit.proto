@@ -46,5 +46,5 @@ service DepositRepository {
       returns (Deposit);
 
   rpc Delete(repository.common.IdRequest)
-      returns (repository.common.DeleteResponse);
+      returns (repository.common.Empty);
 }

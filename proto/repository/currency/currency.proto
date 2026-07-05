@@ -63,5 +63,5 @@ service CurrencyRepository {
       returns (Currency);
 
   rpc Delete(repository.common.IdRequest)
-      returns (repository.common.DeleteResponse);
+      returns (repository.common.Empty);
 }

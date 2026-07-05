@@ -41,6 +41,6 @@ func (h *CurrencyHandler) Update(ctx context.Context, req *currency.UpdateCurren
 	return h.service.Update(ctx, req)
 }
 
-func (h *CurrencyHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (h *CurrencyHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }

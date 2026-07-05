@@ -37,6 +37,6 @@ func (h *CreditHandler) Repay(ctx context.Context, req *common.AmountRequest) (*
 	return h.service.Repay(ctx, req)
 }
 
-func (h *CreditHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
+func (h *CreditHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }

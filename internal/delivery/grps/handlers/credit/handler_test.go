@@ -2,7 +2,7 @@
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
-	"Bank-repository-service/internal/test/fixture"
+	fixture "Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	"context"
 	"testing"
@@ -239,7 +239,7 @@ func TestCreditHandler_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().

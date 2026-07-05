@@ -66,12 +66,11 @@ func (mr *MockICardRepositoryMockRecorder) Create(ctx, input interface{}) *gomoc
 }
 
 // Delete mocks base method.
-func (m *MockICardRepository) Delete(ctx context.Context, id int64) (int64, error) {
+func (m *MockICardRepository) Delete(ctx context.Context, id int64) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", ctx, id)
-	ret0, _ := ret[0].(int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
 // Delete indicates an expected call of Delete.

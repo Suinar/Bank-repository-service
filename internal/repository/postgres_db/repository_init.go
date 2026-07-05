@@ -7,30 +7,26 @@ import (
 	currency "Bank-repository-service/internal/repository/postgres_db/currency"
 	deposit "Bank-repository-service/internal/repository/postgres_db/deposit"
 	user "Bank-repository-service/internal/repository/postgres_db/user"
+
+	"github.com/jmoiron/sqlx"
 )
 
 type Repositories struct {
-	accountRepository  account.IAccountRepository
-	cardRepository     card.ICardRepository
-	creditRepository   credit.ICreditRepository
-	currencyRepository currency.ICurrencyRepository
-	depositRepository  deposit.IDepositRepository
-	userRepository     user.IUserRepository
+	AccountRepository  account.IAccountRepository
+	CardRepository     card.ICardRepository
+	CreditRepository   credit.ICreditRepository
+	CurrencyRepository currency.ICurrencyRepository
+	DepositRepository  deposit.IDepositRepository
+	UserRepository     user.IUserRepository
 }
 
-func InitRepositories(
-	accountRepository account.IAccountRepository,
-	cardRepository card.ICardRepository,
-	creditRepository credit.ICreditRepository,
-	currencyRepository currency.ICurrencyRepository,
-	depositRepository deposit.IDepositRepository,
-	UserRepository user.IUserRepository) *Repositories {
+func InitRepositories(db *sqlx.DB) *Repositories {
 	return &Repositories{
-		accountRepository:  accountRepository,
-		cardRepository:     cardRepository,
-		creditRepository:   creditRepository,
-		currencyRepository: currencyRepository,
-		depositRepository:  depositRepository,
-		userRepository:     UserRepository,
+		AccountRepository:  account.NewAccountRepository(db),
+		CardRepository:     card.NewCardRepository(db),
+		CreditRepository:   credit.NewCreditRepository(db),
+		CurrencyRepository: currency.NewCurrencyRepository(db),
+		DepositRepository:  deposit.NewDepositRepository(db),
+		UserRepository:     user.NewUserRepository(db),
 	}
 }

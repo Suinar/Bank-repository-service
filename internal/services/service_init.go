@@ -1,6 +1,8 @@
 ﻿package service
 
 import (
+	cache "Bank-repository-service/internal/repository/cache"
+	repository "Bank-repository-service/internal/repository/postgres_db"
 	account "Bank-repository-service/internal/services/account"
 	card "Bank-repository-service/internal/services/card"
 	credit "Bank-repository-service/internal/services/credit"
@@ -18,19 +20,13 @@ type Services struct {
 	UserService     user.IUserService
 }
 
-func InitServices(
-	accountService account.IAccountService,
-	cardService card.ICardService,
-	creditService credit.ICreditService,
-	currencyService currency.ICurrencyService,
-	depositService deposit.IDepositService,
-	userService user.IUserService) *Services {
+func InitServices(repositories *repository.Repositories, caches *cache.Caches) *Services {
 	return &Services{
-		AccountService:  accountService,
-		CardService:     cardService,
-		CreditService:   creditService,
-		CurrencyService: currencyService,
-		DepositService:  depositService,
-		UserService:     userService,
+		AccountService:  account.NewAccountService(repositories.AccountRepository),
+		CardService:     card.NewCardService(repositories.CardRepository),
+		CreditService:   credit.NewCreditService(repositories.CreditRepository),
+		CurrencyService: currency.NewCurrencyService(repositories.CurrencyRepository, caches.Currency),
+		DepositService:  deposit.NewDepositService(repositories.DepositRepository),
+		UserService:     user.NewUserService(repositories.UserRepository),
 	}
 }

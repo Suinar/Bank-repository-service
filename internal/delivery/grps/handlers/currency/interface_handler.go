@@ -13,5 +13,5 @@ type ICurrencyHandler interface {
 	GetBySymbol(ctx context.Context, req *currency.SymbolRequest) (*currency.Currency, error)
 	Create(ctx context.Context, req *currency.Currency) (*currency.Currency, error)
 	Update(ctx context.Context, req *currency.UpdateCurrencyRequest) (*currency.Currency, error)
-	Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }

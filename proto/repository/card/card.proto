@@ -54,5 +54,5 @@ service CardRepository {
       returns (Card);
 
   rpc Delete(repository.common.IdRequest)
-      returns (repository.common.DeleteResponse);
+      returns (repository.common.Empty);
 }

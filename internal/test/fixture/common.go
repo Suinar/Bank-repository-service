@@ -20,12 +20,6 @@ func NewUserIdRequestProto() *common.UserIdRequest {
 	}
 }
 
-func NewDeleteResponseProto() *common.DeleteResponse {
-	return &common.DeleteResponse{
-		EntityId: TestId,
-	}
-}
-
 func NewAmountRequestProto(amount int64) *common.AmountRequest {
 	return &common.AmountRequest{
 		Id:     TestId,

@@ -15,5 +15,5 @@ type IAccountRepository interface {
 	Blocking(ctx context.Context, id int64) (*core.Account, error)
 	Close(ctx context.Context, id int64) (*core.Account, error)
 	Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error)
-	Delete(ctx context.Context, id int64) (int64, error)
+	Delete(ctx context.Context, id int64) error
 }

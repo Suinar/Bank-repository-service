@@ -8,7 +8,6 @@ package account
 
 import (
 	context "context"
-
 	common "Bank-repository-service/proto/repository/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -42,7 +41,7 @@ type AccountRepositoryClient interface {
 	Blocking(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Account, error)
 	Close(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*Account, error)
 	Update(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*Account, error)
-	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error)
+	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
 
 type accountRepositoryClient struct {
@@ -123,9 +122,9 @@ func (c *accountRepositoryClient) Update(ctx context.Context, in *UpdateAccountR
 	return out, nil
 }
 
-func (c *accountRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.DeleteResponse, error) {
+func (c *accountRepositoryClient) Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.DeleteResponse)
+	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, AccountRepository_Delete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -144,7 +143,7 @@ type AccountRepositoryServer interface {
 	Blocking(context.Context, *common.IdRequest) (*Account, error)
 	Close(context.Context, *common.IdRequest) (*Account, error)
 	Update(context.Context, *UpdateAccountRequest) (*Account, error)
-	Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error)
+	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedAccountRepositoryServer()
 }
 
@@ -176,7 +175,7 @@ func (UnimplementedAccountRepositoryServer) Close(context.Context, *common.IdReq
 func (UnimplementedAccountRepositoryServer) Update(context.Context, *UpdateAccountRequest) (*Account, error) {
 	return nil, status.Error(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedAccountRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.DeleteResponse, error) {
+func (UnimplementedAccountRepositoryServer) Delete(context.Context, *common.IdRequest) (*common.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedAccountRepositoryServer) mustEmbedUnimplementedAccountRepositoryServer() {}

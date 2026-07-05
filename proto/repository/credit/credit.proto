@@ -55,5 +55,5 @@ service CreditRepository {
       returns (Credit);
 
   rpc Delete(repository.common.IdRequest)
-      returns (repository.common.DeleteResponse);
+      returns (repository.common.Empty);
 }

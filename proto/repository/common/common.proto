@@ -14,10 +14,6 @@ message UserIdRequest {
   int64 user_id = 1;
 }
 
-message DeleteResponse {
-  int64 entity_id = 1;
-}
-
 message AmountRequest {
   int64 id = 1;
   int64 amount = 2;

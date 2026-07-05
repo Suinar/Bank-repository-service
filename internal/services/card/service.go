@@ -87,13 +87,13 @@ func (s *CardService) Create(ctx context.Context, req *card.Card) (*card.Card, e
 	return s.toProto(card), nil
 }
 
-func (s *CardService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	entityId, err := s.repository.Delete(ctx, req.Id)
+func (s *CardService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{EntityId: entityId}, nil
+	return &common.Empty{}, nil
 }
 
 func (s *CardService) toProto(input *core.Card) *card.Card {

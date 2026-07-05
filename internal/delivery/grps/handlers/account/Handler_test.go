@@ -20,10 +20,7 @@ func TestAccountHandler_GetAll_Success(t *testing.T) {
 
 	req := fixture.NewEmptyProto()
 
-	expected := fixture.NewAccountListProto(
-		fixture.TestName,
-		fixture.TestName,
-	)
+	expected := fixture.NewAccountListProto()
 
 	service.
 		EXPECT().
@@ -67,10 +64,7 @@ func TestAccountHandler_GetByUser_Success(t *testing.T) {
 
 	req := fixture.NewUserIdRequestProto()
 
-	expected := fixture.NewAccountListProto(
-		fixture.TestName,
-		fixture.TestName,
-	)
+	expected := fixture.NewAccountListProto()
 
 	service.
 		EXPECT().
@@ -114,7 +108,7 @@ func TestAccountHandler_GetById_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountProto(fixture.TestName)
+	expected := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -156,9 +150,9 @@ func TestAccountHandler_Create_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewAccountProto(fixture.TestName)
+	req := fixture.NewAccountProto()
 
-	expected := fixture.NewAccountProto(fixture.TestName)
+	expected := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -178,7 +172,7 @@ func TestAccountHandler_Create_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewAccountProto(fixture.TestName)
+	req := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -202,7 +196,7 @@ func TestAccountHandler_Blocking_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountProto(fixture.TestName)
+	expected := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -246,7 +240,7 @@ func TestAccountHandler_Close_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewAccountProto(fixture.TestName)
+	expected := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -288,9 +282,9 @@ func TestAccountHandler_Update_Success(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateAccountRequestProto(fixture.TestUpdateName)
+	req := fixture.NewUpdateAccountRequestProto()
 
-	expected := fixture.NewAccountProto(fixture.TestUpdateName)
+	expected := fixture.NewAccountProto()
 
 	service.
 		EXPECT().
@@ -310,7 +304,7 @@ func TestAccountHandler_Update_Error(t *testing.T) {
 
 	service, sut, ctx := NewSUT(t)
 
-	req := fixture.NewUpdateAccountRequestProto(fixture.TestUpdateName)
+	req := fixture.NewUpdateAccountRequestProto()
 
 	service.
 		EXPECT().
@@ -334,7 +328,7 @@ func TestAccountHandler_Delete_Success(t *testing.T) {
 
 	req := fixture.NewIdRequestProto()
 
-	expected := fixture.NewDeleteResponseProto()
+	expected := fixture.NewEmptyProto()
 
 	service.
 		EXPECT().

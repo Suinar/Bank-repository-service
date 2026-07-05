@@ -78,15 +78,13 @@ func (s *DepositService) Replenish(ctx context.Context, req *common.AmountReques
 	return s.toProto(d), nil
 }
 
-func (s *DepositService) Delete(ctx context.Context, req *common.IdRequest) (*common.DeleteResponse, error) {
-	id, err := s.repo.Delete(ctx, req.Id)
+func (s *DepositService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
+	err := s.repo.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &common.DeleteResponse{
-		EntityId: id,
-	}, nil
+	return &common.Empty{}, nil
 }
 
 func (s *DepositService) toProto(input *core.Deposit) *deposit.Deposit {
