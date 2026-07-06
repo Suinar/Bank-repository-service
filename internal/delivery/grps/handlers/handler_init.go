@@ -11,12 +11,12 @@ import (
 )
 
 type Handlers struct {
-	AccountHandler  account.IAccountHandler
-	CardHandler     card.ICardHandler
-	CreditHandler   credit.ICreditHandler
-	CurrencyHandler currency.ICurrencyHandler
-	DepositHandler  deposit.IDepositHandler
-	UserHandler     user.IUserHandler
+	AccountHandler  *account.AccountHandler
+	CardHandler     *card.CardHandler
+	CreditHandler   *credit.CreditHandler
+	CurrencyHandler *currency.CurrencyHandler
+	DepositHandler  *deposit.DepositHandler
+	UserHandler     *user.UserHandler
 }
 
 func InitHandlers(services *service.Services) *Handlers {

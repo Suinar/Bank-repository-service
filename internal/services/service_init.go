@@ -12,12 +12,12 @@ import (
 )
 
 type Services struct {
-	AccountService  account.IAccountService
-	CardService     card.ICardService
-	CreditService   credit.ICreditService
-	CurrencyService currency.ICurrencyService
-	DepositService  deposit.IDepositService
-	UserService     user.IUserService
+	AccountService  *account.AccountService
+	CardService     *card.CardService
+	CreditService   *credit.CreditService
+	CurrencyService *currency.CurrencyService
+	DepositService  *deposit.DepositService
+	UserService     *user.UserService
 }
 
 func InitServices(repositories *repository.Repositories, caches *cache.Caches) *Services {

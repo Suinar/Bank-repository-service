@@ -7,7 +7,7 @@ import (
 )
 
 type Caches struct {
-	Currency currency.ICurrencyCache
+	Currency *currency.CurrencyCache
 }
 
 func InitCaches(rdb *redis.Client) *Caches {

@@ -8,7 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 
-	config "Bank-repository-service/internal/configs"
+	configs "Bank-repository-service/internal/configs"
 
 	"github.com/stretchr/testify/require"
 )
@@ -20,12 +20,9 @@ type TestDB struct {
 func NewTestPostgresDb(t *testing.T) *TestDB {
 	t.Helper()
 
-	cfg, err := config.LoadTestConfig()
-	if err != nil {
-		t.Fatal(err)
-	}
+	cfg := configs.LoadTestConfig()
 
-	db, err := sqlx.Connect("postgres", cfg.Postgres.DbUrl)
+	db, err := sqlx.Connect("postgres", cfg.Postgres.DBUrl)
 	require.NoError(t, err)
 
 	t.Cleanup(func() {

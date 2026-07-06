@@ -15,6 +15,16 @@ func NewCurrencyCore() core.Currency {
 	}
 }
 
+func NewCurrencyCoreInputId(id int64) core.Currency {
+	return core.Currency{
+		Id:         id,
+		IsoCode:    TestIsoCode,
+		Name:       TestName,
+		Symbol:     TestSymbolRune,
+		MinorUnits: TestMinorUnitsInt8,
+	}
+}
+
 func NewCurrencyUpdateInputCore() *core.CurrencyUpdateInput {
 	return &core.CurrencyUpdateInput{
 		Name:       StringPointer(TestCurrencyName),
