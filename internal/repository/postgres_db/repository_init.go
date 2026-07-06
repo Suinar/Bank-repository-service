@@ -12,12 +12,12 @@ import (
 )
 
 type Repositories struct {
-	AccountRepository  account.IAccountRepository
-	CardRepository     card.ICardRepository
-	CreditRepository   credit.ICreditRepository
-	CurrencyRepository currency.ICurrencyRepository
-	DepositRepository  deposit.IDepositRepository
-	UserRepository     user.IUserRepository
+	AccountRepository  *account.AccountRepository
+	CardRepository     *card.CardRepository
+	CreditRepository   *credit.CreditRepository
+	CurrencyRepository *currency.CurrencyRepository
+	DepositRepository  *deposit.DepositRepository
+	UserRepository     *user.UserRepository
 }
 
 func InitRepositories(db *sqlx.DB) *Repositories {

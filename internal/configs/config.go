@@ -70,7 +70,7 @@ func LoadConfig() *Config {
 }
 
 func LoadTestConfig() *Config {
-	viper.SetConfigFile(".env.test")
+	viper.SetConfigFile("../../../../.env.test")
 	viper.SetConfigType("env")
 	viper.AutomaticEnv()
 

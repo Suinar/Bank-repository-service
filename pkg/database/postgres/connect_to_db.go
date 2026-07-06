@@ -1,14 +1,15 @@
 ﻿package postgres
 
 import (
-	"Bank-repository-service/internal/configs"
+	configs "Bank-repository-service/internal/configs"
 	"log"
 
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 func NewPostgresDB(cfg *configs.Config) *sqlx.DB {
-	db, err := sqlx.Connect("pgx", cfg.Postgres.DBUrl)
+	db, err := sqlx.Connect("postgres", cfg.Postgres.DBUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
