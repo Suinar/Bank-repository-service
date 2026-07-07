@@ -37,10 +37,6 @@ func (h *UserHandler) Create(ctx context.Context, req *user.User) (*user.User, e
 	return h.service.Create(ctx, req)
 }
 
-func (h *UserHandler) ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error) {
-	return h.service.ChangePassword(ctx, req)
-}
-
 func (h *UserHandler) Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error) {
 	return h.service.Update(ctx, req)
 }

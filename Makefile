@@ -66,18 +66,3 @@ docker-logs:
 
 docker-ps:
 	docker compose ps
-
-## ========================
-## TEST INFRA
-## ========================
-test-postgres-up:
-	docker compose up -d postgres_test
-
-test-postgres-down:
-	docker compose stop postgres_test
-
-test-redis-up:
-	docker compose up -d redis
-
-test-redis-down:
-	docker compose stop redis

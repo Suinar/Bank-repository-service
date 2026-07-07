@@ -35,20 +35,6 @@ func (m *MockIUserRepository) EXPECT() *MockIUserRepositoryMockRecorder {
 	return m.recorder
 }
 
-// ChangePassword mocks base method.
-func (m *MockIUserRepository) ChangePassword(ctx context.Context, id int64, newPassword string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ChangePassword", ctx, id, newPassword)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// ChangePassword indicates an expected call of ChangePassword.
-func (mr *MockIUserRepositoryMockRecorder) ChangePassword(ctx, id, newPassword interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ChangePassword", reflect.TypeOf((*MockIUserRepository)(nil).ChangePassword), ctx, id, newPassword)
-}
-
 // Create mocks base method.
 func (m *MockIUserRepository) Create(ctx context.Context, input *core.User) (*core.User, error) {
 	m.ctrl.T.Helper()

@@ -17,6 +17,29 @@ func NewDepositCore() core.Deposit {
 	}
 }
 
+func NewDepositCoreInputId(id int64) core.Deposit {
+	return core.Deposit{
+		Id:           id,
+		UserId:       TestId,
+		CurrencyId:   TestId,
+		Amount:       TestAmount,
+		InterestRate: 8.5,
+		TermMonths:   TestTermMonths,
+		Status:       core.DepositStatusActive,
+	}
+}
+
+func NewDepositCoreInputAmount(amount int64) core.Deposit {
+	return core.Deposit{
+		Id:           TestId,
+		UserId:       TestId,
+		CurrencyId:   TestId,
+		Amount:       amount,
+		InterestRate: 8.5,
+		TermMonths:   TestTermMonths,
+		Status:       core.DepositStatusActive,
+	}
+}
 func NewDepositProto() *deposit.Deposit {
 	return &deposit.Deposit{
 		Id:           TestId,

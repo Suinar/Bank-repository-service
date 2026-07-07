@@ -9,9 +9,30 @@ func NewCreditCore() core.Credit {
 	return core.Credit{
 		Id:             TestId,
 		UserId:         TestId,
+		CurrencyId:     TestId,
 		Amount:         TestAmount,
-		InterestRate:   12.5,
-		TermMonths:     TestTermMonths,
+		MonthlyPayment: 4_700,
+		Status:         core.CreditStatusActive,
+	}
+}
+
+func NewCreditCoreInputId(id int64) core.Credit {
+	return core.Credit{
+		Id:             id,
+		UserId:         TestId,
+		CurrencyId:     TestId,
+		Amount:         TestAmount,
+		MonthlyPayment: 4_700,
+		Status:         core.CreditStatusActive,
+	}
+}
+
+func NewCreditCoreInputAmount(amount int64) core.Credit {
+	return core.Credit{
+		Id:             TestId,
+		UserId:         TestId,
+		CurrencyId:     TestId,
+		Amount:         amount,
 		MonthlyPayment: 4_700,
 		Status:         core.CreditStatusActive,
 	}
@@ -22,8 +43,6 @@ func NewCreditProto() *credit.Credit {
 		Id:             TestId,
 		UserId:         TestId,
 		Amount:         TestAmount,
-		InterestRate:   12.5,
-		TermMonths:     TestTermMonths,
 		MonthlyPayment: 4_700,
 		Status:         credit.CreditStatus_CREDIT_STATUS_ACTIVE,
 	}

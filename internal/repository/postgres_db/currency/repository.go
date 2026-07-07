@@ -152,11 +152,11 @@ func (r *CurrencyRepository) Update(ctx context.Context, id int64, input *core.C
 	args = append(args, id)
 
 	query := fmt.Sprintf(`
-UPDATE accounts
+UPDATE currencies
 SET %s
 WHERE id = $%d
 RETURNING id, name, symbol, iso_code, minor_units
-`, strings.Join(setParts, ", "), argId, argId+1)
+`, strings.Join(setParts, ", "), argId)
 
 	var updated core.Currency
 
@@ -174,7 +174,7 @@ RETURNING id, name, symbol, iso_code, minor_units
 
 func (r *CurrencyRepository) Delete(ctx context.Context, id int64) error {
 	query := `
-DELETE FROM accounts 
+DELETE FROM currencies
 WHERE id = $1`
 
 	result, err := r.db.ExecContext(ctx, query, id)

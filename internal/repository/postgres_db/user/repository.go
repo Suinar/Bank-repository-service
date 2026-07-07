@@ -1,15 +1,13 @@
 ﻿package user
 
 import (
+	errror "Bank-repository-service/pkg"
+	core "Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
 	"fmt"
 	"strings"
-	"time"
-
-	errror "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -24,7 +22,7 @@ func NewUserRepository(db *sqlx.DB) *UserRepository {
 
 func (r *UserRepository) GetAll(ctx context.Context) ([]core.User, error) {
 	query := `
-SELECT id, user_id, middle_name, last_name, email, phone_number, password_hash
+SELECT id, first_name, middle_name, last_name, email, phone_number
 FROM users`
 
 	var users []core.User
@@ -38,7 +36,7 @@ FROM users`
 
 func (r *UserRepository) GetById(ctx context.Context, id int64) (*core.User, error) {
 	query := `
-SELECT id, user_id, middle_name, last_name, email, phone_number, password_hash
+SELECT id, first_name, middle_name, last_name, email, phone_number
 FROM users
 WHERE id = $1`
 
@@ -57,7 +55,7 @@ WHERE id = $1`
 
 func (r *UserRepository) GetByEmail(ctx context.Context, email string) (*core.User, error) {
 	query := `
-SELECT id, user_id, middle_name, last_name, email, phone_number, password_hash
+SELECT id, first_name, middle_name, last_name, email, phone_number
 FROM users
 WHERE email = $1`
 
@@ -76,7 +74,7 @@ WHERE email = $1`
 
 func (r *UserRepository) GetByPhoneNumber(ctx context.Context, phoneNumber string) (*core.User, error) {
 	query := `
-SELECT id, user_id, middle_name, last_name, email, phone_number, password_hash
+SELECT id, first_name, middle_name, last_name, email, phone_number
 FROM users
 WHERE phone_number = $1`
 
@@ -95,9 +93,9 @@ WHERE phone_number = $1`
 
 func (r *UserRepository) Create(ctx context.Context, input *core.User) (*core.User, error) {
 	query := `
-INSERT INTO users (user_id, middle_name, last_name, email, phone_number, password_hash)
-VALUES (:user_id, :middle_name, :last_name, :email, :phone_number, :password_hash)
-RETURNING id, user_id, middle_name, last_name, email, phone_number, password_hash;`
+INSERT INTO users (first_name, middle_name, last_name, email, phone_number)
+VALUES (:first_name, :middle_name, :last_name, :email, :phone_number)
+RETURNING id, first_name, middle_name, last_name, email, phone_number;`
 
 	rows, err := r.db.NamedQueryContext(ctx, query, input)
 	if err != nil {
@@ -116,35 +114,11 @@ RETURNING id, user_id, middle_name, last_name, email, phone_number, password_has
 	return nil, errror.InternalServerError
 }
 
-func (r *UserRepository) ChangePassword(ctx context.Context, id int64, newPassword string) error {
-	query := `
-UPDATE users
-SET password_hash = $1, updated_at = $2
-where id = $3`
-
-	result, err := r.db.ExecContext(ctx, query, newPassword, time.Now(), id)
-	if err != nil {
-		return errror.InternalServerError
-	}
-
-	rows, err := result.RowsAffected()
-	if err != nil {
-		return errror.InternalServerError
-	}
-
-	if rows == 0 {
-		return errror.NotFound
-	}
-
-	return nil
-}
-
 func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserUpdateInput) (*core.User, error) {
 	setParts := make([]string, 0)
 	args := make([]interface{}, 0)
 	argId := 1
 
-	// Динамічно формуємо SET для кожного поля
 	if input.FirstName != nil {
 		setParts = append(setParts, fmt.Sprintf("first_name = $%d", argId))
 		args = append(args, *input.FirstName)
@@ -173,7 +147,7 @@ func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserU
 		UPDATE users
 		SET %s
 		WHERE id = $%d
-		RETURNING id, first_name, middle_name, last_name, email, created_at, updated_at
+		RETURNING id, first_name, middle_name, last_name, email, phone_number
 	`, strings.Join(setParts, ", "), argId)
 
 	var updated core.User
@@ -192,8 +166,7 @@ func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserU
 func (r *UserRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 DELETE FROM users 
-WHERE id = $1
-RETURNING id`
+WHERE id = $1`
 
 	result, err := r.db.ExecContext(ctx, query, id)
 	if err != nil {
