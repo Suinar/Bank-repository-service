@@ -115,16 +115,15 @@ func (c *CurrencyCache) GetByIso(ctx context.Context, iso string) (*core.Currenc
 }
 
 func (c *CurrencyCache) GetBySymbol(ctx context.Context, symbol rune) (*core.Currency, error) {
-	idStr, err := c.rdb.Get(ctx, c.GetSymbolKey(symbol)).Result()
-	if err != nil {
-		if errors.Is(err, redis.Nil) {
-			return nil, errror.CacheGetError
-		}
+	ids, err := c.rdb.SMembers(ctx, c.GetSymbolKey(symbol)).Result()
 
-		return nil, errror.InternalServerError
+	if err != nil {
+		return nil, errror.CacheGetError
+	} else if len(ids) == 0 {
+		return nil, errror.NotFound
 	}
 
-	id, err := strconv.ParseInt(idStr, 10, 64)
+	id, err := strconv.ParseInt(ids[0], 10, 64)
 	if err != nil {
 		return nil, errror.BadRequest
 	}
@@ -216,7 +215,7 @@ func (c *CurrencyCache) Update(ctx context.Context, currency *core.Currency) err
 	}
 
 	if existing == nil {
-		return c.Set(ctx, currency)
+		return errror.NotFound
 	}
 
 	if err := c.Delete(ctx, currency.Id); err != nil {
@@ -241,7 +240,7 @@ func (c *CurrencyCache) Update(ctx context.Context, currency *core.Currency) err
 func (c *CurrencyCache) Delete(ctx context.Context, id int64) error {
 	currency, err := c.GetById(ctx, id)
 	if err != nil {
-		return err
+		return errror.CacheDeleteError
 	}
 
 	if currency == nil {
@@ -280,10 +279,10 @@ func (c *CurrencyCache) MapToCurrency(data map[string]string) (core.Currency, er
 		return core.Currency{}, errror.BadRequest
 	}
 
-	symbolStr := data["symbol"]
 	var symbol rune
-	if len(symbolStr) > 0 {
-		runes := []rune(symbolStr)
+
+	if data["symbol"] != "" {
+		runes := []rune(data["symbol"])
 		symbol = runes[0]
 	}
 

@@ -1,12 +1,11 @@
 ﻿package deposit
 
 import (
+	errror "Bank-repository-service/pkg"
+	core "Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
-
-	errror "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -21,7 +20,7 @@ func NewDepositRepository(db *sqlx.DB) *DepositRepository {
 
 func (r *DepositRepository) GetAll(ctx context.Context) ([]core.Deposit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
 FROM deposits`
 
 	var deposits []core.Deposit
@@ -35,7 +34,7 @@ FROM deposits`
 
 func (r *DepositRepository) GetByUser(ctx context.Context, userId int64) ([]core.Deposit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
 FROM deposits
 WHERE user_id = $1`
 
@@ -54,7 +53,7 @@ WHERE user_id = $1`
 
 func (r *DepositRepository) GetById(ctx context.Context, id int64) (*core.Deposit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
 FROM deposits
 WHERE id = $1`
 
@@ -73,9 +72,9 @@ WHERE id = $1`
 
 func (r *DepositRepository) Create(ctx context.Context, input *core.Deposit) (*core.Deposit, error) {
 	query := `
-INSERT INTO accounts (user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status)
-VALUES (:user_id, :currency_id, :amount, :interest_rate, :term_month, :monthly_payment, :status)
-RETURNING user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status;`
+INSERT INTO deposits (user_id, currency_id, amount, interest_rate, term_months, status)
+VALUES (:user_id, :currency_id, :amount, :interest_rate, :term_months, :status)
+RETURNING id, user_id, currency_id, amount, interest_rate, term_months, status;`
 
 	rows, err := r.db.NamedQueryContext(ctx, query, input)
 	if err != nil {
@@ -90,7 +89,6 @@ RETURNING user_id, currency_id, amount, interest_rate, term_month, monthly_payme
 		}
 		return &created, nil
 	}
-
 	return nil, errror.InternalServerError
 }
 
@@ -100,7 +98,7 @@ UPDATE deposits
 SET amount = amount + $2
 WHERE id = $1
 AND status = 1
-RETURNING id, user_id, currency_id, amount, interest_rate, term_month, status`
+RETURNING id, user_id, currency_id, amount, interest_rate, term_months, status`
 
 	var deposit core.Deposit
 
@@ -120,7 +118,6 @@ func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM deposits
 	WHERE id = $1
-	RETURNING user_id
 	`
 
 	result, err := r.db.ExecContext(ctx, query, id)

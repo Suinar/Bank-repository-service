@@ -70,15 +70,6 @@ func (s *UserService) Create(ctx context.Context, req *user.User) (*user.User, e
 	return s.toProto(user), nil
 }
 
-func (s *UserService) ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error) {
-	err := s.repo.ChangePassword(ctx, req.Id, req.NewPassword)
-	if err != nil {
-		return nil, err
-	}
-
-	return &common.Empty{}, nil
-}
-
 func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error) {
 	u, err := s.repo.Update(ctx, req.Id, &core.UserUpdateInput{
 		FirstName:  req.Input.FirstName,

@@ -25,7 +25,6 @@ const (
 	UserRepository_GetByEmail_FullMethodName       = "/repository.user.UserRepository/GetByEmail"
 	UserRepository_GetByPhoneNumber_FullMethodName = "/repository.user.UserRepository/GetByPhoneNumber"
 	UserRepository_Create_FullMethodName           = "/repository.user.UserRepository/Create"
-	UserRepository_ChangePassword_FullMethodName   = "/repository.user.UserRepository/ChangePassword"
 	UserRepository_Update_FullMethodName           = "/repository.user.UserRepository/Update"
 	UserRepository_Delete_FullMethodName           = "/repository.user.UserRepository/Delete"
 )
@@ -39,7 +38,6 @@ type UserRepositoryClient interface {
 	GetByEmail(ctx context.Context, in *EmailRequest, opts ...grpc.CallOption) (*User, error)
 	GetByPhoneNumber(ctx context.Context, in *PhoneNumberRequest, opts ...grpc.CallOption) (*User, error)
 	Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
-	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*common.Empty, error)
 	Update(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*User, error)
 	Delete(ctx context.Context, in *common.IdRequest, opts ...grpc.CallOption) (*common.Empty, error)
 }
@@ -102,16 +100,6 @@ func (c *userRepositoryClient) Create(ctx context.Context, in *User, opts ...grp
 	return out, nil
 }
 
-func (c *userRepositoryClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*common.Empty, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.Empty)
-	err := c.cc.Invoke(ctx, UserRepository_ChangePassword_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userRepositoryClient) Update(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*User, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(User)
@@ -141,7 +129,6 @@ type UserRepositoryServer interface {
 	GetByEmail(context.Context, *EmailRequest) (*User, error)
 	GetByPhoneNumber(context.Context, *PhoneNumberRequest) (*User, error)
 	Create(context.Context, *User) (*User, error)
-	ChangePassword(context.Context, *ChangePasswordRequest) (*common.Empty, error)
 	Update(context.Context, *UpdateUserRequest) (*User, error)
 	Delete(context.Context, *common.IdRequest) (*common.Empty, error)
 	mustEmbedUnimplementedUserRepositoryServer()
@@ -168,9 +155,6 @@ func (UnimplementedUserRepositoryServer) GetByPhoneNumber(context.Context, *Phon
 }
 func (UnimplementedUserRepositoryServer) Create(context.Context, *User) (*User, error) {
 	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
-}
-func (UnimplementedUserRepositoryServer) ChangePassword(context.Context, *ChangePasswordRequest) (*common.Empty, error) {
-	return nil, status.Error(codes.Unimplemented, "method ChangePassword not implemented")
 }
 func (UnimplementedUserRepositoryServer) Update(context.Context, *UpdateUserRequest) (*User, error) {
 	return nil, status.Error(codes.Unimplemented, "method Update not implemented")
@@ -289,24 +273,6 @@ func _UserRepository_Create_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserRepository_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChangePasswordRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserRepositoryServer).ChangePassword(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserRepository_ChangePassword_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserRepositoryServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserRepository_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateUserRequest)
 	if err := dec(in); err != nil {
@@ -369,10 +335,6 @@ var UserRepository_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _UserRepository_Create_Handler,
-		},
-		{
-			MethodName: "ChangePassword",
-			Handler:    _UserRepository_ChangePassword_Handler,
 		},
 		{
 			MethodName: "Update",

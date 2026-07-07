@@ -17,6 +17,30 @@ func NewCardCore() core.Card {
 	}
 }
 
+func NewCardCoreInputIdAndNumber(id int64, number string) core.Card {
+	return core.Card{
+		Id:          id,
+		UserId:      TestId,
+		AccountId:   TestId,
+		Number:      number,
+		ExpiryMonth: TestTermMonths,
+		ExpiryYear:  30,
+		Status:      core.CardStatusActive,
+	}
+}
+
+func NewCardCoreInputStatus(status core.CardStatus) core.Card {
+	return core.Card{
+		Id:          TestId,
+		UserId:      TestId,
+		AccountId:   TestId,
+		Number:      TestCardNumber,
+		ExpiryMonth: TestTermMonths,
+		ExpiryYear:  30,
+		Status:      status,
+	}
+}
+
 func NewCardProto() *card.Card {
 	return &card.Card{
 		Id:          TestId,

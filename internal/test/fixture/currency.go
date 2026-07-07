@@ -9,17 +9,17 @@ func NewCurrencyCore() core.Currency {
 	return core.Currency{
 		Id:         TestId,
 		IsoCode:    TestIsoCode,
-		Name:       TestName,
+		Name:       TestCurrencyName,
 		Symbol:     TestSymbolRune,
 		MinorUnits: TestMinorUnitsInt8,
 	}
 }
 
-func NewCurrencyCoreInputId(id int64) core.Currency {
+func NewCurrencyCoreInputIdAndIsoAndName(id int64, isoCode string, name string) core.Currency {
 	return core.Currency{
 		Id:         id,
-		IsoCode:    TestIsoCode,
-		Name:       TestName,
+		IsoCode:    isoCode,
+		Name:       name,
 		Symbol:     TestSymbolRune,
 		MinorUnits: TestMinorUnitsInt8,
 	}
@@ -38,7 +38,7 @@ func NewCurrencyProto() *currency.Currency {
 	return &currency.Currency{
 		Id:         TestId,
 		IsoCode:    TestIsoCode,
-		Name:       TestName,
+		Name:       TestCurrencyName,
 		Symbol:     TestSymbolString,
 		MinorUnits: TestMinorUnitsInt32,
 	}

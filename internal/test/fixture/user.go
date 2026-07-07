@@ -7,25 +7,34 @@ import (
 
 func NewUserCore() core.User {
 	return core.User{
-		Id:           TestId,
-		FirstName:    TestFirstName,
-		MiddleName:   StringPointer(TestMidlName),
-		LastName:     TestLastName,
-		Email:        TestEmail,
-		PhoneNumber:  TestPhoneNumber,
-		PasswordHash: TestPasswordHash,
+		Id:          TestId,
+		FirstName:   TestFirstName,
+		MiddleName:  StringPointer(TestMidlName),
+		LastName:    TestLastName,
+		Email:       TestEmail,
+		PhoneNumber: TestPhoneNumber,
+	}
+}
+
+func NewUserCoreInputIdAndEmailAndPhoneNumber(id int64, email string, phoneNumber string) core.User {
+	return core.User{
+		Id:          id,
+		FirstName:   TestFirstName,
+		MiddleName:  StringPointer(TestMidlName),
+		LastName:    TestLastName,
+		Email:       email,
+		PhoneNumber: phoneNumber,
 	}
 }
 
 func NewUserProto() *user.User {
 	return &user.User{
-		Id:           TestId,
-		FirstName:    TestFirstName,
-		MiddleName:   StringPointer(TestMidlName),
-		LastName:     TestLastName,
-		Email:        TestEmail,
-		PhoneNumber:  TestPhoneNumber,
-		PasswordHash: TestPasswordHash,
+		Id:          TestId,
+		FirstName:   TestFirstName,
+		MiddleName:  StringPointer(TestMidlName),
+		LastName:    TestLastName,
+		Email:       TestEmail,
+		PhoneNumber: TestPhoneNumber,
 	}
 }
 

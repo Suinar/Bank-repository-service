@@ -1,12 +1,11 @@
 ﻿package credit
 
 import (
+	errror "Bank-repository-service/pkg"
+	core "Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
-
-	errror "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -21,7 +20,7 @@ func NewCreditRepository(db *sqlx.DB) *CreditRepository {
 
 func (r *CreditRepository) GetAll(ctx context.Context) ([]core.Credit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, monthly_payment, status
 FROM credits`
 
 	var credits []core.Credit
@@ -35,7 +34,7 @@ FROM credits`
 
 func (r *CreditRepository) GetByUser(ctx context.Context, userId int64) ([]core.Credit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, monthly_payment, status
 FROM credits
 WHERE user_id = $1`
 
@@ -54,7 +53,7 @@ WHERE user_id = $1`
 
 func (r *CreditRepository) GetById(ctx context.Context, id int64) (*core.Credit, error) {
 	query := `
-SELECT id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status
+SELECT id, user_id, currency_id, amount, monthly_payment, status
 FROM credits
 WHERE id = $1`
 
@@ -73,9 +72,9 @@ WHERE id = $1`
 
 func (r *CreditRepository) Create(ctx context.Context, input *core.Credit) (*core.Credit, error) {
 	query := `
-INSERT INTO credits (user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status)
-VALUES (:user_id, :currency_id, :amount, :interest_rate, :term_month, :monthly_payment, :status)
-Returning id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status;`
+INSERT INTO credits (user_id, currency_id, amount, monthly_payment, status)
+VALUES (:user_id, :currency_id, :amount, :monthly_payment, :status)
+Returning id, user_id, currency_id, amount, monthly_payment, status;`
 
 	rows, err := r.db.NamedQueryContext(ctx, query, input)
 	if err != nil {
@@ -100,7 +99,7 @@ UPDATE credits
 SET amount = amount - $2
 WHERE id = $1
 AND amount >= $2
-RETURNING id, user_id, currency_id, amount, interest_rate, term_month, monthly_payment, status`
+RETURNING id, user_id, currency_id, amount, monthly_payment, status`
 
 	var credit core.Credit
 

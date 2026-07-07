@@ -117,7 +117,7 @@ func (r *CardRepository) Blocking(ctx context.Context, id int64) (*core.Card, er
 
 func (r *CardRepository) Create(ctx context.Context, input *core.Card) (*core.Card, error) {
 	query := `
-INSERT INTO accounts (user_id, account_id, number, expiry_month, expiry_year, status)
+INSERT INTO cards (user_id, account_id, number, expiry_month, expiry_year, status)
 VALUES (:user_id, :account_id, :number, :expiry_month, :expiry_year, :status)
 RETURNING id, user_id, account_id, number, expiry_month, expiry_year, status;`
 

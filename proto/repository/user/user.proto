@@ -63,9 +63,6 @@ service UserRepository {
   rpc Create(User)
       returns (User);
 
-  rpc ChangePassword(ChangePasswordRequest)
-      returns (repository.common.Empty);
-
   rpc Update(UpdateUserRequest)
       returns (User);
 

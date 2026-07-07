@@ -12,7 +12,6 @@ type IUserHandler interface {
 	GetByEmail(ctx context.Context, req *user.EmailRequest) (*user.User, error)
 	GetByPhoneNumber(ctx context.Context, req *user.PhoneNumberRequest) (*user.User, error)
 	Create(ctx context.Context, req *user.User) (*user.User, error)
-	ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error)
 	Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }

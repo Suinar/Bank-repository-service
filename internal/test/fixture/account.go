@@ -16,6 +16,28 @@ func NewAccountCore() core.Account {
 	}
 }
 
+func NewAccountCoreInputId(id int64) core.Account {
+	return core.Account{
+		Id:         id,
+		UserId:     TestId,
+		CurrencyId: TestId,
+		Name:       TestName,
+		Balance:    TestAmount,
+		Status:     core.AccountStatusActive,
+	}
+}
+
+func NewAccountCoreInputStatus(status core.AccountStatus) core.Account {
+	return core.Account{
+		Id:         TestId,
+		UserId:     TestId,
+		CurrencyId: TestId,
+		Name:       TestName,
+		Balance:    TestAmount,
+		Status:     status,
+	}
+}
+
 func NewAccountUpdateInputCore() *core.AccountUpdateInput {
 	return &core.AccountUpdateInput{
 		Name: StringPointer(TestName),
