@@ -1,9 +1,9 @@
-﻿package deposit
+package deposit
 
 import (
 	"Bank-repository-service/pkg/core"
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/deposit"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/deposit"
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db/deposit"
@@ -118,3 +118,4 @@ func (s *DepositService) fromProto(input *deposit.Deposit) *core.Deposit {
 		Status:       core.DepositStatus(input.Status),
 	}
 }
+

@@ -1,8 +1,8 @@
-﻿package account
+package account
 
 import (
-	"Bank-repository-service/proto/repository/account"
-	"Bank-repository-service/proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/account"
+	"github.com/Suinar/Bank-proto/repository/common"
 	"context"
 )
 
@@ -18,3 +18,4 @@ type IAccountService interface {
 	Update(ctx context.Context, req *account.UpdateAccountRequest) (*account.Account, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

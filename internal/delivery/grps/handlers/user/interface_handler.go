@@ -1,8 +1,8 @@
-﻿package user
+package user
 
 import (
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/user"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/user"
 	"context"
 )
 
@@ -15,3 +15,4 @@ type IUserHandler interface {
 	Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

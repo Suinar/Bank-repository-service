@@ -5,8 +5,8 @@
 package mocks
 
 import (
-	card "Bank-repository-service/proto/repository/card"
-	common "Bank-repository-service/proto/repository/common"
+	card "github.com/Suinar/Bank-proto/repository/card"
+	common "github.com/Suinar/Bank-proto/repository/common"
 	context "context"
 	reflect "reflect"
 
@@ -140,3 +140,4 @@ func (mr *MockICardServiceMockRecorder) GetByUser(ctx, req interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUser", reflect.TypeOf((*MockICardService)(nil).GetByUser), ctx, req)
 }
+

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	service "Bank-repository-service/internal/services/user"
-	common "Bank-repository-service/proto/repository/common"
-	user "Bank-repository-service/proto/repository/user"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	user "github.com/Suinar/Bank-proto/repository/user"
 )
 
 type UserHandler struct {
@@ -44,3 +44,4 @@ func (h *UserHandler) Update(ctx context.Context, req *user.UpdateUserRequest) (
 func (h *UserHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+

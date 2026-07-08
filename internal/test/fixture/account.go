@@ -1,8 +1,8 @@
-﻿package fixture
+package fixture
 
 import (
 	core "Bank-repository-service/pkg/core"
-	account "Bank-repository-service/proto/repository/account"
+	account "github.com/Suinar/Bank-proto/repository/account"
 )
 
 func NewAccountCore() core.Account {
@@ -76,3 +76,4 @@ func NewUpdateAccountRequestProto() *account.UpdateAccountRequest {
 		Input: NewUpdateAccountInputProto(),
 	}
 }
+

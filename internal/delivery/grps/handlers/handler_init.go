@@ -1,4 +1,4 @@
-﻿package handler
+package handler
 
 import (
 	account "Bank-repository-service/internal/delivery/grps/handlers/account"
@@ -29,3 +29,4 @@ func InitHandlers(services *service.Services) *Handlers {
 		UserHandler:     user.NewUserHandler(services.UserService),
 	}
 }
+

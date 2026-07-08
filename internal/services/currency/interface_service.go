@@ -1,8 +1,8 @@
-﻿package currency
+package currency
 
 import (
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/currency"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/currency"
 	"context"
 )
 
@@ -17,3 +17,4 @@ type ICurrencyService interface {
 	Update(ctx context.Context, req *currency.UpdateCurrencyRequest) (*currency.Currency, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

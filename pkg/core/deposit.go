@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 type DepositStatus int
 
@@ -29,3 +29,4 @@ type DepositCreateInput struct {
 
 	TermMonths int8 `json:"term_months" db:"term_months"`
 }
+

@@ -1,12 +1,12 @@
-﻿package account
+package account
 
 import (
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db/account"
 	core "Bank-repository-service/pkg/core"
-	account "Bank-repository-service/proto/repository/account"
-	common "Bank-repository-service/proto/repository/common"
+	account "github.com/Suinar/Bank-proto/repository/account"
+	common "github.com/Suinar/Bank-proto/repository/common"
 )
 
 type AccountService struct {
@@ -136,3 +136,4 @@ func (s *AccountService) fromProto(input *account.Account) *core.Account {
 		Status:     core.AccountStatus(input.Status),
 	}
 }
+

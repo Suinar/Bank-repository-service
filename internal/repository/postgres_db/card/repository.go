@@ -1,4 +1,4 @@
-﻿package card
+package card
 
 import (
 	"context"
@@ -161,3 +161,4 @@ func (r *CardRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+

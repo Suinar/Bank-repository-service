@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 type AccountStatus int
 
@@ -30,3 +30,4 @@ type AccountCreateInput struct {
 type AccountUpdateInput struct {
 	Name *string `json:"name" db:"name"`
 }
+

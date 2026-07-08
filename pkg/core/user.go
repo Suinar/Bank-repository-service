@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 type User struct {
 	Id int64 `json:"id" db:"id"`
@@ -29,3 +29,4 @@ type UserUpdateInput struct {
 	MiddleName *string `json:"middle_name" db:"middle_name"`
 	LastName   *string `json:"last_name" db:"last_name"`
 }
+

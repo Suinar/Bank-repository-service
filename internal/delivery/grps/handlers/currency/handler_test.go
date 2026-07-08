@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -287,3 +287,4 @@ func NewSUT(t *testing.T) (*mocks.MockICurrencyService, *CurrencyHandler, contex
 
 	return service, sut, context.Background()
 }
+

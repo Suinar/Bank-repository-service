@@ -1,4 +1,4 @@
-﻿package account
+package account
 
 import (
 	"context"
@@ -210,3 +210,4 @@ func (r *AccountRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+

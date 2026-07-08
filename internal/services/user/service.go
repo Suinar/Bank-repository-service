@@ -2,8 +2,8 @@ package user
 
 import (
 	"Bank-repository-service/pkg/core"
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/user"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/user"
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db/user"
@@ -124,3 +124,4 @@ func (s *UserService) fromProto(input *user.User) *core.User {
 		PasswordHash: input.PasswordHash,
 	}
 }
+

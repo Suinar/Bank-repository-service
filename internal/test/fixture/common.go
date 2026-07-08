@@ -1,7 +1,7 @@
-﻿package fixture
+package fixture
 
 import (
-	common "Bank-repository-service/proto/repository/common"
+	common "github.com/Suinar/Bank-proto/repository/common"
 )
 
 func NewEmptyProto() *common.Empty {
@@ -26,3 +26,4 @@ func NewAmountRequestProto(amount int64) *common.AmountRequest {
 		Amount: amount,
 	}
 }
+

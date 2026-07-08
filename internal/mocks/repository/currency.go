@@ -138,3 +138,4 @@ func (mr *MockICurrencyRepositoryMockRecorder) Update(ctx, id, input interface{}
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockICurrencyRepository)(nil).Update), ctx, id, input)
 }
+

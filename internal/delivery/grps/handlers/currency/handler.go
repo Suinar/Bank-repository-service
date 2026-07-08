@@ -4,8 +4,8 @@ import (
 	"context"
 
 	service "Bank-repository-service/internal/services/currency"
-	common "Bank-repository-service/proto/repository/common"
-	currency "Bank-repository-service/proto/repository/currency"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
 )
 
 type CurrencyHandler struct {
@@ -44,3 +44,4 @@ func (h *CurrencyHandler) Update(ctx context.Context, req *currency.UpdateCurren
 func (h *CurrencyHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+

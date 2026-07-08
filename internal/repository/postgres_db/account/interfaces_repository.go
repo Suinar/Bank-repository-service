@@ -1,4 +1,4 @@
-﻿package account
+package account
 
 import (
 	"Bank-repository-service/pkg/core"
@@ -17,3 +17,4 @@ type IAccountRepository interface {
 	Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error)
 	Delete(ctx context.Context, id int64) error
 }
+

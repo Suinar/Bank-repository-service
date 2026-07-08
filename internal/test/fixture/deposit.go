@@ -1,8 +1,8 @@
-﻿package fixture
+package fixture
 
 import (
 	core "Bank-repository-service/pkg/core"
-	deposit "Bank-repository-service/proto/repository/deposit"
+	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 )
 
 func NewDepositCore() core.Deposit {
@@ -60,3 +60,4 @@ func NewDepositListProto() *deposit.DepositList {
 		},
 	}
 }
+

@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	"Bank-repository-service/pkg/core"
@@ -17,4 +17,5 @@ type ICurrencyCache interface {
 	Update(ctx context.Context, currency *core.Currency) error
 	Delete(ctx context.Context, id int64) error
 }
+
 

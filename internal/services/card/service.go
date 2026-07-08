@@ -1,12 +1,12 @@
-﻿package card
+package card
 
 import (
 	"context"
 
 	repository "Bank-repository-service/internal/repository/postgres_db/card"
 	core "Bank-repository-service/pkg/core"
-	card "Bank-repository-service/proto/repository/card"
-	common "Bank-repository-service/proto/repository/common"
+	card "github.com/Suinar/Bank-proto/repository/card"
+	common "github.com/Suinar/Bank-proto/repository/common"
 )
 
 type CardService struct {
@@ -127,3 +127,4 @@ func (s *CardService) fromProto(input *card.Card) *core.Card {
 		Status:      core.CardStatus(input.Status),
 	}
 }
+

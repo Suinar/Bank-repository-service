@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	"context"
@@ -310,3 +310,4 @@ func (c *CurrencyCache) GetSymbolKey(symbol rune) string {
 func (c *CurrencyCache) GetMinorUnitsKey(minorUnits int8) string {
 	return currencyKeyPrefix + "minor_units:" + strconv.Itoa(int(minorUnits))
 }
+

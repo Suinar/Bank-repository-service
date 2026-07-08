@@ -1,11 +1,11 @@
-﻿package currency
+package currency
 
 import (
 	cache "Bank-repository-service/internal/repository/cache/currency"
 	repository "Bank-repository-service/internal/repository/postgres_db/currency"
 	errors "Bank-repository-service/pkg"
-	common "Bank-repository-service/proto/repository/common"
-	currency "Bank-repository-service/proto/repository/currency"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
 	"context"
 	"unicode/utf8"
 
@@ -176,3 +176,4 @@ func (s *CurrencyService) fromProto(input *currency.Currency) *core.Currency {
 		MinorUnits: int8(input.MinorUnits),
 	}
 }
+

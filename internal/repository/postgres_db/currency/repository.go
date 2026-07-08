@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	"context"
@@ -193,3 +193,4 @@ WHERE id = $1`
 
 	return nil
 }
+

@@ -3,18 +3,27 @@
 WORKDIR /app
 
 COPY go.mod go.sum ./
+
 RUN go mod download
 
-COPY .. .
+COPY . .
 
-RUN go build -o app ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build \
+    -trimpath \
+    -ldflags="-s -w" \
+    -o repository-service \
+    ./cmd/api
 
-FROM alpine:latest
 
-WORKDIR /app
+FROM gcr.io/distroless/static-debian12
 
-COPY --from=builder /app/app .
+WORKDIR /
 
-EXPOSE 8080
+COPY --from=builder /app/repository-service /repository-service
 
-CMD ["./app"]
+USER nonroot:nonroot
+
+EXPOSE 50052
+
+ENTRYPOINT ["/bank-repository-service"]

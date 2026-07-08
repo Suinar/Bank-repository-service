@@ -1,4 +1,4 @@
-﻿package user
+package user
 
 import (
 	errror "Bank-repository-service/pkg"
@@ -184,3 +184,4 @@ WHERE id = $1`
 
 	return nil
 }
+

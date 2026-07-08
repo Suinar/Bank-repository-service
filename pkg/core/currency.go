@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 type Currency struct {
 	Id int64 `json:"id" db:"id"`
@@ -28,3 +28,4 @@ type CurrencyUpdateInput struct {
 
 	MinorUnits *int8 `json:"minor_units" db:"minor_units"`
 }
+

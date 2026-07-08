@@ -1,4 +1,4 @@
-﻿package postgres
+package postgres
 
 import (
 	configs "Bank-repository-service/internal/configs"
@@ -24,3 +24,4 @@ func NewPostgresDB(cfg *configs.Config) *sqlx.DB {
 
 	return db
 }
+

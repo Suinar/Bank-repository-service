@@ -1,4 +1,4 @@
-﻿package user
+package user
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -331,3 +331,4 @@ func NewSUT(t *testing.T) (*mocks.MockIUserService, *UserHandler, context.Contex
 
 	return service, sut, context.Background()
 }
+

@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	mocksCech "Bank-repository-service/internal/mocks/cache"
@@ -6,7 +6,7 @@ import (
 	fixture "Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	core "Bank-repository-service/pkg/core"
-	currency "Bank-repository-service/proto/repository/currency"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
 	"context"
 	"testing"
 	"unicode/utf8"
@@ -475,3 +475,4 @@ func AssertCurrencyUpdateInputEqual(t *testing.T, expected *core.CurrencyUpdateI
 	assert.Equal(t, *expected.Symbol, *actual.Symbol)
 	assert.Equal(t, *expected.MinorUnits, *actual.MinorUnits)
 }
+

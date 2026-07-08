@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	fixture "Bank-repository-service/internal/test/fixture"
@@ -165,7 +165,7 @@ func TestCurrencyCache_SetAll(t *testing.T) {
 		{
 			Id:         2,
 			Name:       "Euro",
-			Symbol:     '€',
+			Symbol:     '�',
 			IsoCode:    "EUR",
 			MinorUnits: 2,
 		},
@@ -286,3 +286,4 @@ func TestCurrencyCache_Delete_Success(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, int64(0), symbolCount)
 }
+

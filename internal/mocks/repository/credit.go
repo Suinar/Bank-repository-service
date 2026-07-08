@@ -123,3 +123,4 @@ func (mr *MockICreditRepositoryMockRecorder) Repay(ctx, id, amount interface{}) 
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Repay", reflect.TypeOf((*MockICreditRepository)(nil).Repay), ctx, id, amount)
 }
+

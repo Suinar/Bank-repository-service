@@ -1,4 +1,4 @@
-﻿package deposit
+package deposit
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -287,3 +287,4 @@ func NewSUT(t *testing.T) (*mocks.MockIDepositService, *DepositHandler, context.
 
 	return service, sut, context.Background()
 }
+

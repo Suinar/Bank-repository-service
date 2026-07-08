@@ -1,4 +1,4 @@
-﻿package credit
+package credit
 
 import (
 	"Bank-repository-service/pkg/core"
@@ -15,3 +15,4 @@ type ICreditRepository interface {
 	Repay(ctx context.Context, id int64, amount int64) (*core.Credit, error)
 	Delete(ctx context.Context, id int64) error
 }
+

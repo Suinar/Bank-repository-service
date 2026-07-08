@@ -1,8 +1,8 @@
-﻿package fixture
+package fixture
 
 import (
 	core "Bank-repository-service/pkg/core"
-	card "Bank-repository-service/proto/repository/card"
+	card "github.com/Suinar/Bank-proto/repository/card"
 )
 
 func NewCardCore() core.Card {
@@ -67,3 +67,4 @@ func NewCardNumberRequestProto() *card.CardNumberRequest {
 		Number: TestCardNumber,
 	}
 }
+

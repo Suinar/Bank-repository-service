@@ -1,4 +1,4 @@
-﻿package repository
+package repository
 
 import (
 	config "Bank-repository-service/internal/configs"
@@ -64,3 +64,4 @@ func (t *TestRedisDB) Exec(tb testing.TB, fn func(rdb *redis.Client) error) {
 	err := fn(t.DB)
 	require.NoError(tb, err)
 }
+

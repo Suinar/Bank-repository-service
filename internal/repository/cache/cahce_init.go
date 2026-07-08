@@ -1,4 +1,4 @@
-﻿package cache
+package cache
 
 import (
 	currency "Bank-repository-service/internal/repository/cache/currency"
@@ -15,3 +15,4 @@ func InitCaches(rdb *redis.Client) *Caches {
 		Currency: currency.NewCurrencyCache(rdb),
 	}
 }
+

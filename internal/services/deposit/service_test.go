@@ -1,11 +1,11 @@
-﻿package deposit
+package deposit
 
 import (
 	mocks "Bank-repository-service/internal/mocks/repository"
 	fixture "Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	core "Bank-repository-service/pkg/core"
-	deposit "Bank-repository-service/proto/repository/deposit"
+	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 	"context"
 	"testing"
 
@@ -336,3 +336,4 @@ func AssertDepositEqual(t *testing.T, expected *core.Deposit, actual *deposit.De
 	assert.Equal(t, int32(expected.TermMonths), actual.TermMonths)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
+

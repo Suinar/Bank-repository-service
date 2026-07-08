@@ -1,8 +1,8 @@
-﻿package deposit
+package deposit
 
 import (
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/deposit"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/deposit"
 	"context"
 )
 
@@ -16,3 +16,4 @@ type IDepositService interface {
 	Replenish(ctx context.Context, req *common.AmountRequest) (*deposit.Deposit, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

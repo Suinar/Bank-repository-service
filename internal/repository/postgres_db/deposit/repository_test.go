@@ -1,4 +1,4 @@
-﻿package deposit
+package deposit
 
 import (
 	fixture "Bank-repository-service/internal/test/fixture"
@@ -150,3 +150,4 @@ func SetupRepositoryTest(t *testing.T) (*DepositRepository, *connectToDB.TestDB,
 
 	return repo, db, ctx
 }
+

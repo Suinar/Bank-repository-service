@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 type CreditStatus int
 
@@ -29,3 +29,4 @@ type CreditCreateInput struct {
 	Amount     int64 `json:"amount" db:"amount"`
 	TermMonths int8  `json:"term_months" db:"term_months"`
 }
+

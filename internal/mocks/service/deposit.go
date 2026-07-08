@@ -5,8 +5,8 @@
 package mocks
 
 import (
-	common "Bank-repository-service/proto/repository/common"
-	deposit "Bank-repository-service/proto/repository/deposit"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 	context "context"
 	reflect "reflect"
 
@@ -125,3 +125,4 @@ func (mr *MockIDepositServiceMockRecorder) Replenish(ctx, req interface{}) *gomo
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Replenish", reflect.TypeOf((*MockIDepositService)(nil).Replenish), ctx, req)
 }
+

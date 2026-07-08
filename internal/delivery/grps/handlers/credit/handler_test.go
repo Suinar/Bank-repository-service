@@ -1,4 +1,4 @@
-﻿package credit
+package credit
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -287,3 +287,4 @@ func NewSUT(t *testing.T) (*mocks.MockICreditService, *CreditHandler, context.Co
 
 	return service, sut, context.Background()
 }
+

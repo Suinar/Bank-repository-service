@@ -1,4 +1,4 @@
-﻿package currency
+package currency
 
 import (
 	fixture "Bank-repository-service/internal/test/fixture"
@@ -134,3 +134,4 @@ func SetupRepositoryTest(t *testing.T) (*CurrencyRepository, *connectToDB.TestDB
 
 	return repo, db, ctx
 }
+

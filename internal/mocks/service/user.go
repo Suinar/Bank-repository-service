@@ -5,8 +5,8 @@
 package mocks
 
 import (
-	common "Bank-repository-service/proto/repository/common"
-	user "Bank-repository-service/proto/repository/user"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	user "github.com/Suinar/Bank-proto/repository/user"
 	context "context"
 	reflect "reflect"
 
@@ -140,3 +140,4 @@ func (mr *MockIUserServiceMockRecorder) Update(ctx, req interface{}) *gomock.Cal
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockIUserService)(nil).Update), ctx, req)
 }
+

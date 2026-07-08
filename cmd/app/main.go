@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	config "Bank-repository-service/internal/configs"
@@ -9,12 +9,12 @@ import (
 	connectToCahce "Bank-repository-service/pkg/database/cahce"
 	connectToDB "Bank-repository-service/pkg/database/postgres"
 
-	account "Bank-repository-service/proto/repository/account"
-	card "Bank-repository-service/proto/repository/card"
-	credit "Bank-repository-service/proto/repository/credit"
-	currency "Bank-repository-service/proto/repository/currency"
-	deposit "Bank-repository-service/proto/repository/deposit"
-	user "Bank-repository-service/proto/repository/user"
+	account "github.com/Suinar/Bank-proto/repository/account"
+	card "github.com/Suinar/Bank-proto/repository/card"
+	credit "github.com/Suinar/Bank-proto/repository/credit"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
+	deposit "github.com/Suinar/Bank-proto/repository/deposit"
+	user "github.com/Suinar/Bank-proto/repository/user"
 
 	"context"
 	"log"
@@ -60,7 +60,6 @@ func main() {
 	handlers := handler.InitHandlers(services)
 
 	// gRPC server
-
 	grpcServer := grpc.NewServer()
 
 	account.RegisterAccountRepositoryServer(grpcServer, handlers.AccountHandler)

@@ -1,4 +1,4 @@
-﻿package card
+package card
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -331,3 +331,4 @@ func NewSUT(t *testing.T) (*mocks.MockICardService, *CardHandler, context.Contex
 
 	return service, sut, context.Background()
 }
+

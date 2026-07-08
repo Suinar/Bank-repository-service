@@ -1,6 +1,7 @@
-﻿package grpc
+package grpc
 
 import (
+	config "Bank-repository-service/internal/configs"
 	accountHandler "Bank-repository-service/internal/delivery/grps/handlers/account"
 	cardHandler "Bank-repository-service/internal/delivery/grps/handlers/card"
 	creditHandler "Bank-repository-service/internal/delivery/grps/handlers/credit"
@@ -13,16 +14,17 @@ import (
 	"google.golang.org/grpc"
 
 	service "Bank-repository-service/internal/services"
-	accountProto "Bank-repository-service/proto/repository/account"
-	cardProto "Bank-repository-service/proto/repository/card"
-	creditProto "Bank-repository-service/proto/repository/credit"
-	currencyProto "Bank-repository-service/proto/repository/currency"
-	depositProto "Bank-repository-service/proto/repository/deposit"
-	userProto "Bank-repository-service/proto/repository/user"
+
+	accountProto "github.com/Suinar/Bank-proto/repository/account"
+	cardProto "github.com/Suinar/Bank-proto/repository/card"
+	creditProto "github.com/Suinar/Bank-proto/repository/credit"
+	currencyProto "github.com/Suinar/Bank-proto/repository/currency"
+	depositProto "github.com/Suinar/Bank-proto/repository/deposit"
+	userProto "github.com/Suinar/Bank-proto/repository/user"
 )
 
-func RunGrpcServer(services *service.Services) {
-	lis, err := net.Listen("tcp", ":50051")
+func RunGrpcServer(cfg config.Config, services *service.Services) {
+	lis, err := net.Listen(cfg.Network, cfg.GrpsPort)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -31,7 +33,7 @@ func RunGrpcServer(services *service.Services) {
 
 	RegisterServices(grpcServer, services)
 
-	log.Println("repository-service running on :50051")
+	log.Println("repository-service running on " + cfg.GrpsPort)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

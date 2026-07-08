@@ -1,4 +1,4 @@
-﻿package cahce
+package cahce
 
 import (
 	"Bank-repository-service/internal/configs"
@@ -23,3 +23,4 @@ func NewRedisDB(cfg *configs.Config) *redis.Client {
 
 	return client
 }
+

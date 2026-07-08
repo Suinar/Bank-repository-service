@@ -4,8 +4,8 @@ import (
 	"context"
 
 	service "Bank-repository-service/internal/services/credit"
-	common "Bank-repository-service/proto/repository/common"
-	credit "Bank-repository-service/proto/repository/credit"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	credit "github.com/Suinar/Bank-proto/repository/credit"
 )
 
 type CreditHandler struct {
@@ -40,3 +40,4 @@ func (h *CreditHandler) Repay(ctx context.Context, req *common.AmountRequest) (*
 func (h *CreditHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+

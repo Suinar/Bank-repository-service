@@ -1,11 +1,11 @@
-﻿package credit
+package credit
 
 import (
 	mocks "Bank-repository-service/internal/mocks/repository"
 	fixture "Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	core "Bank-repository-service/pkg/core"
-	credit "Bank-repository-service/proto/repository/credit"
+	credit "github.com/Suinar/Bank-proto/repository/credit"
 	"context"
 	"testing"
 
@@ -337,3 +337,4 @@ func AssertCreditEqual(t *testing.T, expected *core.Credit, actual *credit.Credi
 	assert.Equal(t, expected.MonthlyPayment, actual.MonthlyPayment)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
+

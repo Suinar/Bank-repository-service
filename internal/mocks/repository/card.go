@@ -138,3 +138,4 @@ func (mr *MockICardRepositoryMockRecorder) GetByUser(ctx, idUser interface{}) *g
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUser", reflect.TypeOf((*MockICardRepository)(nil).GetByUser), ctx, idUser)
 }
+

@@ -123,3 +123,4 @@ func (mr *MockIDepositRepositoryMockRecorder) Replenish(ctx, id, amount interfac
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Replenish", reflect.TypeOf((*MockIDepositRepository)(nil).Replenish), ctx, id, amount)
 }
+

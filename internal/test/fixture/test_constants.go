@@ -1,4 +1,4 @@
-﻿package fixture
+package fixture
 
 const (
 	TestId int64 = 1
@@ -36,3 +36,4 @@ func RunePointer(v rune) *rune { return &v }
 func Int32Pointer(v int32) *int32 { return &v }
 
 func Int8Pointer(v int8) *int8 { return &v }
+

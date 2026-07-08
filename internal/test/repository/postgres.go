@@ -1,4 +1,4 @@
-﻿package repository
+package repository
 
 import (
 	configs "Bank-repository-service/internal/configs"
@@ -115,3 +115,4 @@ func (tdb *TestDB) InsertDeposit(t testing.TB, deposit *core.Deposit) {
 
 	tdb.Exec(t, query, deposit.Id, deposit.UserId, deposit.CurrencyId, deposit.Amount, deposit.InterestRate, deposit.TermMonths, deposit.Status)
 }
+

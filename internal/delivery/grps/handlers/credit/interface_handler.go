@@ -1,8 +1,8 @@
-﻿package credit
+package credit
 
 import (
-	"Bank-repository-service/proto/repository/common"
-	"Bank-repository-service/proto/repository/credit"
+	"github.com/Suinar/Bank-proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/credit"
 	"context"
 )
 
@@ -14,3 +14,4 @@ type ICreditHandler interface {
 	Repay(ctx context.Context, req *common.AmountRequest) (*credit.Credit, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

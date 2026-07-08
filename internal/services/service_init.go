@@ -1,4 +1,4 @@
-﻿package service
+package service
 
 import (
 	cache "Bank-repository-service/internal/repository/cache"
@@ -30,3 +30,4 @@ func InitServices(repositories *repository.Repositories, caches *cache.Caches) *
 		UserService:     user.NewUserService(repositories.UserRepository),
 	}
 }
+

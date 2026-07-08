@@ -1,4 +1,4 @@
-﻿package configs
+package configs
 
 import (
 	"fmt"
@@ -8,7 +8,8 @@ import (
 )
 
 type Config struct {
-	ApiPort string
+	GrpsPort string
+	Network  string
 
 	Postgres struct {
 		Host         string
@@ -41,7 +42,8 @@ func LoadConfig() *Config {
 
 	cfg := &Config{}
 
-	cfg.ApiPort = viper.GetString("API_PORT")
+	cfg.GrpsPort = viper.GetString("GRPS_PORT")
+	cfg.Network = viper.GetString("NETWORK")
 
 	cfg.Postgres.Host = viper.GetString("DB_HOST")
 	cfg.Postgres.Port = viper.GetInt("DB_PORT")
@@ -101,3 +103,4 @@ func LoadTestConfig() *Config {
 
 	return cfg
 }
+

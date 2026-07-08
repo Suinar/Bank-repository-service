@@ -1,8 +1,8 @@
-﻿package card
+package card
 
 import (
-	"Bank-repository-service/proto/repository/card"
-	"Bank-repository-service/proto/repository/common"
+	"github.com/Suinar/Bank-proto/repository/card"
+	"github.com/Suinar/Bank-proto/repository/common"
 	"context"
 )
 
@@ -15,3 +15,4 @@ type ICardHandler interface {
 	Create(ctx context.Context, req *card.Card) (*card.Card, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
+

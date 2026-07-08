@@ -1,4 +1,4 @@
-﻿package account
+package account
 
 import (
 	mocks "Bank-repository-service/internal/mocks/service"
@@ -376,3 +376,4 @@ func NewSUT(t *testing.T) (*mocks.MockIAccountService, *AccountHandler, context.
 
 	return service, sut, context.Background()
 }
+

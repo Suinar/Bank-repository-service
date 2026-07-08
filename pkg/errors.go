@@ -1,4 +1,4 @@
-﻿package pkg
+package pkg
 
 import "errors"
 
@@ -13,3 +13,4 @@ var (
 	CacheMapError        = errors.New("redis mapping failed")
 	TestError            = errors.New("test error")
 )
+

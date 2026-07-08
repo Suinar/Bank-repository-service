@@ -1,4 +1,4 @@
-﻿package deposit
+package deposit
 
 import (
 	errror "Bank-repository-service/pkg"
@@ -136,3 +136,4 @@ func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+

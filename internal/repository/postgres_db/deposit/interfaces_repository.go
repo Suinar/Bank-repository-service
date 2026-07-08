@@ -1,4 +1,4 @@
-﻿package deposit
+package deposit
 
 import (
 	"Bank-repository-service/pkg/core"
@@ -15,3 +15,4 @@ type IDepositRepository interface {
 	Replenish(ctx context.Context, id int64, amount int64) (*core.Deposit, error)
 	Delete(ctx context.Context, id int64) error
 }
+

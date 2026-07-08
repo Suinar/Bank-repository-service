@@ -4,8 +4,8 @@ import (
 	"context"
 
 	service "Bank-repository-service/internal/services/card"
-	card "Bank-repository-service/proto/repository/card"
-	common "Bank-repository-service/proto/repository/common"
+	card "github.com/Suinar/Bank-proto/repository/card"
+	common "github.com/Suinar/Bank-proto/repository/common"
 )
 
 type CardHandler struct {
@@ -44,3 +44,4 @@ func (h *CardHandler) Create(ctx context.Context, req *card.Card) (*card.Card, e
 func (h *CardHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+

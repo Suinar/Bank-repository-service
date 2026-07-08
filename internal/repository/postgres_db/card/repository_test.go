@@ -1,4 +1,4 @@
-﻿package card
+package card
 
 import (
 	fixture "Bank-repository-service/internal/test/fixture"
@@ -184,3 +184,4 @@ func SetupRepositoryTest(t *testing.T) (*CardRepository, *connectToDB.TestDB, co
 
 	return repo, db, ctx
 }
+

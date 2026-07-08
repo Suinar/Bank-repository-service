@@ -1,4 +1,4 @@
-﻿package repository
+package repository
 
 import (
 	account "Bank-repository-service/internal/repository/postgres_db/account"
@@ -30,3 +30,4 @@ func InitRepositories(db *sqlx.DB) *Repositories {
 		UserRepository:     user.NewUserRepository(db),
 	}
 }
+

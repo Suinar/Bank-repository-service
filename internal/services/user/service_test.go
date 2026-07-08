@@ -1,11 +1,11 @@
-﻿package user
+package user
 
 import (
 	mocks "Bank-repository-service/internal/mocks/repository"
 	fixture "Bank-repository-service/internal/test/fixture"
 	errors "Bank-repository-service/pkg"
 	core "Bank-repository-service/pkg/core"
-	user "Bank-repository-service/proto/repository/user"
+	user "github.com/Suinar/Bank-proto/repository/user"
 	"context"
 	"testing"
 
@@ -391,3 +391,4 @@ func AssertUserEqual(t *testing.T, expected *core.User, actual *user.User) {
 	assert.Equal(t, expected.PhoneNumber, actual.PhoneNumber)
 	assert.Equal(t, expected.PasswordHash, actual.PasswordHash)
 }
+
