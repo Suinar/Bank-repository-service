@@ -141,3 +141,4 @@ func (mr *MockICurrencyServiceMockRecorder) Update(ctx, req interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockICurrencyService)(nil).Update), ctx, req)
 }
 
+

@@ -1,9 +1,9 @@
 package card
 
 import (
-	mocks "Bank-repository-service/internal/mocks/service"
-	"Bank-repository-service/internal/test/fixture"
-	errors "Bank-repository-service/pkg"
+	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/service"
+	"github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
 
 	"context"
 	"testing"
@@ -331,4 +331,5 @@ func NewSUT(t *testing.T) (*mocks.MockICardService, *CardHandler, context.Contex
 
 	return service, sut, context.Background()
 }
+
 

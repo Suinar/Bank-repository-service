@@ -5,8 +5,8 @@ import (
 	"errors"
 	"strconv"
 
-	errror "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
+	errror "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -310,4 +310,5 @@ func (c *CurrencyCache) GetSymbolKey(symbol rune) string {
 func (c *CurrencyCache) GetMinorUnitsKey(minorUnits int8) string {
 	return currencyKeyPrefix + "minor_units:" + strconv.Itoa(int(minorUnits))
 }
+
 

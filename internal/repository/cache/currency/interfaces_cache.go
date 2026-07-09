@@ -1,7 +1,7 @@
 package currency
 
 import (
-	"Bank-repository-service/pkg/core"
+	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	"context"
 )
 
@@ -17,5 +17,6 @@ type ICurrencyCache interface {
 	Update(ctx context.Context, currency *core.Currency) error
 	Delete(ctx context.Context, id int64) error
 }
+
 
 

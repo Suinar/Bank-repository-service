@@ -126,3 +126,4 @@ func (mr *MockICreditServiceMockRecorder) Repay(ctx, req interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Repay", reflect.TypeOf((*MockICreditService)(nil).Repay), ctx, req)
 }
 
+

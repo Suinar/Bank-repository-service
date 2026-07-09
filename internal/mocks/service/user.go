@@ -141,3 +141,4 @@ func (mr *MockIUserServiceMockRecorder) Update(ctx, req interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockIUserService)(nil).Update), ctx, req)
 }
 
+

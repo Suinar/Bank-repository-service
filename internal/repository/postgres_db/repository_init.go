@@ -1,12 +1,12 @@
 package repository
 
 import (
-	account "Bank-repository-service/internal/repository/postgres_db/account"
-	card "Bank-repository-service/internal/repository/postgres_db/card"
-	credit "Bank-repository-service/internal/repository/postgres_db/credit"
-	currency "Bank-repository-service/internal/repository/postgres_db/currency"
-	deposit "Bank-repository-service/internal/repository/postgres_db/deposit"
-	user "Bank-repository-service/internal/repository/postgres_db/user"
+	account "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/account"
+	card "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/card"
+	credit "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/credit"
+	currency "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/currency"
+	deposit "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/deposit"
+	user "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/user"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -30,4 +30,5 @@ func InitRepositories(db *sqlx.DB) *Repositories {
 		UserRepository:     user.NewUserRepository(db),
 	}
 }
+
 

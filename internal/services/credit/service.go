@@ -3,8 +3,8 @@ package credit
 import (
 	"context"
 
-	repository "Bank-repository-service/internal/repository/postgres_db/credit"
-	core "Bank-repository-service/pkg/core"
+	repository "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/credit"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
 )
@@ -120,4 +120,5 @@ func (s *CreditService) fromProto(input *credit.Credit) *core.Credit {
 		Status:         core.CreditStatus(input.Status),
 	}
 }
+
 

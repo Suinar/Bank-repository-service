@@ -29,3 +29,4 @@ type CurrencyUpdateInput struct {
 	MinorUnits *int8 `json:"minor_units" db:"minor_units"`
 }
 
+

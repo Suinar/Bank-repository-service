@@ -1,7 +1,7 @@
 package currency
 
 import (
-	"Bank-repository-service/pkg/core"
+	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	"context"
 )
 
@@ -16,4 +16,5 @@ type ICurrencyRepository interface {
 	Update(ctx context.Context, id int64, input *core.CurrencyUpdateInput) (*core.Currency, error)
 	Delete(ctx context.Context, id int64) error
 }
+
 

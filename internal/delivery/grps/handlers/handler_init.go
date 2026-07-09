@@ -1,13 +1,13 @@
 package handler
 
 import (
-	account "Bank-repository-service/internal/delivery/grps/handlers/account"
-	card "Bank-repository-service/internal/delivery/grps/handlers/card"
-	credit "Bank-repository-service/internal/delivery/grps/handlers/credit"
-	currency "Bank-repository-service/internal/delivery/grps/handlers/currency"
-	deposit "Bank-repository-service/internal/delivery/grps/handlers/deposit"
-	user "Bank-repository-service/internal/delivery/grps/handlers/user"
-	service "Bank-repository-service/internal/services"
+	account "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/account"
+	card "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/card"
+	credit "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/credit"
+	currency "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/currency"
+	deposit "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/deposit"
+	user "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers/user"
+	service "github.com/Suinar/Bank-exhange-rate-service/internal/services"
 )
 
 type Handlers struct {
@@ -29,4 +29,5 @@ func InitHandlers(services *service.Services) *Handlers {
 		UserHandler:     user.NewUserHandler(services.UserService),
 	}
 }
+
 

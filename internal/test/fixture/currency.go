@@ -1,7 +1,7 @@
 package fixture
 
 import (
-	core "Bank-repository-service/pkg/core"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
 )
 
@@ -80,4 +80,5 @@ func NewUpdateCurrencyRequestProto() *currency.UpdateCurrencyRequest {
 		Input: NewCurrencyUpdateInputProto(),
 	}
 }
+
 

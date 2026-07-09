@@ -1,4 +1,4 @@
-module Bank-repository-service
+module github.com/Suinar/Bank-exhange-rate-service
 
 go 1.25.5
 

@@ -1,7 +1,7 @@
 package card
 
 import (
-	"Bank-repository-service/pkg/core"
+	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	"context"
 )
 
@@ -16,4 +16,5 @@ type ICardRepository interface {
 	Create(ctx context.Context, input *core.Card) (*core.Card, error)
 	Delete(ctx context.Context, id int64) error
 }
+
 

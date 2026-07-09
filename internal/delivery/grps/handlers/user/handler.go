@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	service "Bank-repository-service/internal/services/user"
+	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/user"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	user "github.com/Suinar/Bank-proto/repository/user"
 )
@@ -44,4 +44,5 @@ func (h *UserHandler) Update(ctx context.Context, req *user.UpdateUserRequest) (
 func (h *UserHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 

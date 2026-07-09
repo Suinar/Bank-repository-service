@@ -141,3 +141,4 @@ func (mr *MockICardServiceMockRecorder) GetByUser(ctx, req interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUser", reflect.TypeOf((*MockICardService)(nil).GetByUser), ctx, req)
 }
 
+

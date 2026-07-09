@@ -1,7 +1,7 @@
 package fixture
 
 import (
-	core "Bank-repository-service/pkg/core"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	card "github.com/Suinar/Bank-proto/repository/card"
 )
 
@@ -67,4 +67,5 @@ func NewCardNumberRequestProto() *card.CardNumberRequest {
 		Number: TestCardNumber,
 	}
 }
+
 

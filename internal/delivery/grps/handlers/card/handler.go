@@ -3,7 +3,7 @@ package card
 import (
 	"context"
 
-	service "Bank-repository-service/internal/services/card"
+	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/card"
 	card "github.com/Suinar/Bank-proto/repository/card"
 	common "github.com/Suinar/Bank-proto/repository/common"
 )
@@ -44,4 +44,5 @@ func (h *CardHandler) Create(ctx context.Context, req *card.Card) (*card.Card, e
 func (h *CardHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 

@@ -1,7 +1,7 @@
 package cache
 
 import (
-	currency "Bank-repository-service/internal/repository/cache/currency"
+	currency "github.com/Suinar/Bank-exhange-rate-service/internal/repository/cache/currency"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -15,4 +15,5 @@ func InitCaches(rdb *redis.Client) *Caches {
 		Currency: currency.NewCurrencyCache(rdb),
 	}
 }
+
 

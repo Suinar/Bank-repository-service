@@ -1,9 +1,9 @@
 package account
 
 import (
-	fixture "Bank-repository-service/internal/test/fixture"
-	connectToDB "Bank-repository-service/internal/test/repository"
-	core "Bank-repository-service/pkg/core"
+	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
+	connectToDB "github.com/Suinar/Bank-exhange-rate-service/internal/test/repository"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	"context"
 	"testing"
 
@@ -190,4 +190,5 @@ func SetupRepositoryTest(t *testing.T) (*AccountRepository, *connectToDB.TestDB,
 
 	return repo, db, ctx
 }
+
 

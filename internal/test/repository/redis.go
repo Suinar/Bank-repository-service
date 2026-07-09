@@ -1,7 +1,7 @@
 package repository
 
 import (
-	config "Bank-repository-service/internal/configs"
+	config "github.com/Suinar/Bank-exhange-rate-service/internal/configs"
 	"context"
 	"testing"
 	"time"
@@ -64,4 +64,5 @@ func (t *TestRedisDB) Exec(tb testing.TB, fn func(rdb *redis.Client) error) {
 	err := fn(t.DB)
 	require.NoError(tb, err)
 }
+
 

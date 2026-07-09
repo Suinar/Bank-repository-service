@@ -1,7 +1,7 @@
 package fixture
 
 import (
-	core "Bank-repository-service/pkg/core"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
 )
 
@@ -56,4 +56,5 @@ func NewCreditListProto() *credit.CreditList {
 		},
 	}
 }
+
 

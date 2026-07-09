@@ -27,3 +27,4 @@ type CardCreateInput struct {
 	AccountId int64 `json:"account_id" db:"account_id"`
 }
 
+

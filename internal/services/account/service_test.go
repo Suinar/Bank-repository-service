@@ -1,10 +1,10 @@
 package account
 
 import (
-	mocks "Bank-repository-service/internal/mocks/repository"
-	fixture "Bank-repository-service/internal/test/fixture"
-	errors "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
+	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/repository"
+	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	account "github.com/Suinar/Bank-proto/repository/account"
 	"context"
 	"testing"
@@ -441,4 +441,5 @@ func AssertAccountEqual(t *testing.T, expected *core.Account, actual *account.Ac
 	assert.Equal(t, expected.Balance, actual.Balance)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
+
 

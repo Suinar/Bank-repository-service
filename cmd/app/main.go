@@ -1,13 +1,13 @@
 package main
 
 import (
-	config "Bank-repository-service/internal/configs"
-	handler "Bank-repository-service/internal/delivery/grps/handlers"
-	cache "Bank-repository-service/internal/repository/cache"
-	repository "Bank-repository-service/internal/repository/postgres_db"
-	service "Bank-repository-service/internal/services"
-	connectToCahce "Bank-repository-service/pkg/database/cahce"
-	connectToDB "Bank-repository-service/pkg/database/postgres"
+	config "github.com/Suinar/Bank-exhange-rate-service/internal/configs"
+	handler "github.com/Suinar/Bank-exhange-rate-service/internal/delivery/grps/handlers"
+	cache "github.com/Suinar/Bank-exhange-rate-service/internal/repository/cache"
+	repository "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db"
+	service "github.com/Suinar/Bank-exhange-rate-service/internal/services"
+	connectToCahce "github.com/Suinar/Bank-exhange-rate-service/pkg/database/cahce"
+	connectToDB "github.com/Suinar/Bank-exhange-rate-service/pkg/database/postgres"
 
 	account "github.com/Suinar/Bank-proto/repository/account"
 	card "github.com/Suinar/Bank-proto/repository/card"
@@ -101,3 +101,4 @@ func main() {
 		log.Fatal(err)
 	}
 }
+

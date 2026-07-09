@@ -1,9 +1,9 @@
 package credit
 
 import (
-	mocks "Bank-repository-service/internal/mocks/service"
-	fixture "Bank-repository-service/internal/test/fixture"
-	errors "Bank-repository-service/pkg"
+	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/service"
+	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
 	"context"
 	"testing"
 
@@ -287,4 +287,5 @@ func NewSUT(t *testing.T) (*mocks.MockICreditService, *CreditHandler, context.Co
 
 	return service, sut, context.Background()
 }
+
 

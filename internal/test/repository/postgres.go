@@ -1,8 +1,8 @@
 package repository
 
 import (
-	configs "Bank-repository-service/internal/configs"
-	"Bank-repository-service/pkg/core"
+	configs "github.com/Suinar/Bank-exhange-rate-service/internal/configs"
+	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	"context"
 	"database/sql"
 	"testing"
@@ -115,4 +115,5 @@ func (tdb *TestDB) InsertDeposit(t testing.TB, deposit *core.Deposit) {
 
 	tdb.Exec(t, query, deposit.Id, deposit.UserId, deposit.CurrencyId, deposit.Amount, deposit.InterestRate, deposit.TermMonths, deposit.Status)
 }
+
 

@@ -3,8 +3,8 @@ package account
 import (
 	"context"
 
-	repository "Bank-repository-service/internal/repository/postgres_db/account"
-	core "Bank-repository-service/pkg/core"
+	repository "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/account"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	account "github.com/Suinar/Bank-proto/repository/account"
 	common "github.com/Suinar/Bank-proto/repository/common"
 )
@@ -136,4 +136,5 @@ func (s *AccountService) fromProto(input *account.Account) *core.Account {
 		Status:     core.AccountStatus(input.Status),
 	}
 }
+
 

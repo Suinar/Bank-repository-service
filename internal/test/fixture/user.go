@@ -1,7 +1,7 @@
 package fixture
 
 import (
-	"Bank-repository-service/pkg/core"
+	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	user "github.com/Suinar/Bank-proto/repository/user"
 )
 
@@ -88,4 +88,5 @@ func NewUpdateUserRequestProto() *user.UpdateUserRequest {
 		Input: NewUserUpdateInputProto(),
 	}
 }
+
 

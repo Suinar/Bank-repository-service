@@ -1,10 +1,10 @@
 package card
 
 import (
-	mocks "Bank-repository-service/internal/mocks/repository"
-	fixture "Bank-repository-service/internal/test/fixture"
-	errors "Bank-repository-service/pkg"
-	core "Bank-repository-service/pkg/core"
+	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/repository"
+	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
 	card "github.com/Suinar/Bank-proto/repository/card"
 	"context"
 	"testing"
@@ -377,4 +377,5 @@ func AssertCardEqual(t *testing.T, expected *core.Card, actual *card.Card) {
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 
 }
+
 

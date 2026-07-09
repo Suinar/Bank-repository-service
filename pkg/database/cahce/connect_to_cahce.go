@@ -1,7 +1,7 @@
 package cahce
 
 import (
-	"Bank-repository-service/internal/configs"
+	"github.com/Suinar/Bank-exhange-rate-service/internal/configs"
 	"context"
 	"log"
 
@@ -23,4 +23,5 @@ func NewRedisDB(cfg *configs.Config) *redis.Client {
 
 	return client
 }
+
 

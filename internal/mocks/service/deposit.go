@@ -126,3 +126,4 @@ func (mr *MockIDepositServiceMockRecorder) Replenish(ctx, req interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Replenish", reflect.TypeOf((*MockIDepositService)(nil).Replenish), ctx, req)
 }
 
+
