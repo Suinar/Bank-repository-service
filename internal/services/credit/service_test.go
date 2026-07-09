@@ -1,10 +1,10 @@
 package credit
 
 import (
-	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/repository"
-	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
+	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
 	"context"
 	"testing"
@@ -337,5 +337,6 @@ func AssertCreditEqual(t *testing.T, expected *core.Credit, actual *credit.Credi
 	assert.Equal(t, expected.MonthlyPayment, actual.MonthlyPayment)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
+
 
 

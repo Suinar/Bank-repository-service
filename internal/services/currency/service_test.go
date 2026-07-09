@@ -1,11 +1,11 @@
 package currency
 
 import (
-	mocksCech "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/cache"
-	mocksRep "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/repository"
-	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	mocksCech "github.com/Suinar/Bank-repository-service/internal/mocks/cache"
+	mocksRep "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
+	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
 	"context"
 	"testing"
@@ -475,5 +475,6 @@ func AssertCurrencyUpdateInputEqual(t *testing.T, expected *core.CurrencyUpdateI
 	assert.Equal(t, *expected.Symbol, *actual.Symbol)
 	assert.Equal(t, *expected.MinorUnits, *actual.MinorUnits)
 }
+
 
 

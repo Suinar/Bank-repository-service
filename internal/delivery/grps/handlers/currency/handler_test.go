@@ -1,9 +1,9 @@
 package currency
 
 import (
-	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/service"
-	"github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/service"
+	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-repository-service/pkg"
 	"context"
 	"testing"
 
@@ -287,5 +287,6 @@ func NewSUT(t *testing.T) (*mocks.MockICurrencyService, *CurrencyHandler, contex
 
 	return service, sut, context.Background()
 }
+
 
 

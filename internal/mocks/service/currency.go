@@ -142,3 +142,4 @@ func (mr *MockICurrencyServiceMockRecorder) Update(ctx, req interface{}) *gomock
 }
 
 
+

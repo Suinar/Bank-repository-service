@@ -1,7 +1,7 @@
 package credit
 
 import (
-	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 )
 
@@ -15,5 +15,6 @@ type ICreditRepository interface {
 	Repay(ctx context.Context, id int64, amount int64) (*core.Credit, error)
 	Delete(ctx context.Context, id int64) error
 }
+
 
 

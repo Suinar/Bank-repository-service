@@ -1,4 +1,4 @@
-﻿.PHONY: help build run test test-cover generate-mocks \
+.PHONY: help build run test test-cover generate-mocks \
         docker-up docker-down docker-restart docker-logs docker-ps \
         test-postgres-up test-postgres-down \
         test-redis-up test-redis-down

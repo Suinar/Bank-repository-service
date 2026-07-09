@@ -3,7 +3,7 @@ package account
 import (
 	"context"
 
-	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/account"
+	service "github.com/Suinar/Bank-repository-service/internal/services/account"
 	account "github.com/Suinar/Bank-proto/repository/account"
 	common "github.com/Suinar/Bank-proto/repository/common"
 )
@@ -48,5 +48,6 @@ func (h *AccountHandler) Update(ctx context.Context, req *account.UpdateAccountR
 func (h *AccountHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 
 

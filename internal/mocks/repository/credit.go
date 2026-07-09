@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	context "context"
 	reflect "reflect"
 
@@ -123,5 +123,6 @@ func (mr *MockICreditRepositoryMockRecorder) Repay(ctx, id, amount interface{}) 
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Repay", reflect.TypeOf((*MockICreditRepository)(nil).Repay), ctx, id, amount)
 }
+
 
 

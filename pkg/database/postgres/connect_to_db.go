@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	configs "github.com/Suinar/Bank-exhange-rate-service/internal/configs"
+	configs "github.com/Suinar/Bank-repository-service/internal/configs"
 	"log"
 
 	"github.com/jmoiron/sqlx"
@@ -24,5 +24,6 @@ func NewPostgresDB(cfg *configs.Config) *sqlx.DB {
 
 	return db
 }
+
 
 

@@ -3,7 +3,7 @@ package deposit
 import (
 	"context"
 
-	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/deposit"
+	service "github.com/Suinar/Bank-repository-service/internal/services/deposit"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 )
@@ -40,5 +40,6 @@ func (h *DepositHandler) Replenish(ctx context.Context, req *common.AmountReques
 func (h *DepositHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 
 

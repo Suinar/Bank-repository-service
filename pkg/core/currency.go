@@ -30,3 +30,4 @@ type CurrencyUpdateInput struct {
 }
 
 
+

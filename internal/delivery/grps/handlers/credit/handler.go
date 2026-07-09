@@ -3,7 +3,7 @@ package credit
 import (
 	"context"
 
-	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/credit"
+	service "github.com/Suinar/Bank-repository-service/internal/services/credit"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
 )
@@ -40,5 +40,6 @@ func (h *CreditHandler) Repay(ctx context.Context, req *common.AmountRequest) (*
 func (h *CreditHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 
 

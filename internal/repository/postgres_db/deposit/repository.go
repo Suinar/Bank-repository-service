@@ -1,8 +1,8 @@
 package deposit
 
 import (
-	errror "github.com/Suinar/Bank-exhange-rate-service/pkg"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
@@ -136,5 +136,6 @@ func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+
 
 

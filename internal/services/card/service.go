@@ -3,8 +3,8 @@ package card
 import (
 	"context"
 
-	repository "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/card"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/card"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	card "github.com/Suinar/Bank-proto/repository/card"
 	common "github.com/Suinar/Bank-proto/repository/common"
 )
@@ -127,5 +127,6 @@ func (s *CardService) fromProto(input *card.Card) *core.Card {
 		Status:      core.CardStatus(input.Status),
 	}
 }
+
 
 

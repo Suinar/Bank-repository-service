@@ -1,4 +1,4 @@
-﻿\connect bank_test
+\connect bank_test
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,

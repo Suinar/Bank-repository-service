@@ -1,7 +1,7 @@
 package deposit
 
 import (
-	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 )
 
@@ -15,5 +15,6 @@ type IDepositRepository interface {
 	Replenish(ctx context.Context, id int64, amount int64) (*core.Deposit, error)
 	Delete(ctx context.Context, id int64) error
 }
+
 
 

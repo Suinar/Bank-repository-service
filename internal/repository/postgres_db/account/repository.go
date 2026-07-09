@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	errror "github.com/Suinar/Bank-exhange-rate-service/pkg"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -210,5 +210,6 @@ func (r *AccountRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+
 
 

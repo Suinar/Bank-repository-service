@@ -1,9 +1,9 @@
 package deposit
 
 import (
-	mocks "github.com/Suinar/Bank-exhange-rate-service/internal/mocks/service"
-	"github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/service"
+	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	errors "github.com/Suinar/Bank-repository-service/pkg"
 	"context"
 	"testing"
 
@@ -287,5 +287,6 @@ func NewSUT(t *testing.T) (*mocks.MockIDepositService, *DepositHandler, context.
 
 	return service, sut, context.Background()
 }
+
 
 

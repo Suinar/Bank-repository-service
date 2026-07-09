@@ -1,15 +1,15 @@
 package currency
 
 import (
-	cache "github.com/Suinar/Bank-exhange-rate-service/internal/repository/cache/currency"
-	repository "github.com/Suinar/Bank-exhange-rate-service/internal/repository/postgres_db/currency"
-	errors "github.com/Suinar/Bank-exhange-rate-service/pkg"
+	cache "github.com/Suinar/Bank-repository-service/internal/repository/cache/currency"
+	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/currency"
+	errors "github.com/Suinar/Bank-repository-service/pkg"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
 	"context"
 	"unicode/utf8"
 
-	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
 type CurrencyService struct {
@@ -176,5 +176,6 @@ func (s *CurrencyService) fromProto(input *currency.Currency) *core.Currency {
 		MinorUnits: int8(input.MinorUnits),
 	}
 }
+
 
 

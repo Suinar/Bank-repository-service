@@ -1,9 +1,9 @@
 package currency
 
 import (
-	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	test "github.com/Suinar/Bank-exhange-rate-service/internal/test/repository"
-	"github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	test "github.com/Suinar/Bank-repository-service/internal/test/repository"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"strconv"
 
 	"context"
@@ -286,5 +286,6 @@ func TestCurrencyCache_Delete_Success(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, int64(0), symbolCount)
 }
+
 
 

@@ -1,9 +1,9 @@
 package currency
 
 import (
-	fixture "github.com/Suinar/Bank-exhange-rate-service/internal/test/fixture"
-	connectToDB "github.com/Suinar/Bank-exhange-rate-service/internal/test/repository"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	connectToDB "github.com/Suinar/Bank-repository-service/internal/test/repository"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 	"testing"
 
@@ -134,5 +134,6 @@ func SetupRepositoryTest(t *testing.T) (*CurrencyRepository, *connectToDB.TestDB
 
 	return repo, db, ctx
 }
+
 
 

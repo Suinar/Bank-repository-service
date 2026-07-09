@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	errror "github.com/Suinar/Bank-exhange-rate-service/pkg"
-	core "github.com/Suinar/Bank-exhange-rate-service/pkg/core"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -193,5 +193,6 @@ WHERE id = $1`
 
 	return nil
 }
+
 
 

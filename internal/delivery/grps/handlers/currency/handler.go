@@ -3,7 +3,7 @@ package currency
 import (
 	"context"
 
-	service "github.com/Suinar/Bank-exhange-rate-service/internal/services/currency"
+	service "github.com/Suinar/Bank-repository-service/internal/services/currency"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
 )
@@ -44,5 +44,6 @@ func (h *CurrencyHandler) Update(ctx context.Context, req *currency.UpdateCurren
 func (h *CurrencyHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
 }
+
 
 
