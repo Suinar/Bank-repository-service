@@ -1,12 +1,12 @@
 package deposit
 
 import (
+	"context"
+	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
-	deposit "github.com/Suinar/Bank-proto/repository/deposit"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -210,7 +210,7 @@ func TestDepositService_Delete_Success(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(req.Id, nil).
+		Return(nil).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -230,7 +230,7 @@ func TestDepositService_Delete_Error(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(int64(0), errors.TestError).
+		Return(errors.TestError).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -311,6 +311,15 @@ func TestDepositService_toCore_Success(t *testing.T) {
 	assert.Equal(t, &expected, result)
 }
 
+func TestDepositService_Mappers_Nil(t *testing.T) {
+	t.Parallel()
+
+	_, sut, _ := NewSUT(t)
+
+	assert.Nil(t, sut.toProto(nil))
+	assert.Nil(t, sut.fromProto(nil))
+}
+
 func NewSUT(t *testing.T) (*mocks.MockIDepositRepository, *DepositService, context.Context) {
 	t.Helper()
 
@@ -336,6 +345,3 @@ func AssertDepositEqual(t *testing.T, expected *core.Deposit, actual *deposit.De
 	assert.Equal(t, int32(expected.TermMonths), actual.TermMonths)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
-
-
-

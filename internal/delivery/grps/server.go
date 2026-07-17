@@ -24,8 +24,9 @@ import (
 	userProto "github.com/Suinar/Bank-proto/repository/user"
 )
 
+// RunGrpcServer listens for gRPC requests and serves the registered APIs.
 func RunGrpcServer(cfg config.Config, services *service.Services) {
-	lis, err := net.Listen(cfg.Network, cfg.GrpsPort)
+	lis, err := net.Listen(cfg.Network, net.JoinHostPort(cfg.GRPCHost, cfg.GRPCPort))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -34,13 +35,14 @@ func RunGrpcServer(cfg config.Config, services *service.Services) {
 
 	RegisterServices(grpcServer, services)
 
-	log.Println("repository-service running on " + cfg.GrpsPort)
+	log.Println("repository-services running on " + cfg.GRPCPort)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
 
+// RegisterServices attaches all repository handlers to the gRPC server.
 func RegisterServices(
 	grpcServer *grpc.Server,
 	services *service.Services) {
@@ -69,5 +71,3 @@ func RegisterServices(
 		userHandler.NewUserHandler(services.UserService),
 	)
 }
-
-

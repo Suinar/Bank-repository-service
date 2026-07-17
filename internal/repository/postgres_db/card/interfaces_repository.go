@@ -1,12 +1,13 @@
 package card
 
 import (
-	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/repository/card.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces_repository.go -destination=../../../mocks/repository/card.go -package=mocks
 
+// ICardRepository defines the behavior required at this layer boundary.
 type ICardRepository interface {
 	GetAll(ctx context.Context) ([]core.Card, error)
 	GetByUser(ctx context.Context, idUser int64) ([]core.Card, error)
@@ -16,6 +17,3 @@ type ICardRepository interface {
 	Create(ctx context.Context, input *core.Card) (*core.Card, error)
 	Delete(ctx context.Context, id int64) error
 }
-
-
-

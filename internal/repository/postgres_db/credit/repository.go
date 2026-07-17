@@ -1,23 +1,26 @@
 package credit
 
 import (
-	errror "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
 
+// CreditRepository persists and retrieves its domain model in PostgreSQL.
 type CreditRepository struct {
 	db *sqlx.DB
 }
 
+// NewCreditRepository creates a ready-to-use credit repository.
 func NewCreditRepository(db *sqlx.DB) *CreditRepository {
 	return &CreditRepository{db: db}
 }
 
+// GetAll returns all records available through CreditRepository.
 func (r *CreditRepository) GetAll(ctx context.Context) ([]core.Credit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, monthly_payment, status
@@ -32,6 +35,7 @@ FROM credits`
 	return credits, nil
 }
 
+// GetByUser returns records matching the requested user lookup.
 func (r *CreditRepository) GetByUser(ctx context.Context, userId int64) ([]core.Credit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, monthly_payment, status
@@ -51,6 +55,7 @@ WHERE user_id = $1`
 	return credits, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *CreditRepository) GetById(ctx context.Context, id int64) (*core.Credit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, monthly_payment, status
@@ -70,29 +75,27 @@ WHERE id = $1`
 	return &credits, nil
 }
 
+// Create persists a new record through CreditRepository.
 func (r *CreditRepository) Create(ctx context.Context, input *core.Credit) (*core.Credit, error) {
 	query := `
 INSERT INTO credits (user_id, currency_id, amount, monthly_payment, status)
 VALUES (:user_id, :currency_id, :amount, :monthly_payment, :status)
 Returning id, user_id, currency_id, amount, monthly_payment, status;`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
 
-	if rows.Next() {
-		var created core.Credit
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+	var created core.Credit
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
 
-	return nil, errror.InternalServerError
+	return &created, nil
 }
 
+// Repay applies a repayment to the requested credit through CreditRepository.
 func (r *CreditRepository) Repay(ctx context.Context, id int64, amount int64) (*core.Credit, error) {
 	query := `
 UPDATE credits
@@ -115,11 +118,11 @@ RETURNING id, user_id, currency_id, amount, monthly_payment, status`
 	return &credit, nil
 }
 
+// Delete removes the requested record through CreditRepository.
 func (r *CreditRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM credits
 	WHERE id = $1
-	RETURNING user_id
 	`
 
 	result, err := r.db.ExecContext(ctx, query, id)
@@ -138,6 +141,3 @@ func (r *CreditRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
-
-
-

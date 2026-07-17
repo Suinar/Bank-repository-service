@@ -1,12 +1,12 @@
 package account
 
 import (
+	"context"
+	account "github.com/Suinar/Bank-proto/repository/account"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
-	account "github.com/Suinar/Bank-proto/repository/account"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -359,7 +359,7 @@ func TestAccountService_Delete_Success(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(req.Id, nil).
+		Return(nil).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -379,7 +379,7 @@ func TestAccountService_Delete_Error(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(int64(0), errors.TestError).
+		Return(errors.TestError).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -417,6 +417,15 @@ func TestAccountService_toCore_Success(t *testing.T) {
 	assert.Equal(t, &expected, result)
 }
 
+func TestAccountService_Mappers_Nil(t *testing.T) {
+	t.Parallel()
+
+	_, sut, _ := NewSUT(t)
+
+	assert.Nil(t, sut.toProto(nil))
+	assert.Nil(t, sut.fromProto(nil))
+}
+
 func NewSUT(t *testing.T) (*mocks.MockIAccountRepository, *AccountService, context.Context) {
 	t.Helper()
 
@@ -441,6 +450,3 @@ func AssertAccountEqual(t *testing.T, expected *core.Account, actual *account.Ac
 	assert.Equal(t, expected.Balance, actual.Balance)
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 }
-
-
-

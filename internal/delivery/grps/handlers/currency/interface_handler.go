@@ -1,11 +1,12 @@
 package currency
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/currency"
-	"context"
 )
 
+// ICurrencyHandler defines the behavior required at this layer boundary.
 type ICurrencyHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*currency.CurrencyList, error)
 	GetById(ctx context.Context, req *common.IdRequest) (*currency.Currency, error)
@@ -15,6 +16,3 @@ type ICurrencyHandler interface {
 	Update(ctx context.Context, req *currency.UpdateCurrencyRequest) (*currency.Currency, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

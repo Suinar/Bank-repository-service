@@ -1,12 +1,13 @@
 package currency
 
 import (
-	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
-//go:generate mockgen -source=interfaces_cache.go -destination=../../../mocks/cache/currency.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces_cache.go -destination=../../../mocks/cache/currency.go -package=mocks
 
+// ICurrencyCache defines the behavior required at this layer boundary.
 type ICurrencyCache interface {
 	GetAll(ctx context.Context) ([]core.Currency, error)
 	GetById(ctx context.Context, id int64) (*core.Currency, error)
@@ -17,7 +18,3 @@ type ICurrencyCache interface {
 	Update(ctx context.Context, currency *core.Currency) error
 	Delete(ctx context.Context, id int64) error
 }
-
-
-
-

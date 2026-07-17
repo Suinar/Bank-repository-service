@@ -1,25 +1,28 @@
 package user
 
 import (
-	errror "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
 	"fmt"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"strings"
 
 	"github.com/jmoiron/sqlx"
 )
 
+// UserRepository persists and retrieves its domain model in PostgreSQL.
 type UserRepository struct {
 	db *sqlx.DB
 }
 
+// NewUserRepository creates a ready-to-use user repository.
 func NewUserRepository(db *sqlx.DB) *UserRepository {
 	return &UserRepository{db: db}
 }
 
+// GetAll returns all records available through UserRepository.
 func (r *UserRepository) GetAll(ctx context.Context) ([]core.User, error) {
 	query := `
 SELECT id, first_name, middle_name, last_name, email, phone_number
@@ -34,6 +37,7 @@ FROM users`
 	return users, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *UserRepository) GetById(ctx context.Context, id int64) (*core.User, error) {
 	query := `
 SELECT id, first_name, middle_name, last_name, email, phone_number
@@ -53,6 +57,7 @@ WHERE id = $1`
 	return &user, nil
 }
 
+// GetByEmail returns records matching the requested email lookup.
 func (r *UserRepository) GetByEmail(ctx context.Context, email string) (*core.User, error) {
 	query := `
 SELECT id, first_name, middle_name, last_name, email, phone_number
@@ -72,6 +77,7 @@ WHERE email = $1`
 	return &user, nil
 }
 
+// GetByPhoneNumber returns records matching the requested phone number lookup.
 func (r *UserRepository) GetByPhoneNumber(ctx context.Context, phoneNumber string) (*core.User, error) {
 	query := `
 SELECT id, first_name, middle_name, last_name, email, phone_number
@@ -91,32 +97,30 @@ WHERE phone_number = $1`
 	return &user, nil
 }
 
+// Create persists a new record through UserRepository.
 func (r *UserRepository) Create(ctx context.Context, input *core.User) (*core.User, error) {
 	query := `
 INSERT INTO users (first_name, middle_name, last_name, email, phone_number)
 VALUES (:first_name, :middle_name, :last_name, :email, :phone_number)
 RETURNING id, first_name, middle_name, last_name, email, phone_number;`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
 
-	if rows.Next() {
-		var created core.User
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+	var created core.User
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
 
-	return nil, errror.InternalServerError
+	return &created, nil
 }
 
+// Update applies the requested changes through UserRepository.
 func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserUpdateInput) (*core.User, error) {
-	setParts := make([]string, 0)
-	args := make([]interface{}, 0)
+	setParts := make([]string, 0, 4)
+	args := make([]interface{}, 0, 4)
 	argId := 1
 
 	if input.FirstName != nil {
@@ -163,6 +167,7 @@ func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserU
 	return &updated, nil
 }
 
+// Delete removes the requested record through UserRepository.
 func (r *UserRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 DELETE FROM users 
@@ -184,6 +189,3 @@ WHERE id = $1`
 
 	return nil
 }
-
-
-

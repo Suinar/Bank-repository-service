@@ -1,13 +1,15 @@
 package user
 
 import (
+	"context"
+
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/user"
-	"context"
 )
 
-//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/user.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interface_service.go -destination=../../../internal/mocks/services/user.go -package=mocks
 
+// IUserService defines the behavior required at this layer boundary.
 type IUserService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*user.UserList, error)
 	GetById(ctx context.Context, req *common.IdRequest) (*user.User, error)
@@ -17,6 +19,3 @@ type IUserService interface {
 	Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

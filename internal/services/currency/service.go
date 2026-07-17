@@ -1,22 +1,24 @@
 package currency
 
 import (
+	"context"
+	common "github.com/Suinar/Bank-proto/repository/common"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
 	cache "github.com/Suinar/Bank-repository-service/internal/repository/cache/currency"
 	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/currency"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
-	common "github.com/Suinar/Bank-proto/repository/common"
-	currency "github.com/Suinar/Bank-proto/repository/currency"
-	"context"
 	"unicode/utf8"
 
 	"github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
+// CurrencyService coordinates the application use cases for its domain.
 type CurrencyService struct {
 	repository repository.ICurrencyRepository
 	cache      cache.ICurrencyCache
 }
 
+// NewCurrencyService creates a ready-to-use currency service.
 func NewCurrencyService(repository repository.ICurrencyRepository, cache cache.ICurrencyCache) *CurrencyService {
 	return &CurrencyService{
 		repository: repository,
@@ -24,6 +26,7 @@ func NewCurrencyService(repository repository.ICurrencyRepository, cache cache.I
 	}
 }
 
+// GetAll returns all records available through CurrencyService.
 func (s *CurrencyService) GetAll(ctx context.Context, req *common.Empty) (*currency.CurrencyList, error) {
 	currencies, err := s.cache.GetAll(ctx)
 	if err != nil || len(currencies) == 0 {
@@ -46,6 +49,7 @@ func (s *CurrencyService) GetAll(ctx context.Context, req *common.Empty) (*curre
 	return res, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (s *CurrencyService) GetById(ctx context.Context, req *common.IdRequest) (*currency.Currency, error) {
 	currency, err := s.cache.GetById(ctx, req.Id)
 	if err != nil || currency == nil {
@@ -60,6 +64,7 @@ func (s *CurrencyService) GetById(ctx context.Context, req *common.IdRequest) (*
 	return s.toProto(currency), nil
 }
 
+// GetByIso returns records matching the requested iso lookup.
 func (s *CurrencyService) GetByIso(ctx context.Context, req *currency.IsoCodeRequest) (*currency.Currency, error) {
 	currency, err := s.cache.GetByIso(ctx, req.IsoCode)
 	if err != nil || currency == nil {
@@ -74,6 +79,7 @@ func (s *CurrencyService) GetByIso(ctx context.Context, req *currency.IsoCodeReq
 	return s.toProto(currency), nil
 }
 
+// GetBySymbol returns records matching the requested symbol lookup.
 func (s *CurrencyService) GetBySymbol(ctx context.Context, req *currency.SymbolRequest) (*currency.Currency, error) {
 	symbol, _ := utf8.DecodeRuneInString(req.Symbol)
 
@@ -90,6 +96,7 @@ func (s *CurrencyService) GetBySymbol(ctx context.Context, req *currency.SymbolR
 	return s.toProto(currency), nil
 }
 
+// Create persists a new record through CurrencyService.
 func (s *CurrencyService) Create(ctx context.Context, input *currency.Currency) (*currency.Currency, error) {
 	currency, err := s.repository.Create(ctx, s.fromProto(input))
 	if err != nil {
@@ -104,6 +111,7 @@ func (s *CurrencyService) Create(ctx context.Context, input *currency.Currency) 
 	return s.toProto(currency), nil
 }
 
+// Update applies the requested changes through CurrencyService.
 func (s *CurrencyService) Update(ctx context.Context, req *currency.UpdateCurrencyRequest) (*currency.Currency, error) {
 	symbol, size := utf8.DecodeRuneInString(*req.Input.Symbol)
 	if size == 0 {
@@ -130,6 +138,7 @@ func (s *CurrencyService) Update(ctx context.Context, req *currency.UpdateCurren
 	return s.toProto(currency), nil
 }
 
+// Delete removes the requested record through CurrencyService.
 func (s *CurrencyService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	err := s.repository.Delete(ctx, req.Id)
 	if err != nil {
@@ -144,6 +153,7 @@ func (s *CurrencyService) Delete(ctx context.Context, req *common.IdRequest) (*c
 	return &common.Empty{}, nil
 }
 
+// toProto maps the domain model to its protobuf representation.
 func (s *CurrencyService) toProto(input *core.Currency) *currency.Currency {
 	if input == nil {
 		return nil
@@ -158,14 +168,15 @@ func (s *CurrencyService) toProto(input *core.Currency) *currency.Currency {
 	}
 }
 
+// fromProto maps a protobuf message to the domain model.
 func (s *CurrencyService) fromProto(input *currency.Currency) *core.Currency {
 	if input == nil {
 		return nil
 	}
 
 	var symbol rune
-	if len([]rune(input.Symbol)) > 0 {
-		symbol = []rune(input.Symbol)[0]
+	if input.Symbol != "" {
+		symbol, _ = utf8.DecodeRuneInString(input.Symbol)
 	}
 
 	return &core.Currency{
@@ -176,6 +187,3 @@ func (s *CurrencyService) fromProto(input *currency.Currency) *core.Currency {
 		MinorUnits: int8(input.MinorUnits),
 	}
 }
-
-
-

@@ -12,14 +12,17 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// CardRepository persists and retrieves its domain model in PostgreSQL.
 type CardRepository struct {
 	db *sqlx.DB
 }
 
+// NewCardRepository creates a ready-to-use card repository.
 func NewCardRepository(db *sqlx.DB) *CardRepository {
 	return &CardRepository{db: db}
 }
 
+// GetAll returns all records available through CardRepository.
 func (r *CardRepository) GetAll(ctx context.Context) ([]core.Card, error) {
 	query := `
 SELECT id, user_id, account_id, number, expiry_month, expiry_year, status
@@ -34,6 +37,7 @@ FROM cards`
 	return cards, nil
 }
 
+// GetByUser returns records matching the requested user lookup.
 func (r *CardRepository) GetByUser(ctx context.Context, userId int64) ([]core.Card, error) {
 	query := `
 SELECT id, user_id, account_id, number, expiry_month, expiry_year, status
@@ -53,6 +57,7 @@ WHERE user_id = $1`
 	return cards, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *CardRepository) GetById(ctx context.Context, id int64) (*core.Card, error) {
 	query := `
 SELECT id, user_id, account_id, number, expiry_month, expiry_year, status
@@ -72,6 +77,7 @@ WHERE id = $1`
 	return &card, nil
 }
 
+// GetByNumber returns records matching the requested number lookup.
 func (r *CardRepository) GetByNumber(ctx context.Context, number string) (*core.Card, error) {
 	query := `
 SELECT id, user_id, account_id, number, expiry_month, expiry_year, status
@@ -91,6 +97,7 @@ WHERE number = $1`
 	return &card, nil
 }
 
+// Blocking moves the requested record to its blocked state through CardRepository.
 func (r *CardRepository) Blocking(ctx context.Context, id int64) (*core.Card, error) {
 	query := `
 	UPDATE cards
@@ -115,34 +122,31 @@ func (r *CardRepository) Blocking(ctx context.Context, id int64) (*core.Card, er
 	return &card, nil
 }
 
+// Create persists a new record through CardRepository.
 func (r *CardRepository) Create(ctx context.Context, input *core.Card) (*core.Card, error) {
 	query := `
 INSERT INTO cards (user_id, account_id, number, expiry_month, expiry_year, status)
 VALUES (:user_id, :account_id, :number, :expiry_month, :expiry_year, :status)
 RETURNING id, user_id, account_id, number, expiry_month, expiry_year, status;`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
 
-	if rows.Next() {
-		var created core.Card
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+	var created core.Card
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
 
-	return nil, errror.InternalServerError
+	return &created, nil
 }
 
+// Delete removes the requested record through CardRepository.
 func (r *CardRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM cards
 	WHERE id = $1
-	RETURNING user_id
 	`
 
 	result, err := r.db.ExecContext(ctx, query, id)
@@ -161,6 +165,3 @@ func (r *CardRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
-
-
-

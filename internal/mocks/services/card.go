@@ -5,11 +5,11 @@
 package mocks
 
 import (
-	card "github.com/Suinar/Bank-proto/repository/card"
-	common "github.com/Suinar/Bank-proto/repository/common"
 	context "context"
 	reflect "reflect"
 
+	card "github.com/Suinar/Bank-proto/repository/card"
+	common "github.com/Suinar/Bank-proto/repository/common"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -140,6 +140,3 @@ func (mr *MockICardServiceMockRecorder) GetByUser(ctx, req interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUser", reflect.TypeOf((*MockICardService)(nil).GetByUser), ctx, req)
 }
-
-
-

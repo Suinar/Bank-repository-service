@@ -1,12 +1,12 @@
 package card
 
 import (
+	"context"
+	card "github.com/Suinar/Bank-proto/repository/card"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
-	card "github.com/Suinar/Bank-proto/repository/card"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -293,7 +293,7 @@ func TestCardService_Delete_Success(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(req.Id, nil).
+		Return(nil).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -313,7 +313,7 @@ func TestCardService_Delete_Error(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(int64(0), errors.TestError).
+		Return(errors.TestError).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -351,6 +351,15 @@ func TestCardService_toCore_Success(t *testing.T) {
 	assert.Equal(t, &expected, result)
 }
 
+func TestCardService_Mappers_Nil(t *testing.T) {
+	t.Parallel()
+
+	_, sut, _ := NewSUT(t)
+
+	assert.Nil(t, sut.toProto(nil))
+	assert.Nil(t, sut.fromProto(nil))
+}
+
 func NewSUT(t *testing.T) (*mocks.MockICardRepository, *CardService, context.Context) {
 	t.Helper()
 
@@ -377,6 +386,3 @@ func AssertCardEqual(t *testing.T, expected *core.Card, actual *card.Card) {
 	assert.Equal(t, int32(expected.Status), int32(actual.Status))
 
 }
-
-
-

@@ -1,13 +1,15 @@
 package credit
 
 import (
+	"context"
+
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/credit"
-	"context"
 )
 
-//go:generate mockgen -source=interface_service.go -destination=../../../internal/mocks/service/credit.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interface_service.go -destination=../../../internal/mocks/services/credit.go -package=mocks
 
+// ICreditService defines the behavior required at this layer boundary.
 type ICreditService interface {
 	GetAll(ctx context.Context, req *common.Empty) (*credit.CreditList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*credit.CreditList, error)
@@ -16,6 +18,3 @@ type ICreditService interface {
 	Repay(ctx context.Context, req *common.AmountRequest) (*credit.Credit, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

@@ -14,14 +14,17 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// AccountRepository persists and retrieves its domain model in PostgreSQL.
 type AccountRepository struct {
 	db *sqlx.DB
 }
 
+// NewAccountRepository creates a ready-to-use account repository.
 func NewAccountRepository(db *sqlx.DB) *AccountRepository {
 	return &AccountRepository{db: db}
 }
 
+// GetAll returns all records available through AccountRepository.
 func (r *AccountRepository) GetAll(ctx context.Context) ([]core.Account, error) {
 	query := `
 SELECT id, user_id, currency_id, name, balance, status
@@ -37,6 +40,7 @@ FROM accounts
 	return accounts, nil
 }
 
+// GetByUser returns records matching the requested user lookup.
 func (r *AccountRepository) GetByUser(ctx context.Context, userId int64) ([]core.Account, error) {
 	query := `
 SELECT id, user_id, currency_id, name, balance, status
@@ -56,6 +60,7 @@ WHERE user_id = $1`
 	return accounts, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *AccountRepository) GetById(ctx context.Context, id int64) (*core.Account, error) {
 	query := `
 SELECT id, user_id, currency_id, name, balance, status
@@ -75,29 +80,27 @@ WHERE id = $1`
 	return &account, nil
 }
 
+// Create persists a new record through AccountRepository.
 func (r *AccountRepository) Create(ctx context.Context, input *core.Account) (*core.Account, error) {
 	query := `
 INSERT INTO accounts (user_id, currency_id, name, balance, status)
 VALUES (:user_id, :currency_id, :name, :balance, :status)
 RETURNING id, user_id, currency_id, name, balance, status;`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
 
-	if rows.Next() {
-		var created core.Account
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+	var created core.Account
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
 
-	return nil, errror.InternalServerError
+	return &created, nil
 }
 
+// Blocking moves the requested record to its blocked state through AccountRepository.
 func (r *AccountRepository) Blocking(ctx context.Context, id int64) (*core.Account, error) {
 	query := `
 	UPDATE accounts
@@ -122,6 +125,7 @@ func (r *AccountRepository) Blocking(ctx context.Context, id int64) (*core.Accou
 	return &account, nil
 }
 
+// Close moves the requested account to its closed state through AccountRepository.
 func (r *AccountRepository) Close(ctx context.Context, id int64) (*core.Account, error) {
 	query := `
 	UPDATE accounts
@@ -146,9 +150,10 @@ func (r *AccountRepository) Close(ctx context.Context, id int64) (*core.Account,
 	return &account, nil
 }
 
+// Update applies the requested changes through AccountRepository.
 func (r *AccountRepository) Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error) {
-	setParts := make([]string, 0)
-	args := make([]interface{}, 0)
+	setParts := make([]string, 0, 2)
+	args := make([]interface{}, 0, 3)
 	argId := 1
 
 	if input.Name != nil {
@@ -187,11 +192,11 @@ RETURNING id, user_id, currency_id, name, balance, status
 	return &updated, nil
 }
 
+// Delete removes the requested record through AccountRepository.
 func (r *AccountRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM accounts
 	WHERE id = $1
-	RETURNING user_id
 	`
 
 	result, err := r.db.ExecContext(ctx, query, id)
@@ -210,6 +215,3 @@ func (r *AccountRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
-
-
-

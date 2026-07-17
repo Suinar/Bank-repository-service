@@ -1,22 +1,25 @@
 package deposit
 
 import (
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/deposit"
-	"context"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 
 	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/deposit"
 )
 
+// DepositService coordinates the application use cases for its domain.
 type DepositService struct {
 	repo repository.IDepositRepository
 }
 
+// NewDepositService creates a ready-to-use deposit service.
 func NewDepositService(repo repository.IDepositRepository) *DepositService {
 	return &DepositService{repo: repo}
 }
 
+// GetAll returns all records available through DepositService.
 func (s *DepositService) GetAll(ctx context.Context, req *common.Empty) (*deposit.DepositList, error) {
 	deposits, err := s.repo.GetAll(ctx)
 	if err != nil {
@@ -34,6 +37,7 @@ func (s *DepositService) GetAll(ctx context.Context, req *common.Empty) (*deposi
 	return res, nil
 }
 
+// GetByUser returns records matching the requested user lookup.
 func (s *DepositService) GetByUser(ctx context.Context, req *common.UserIdRequest) (*deposit.DepositList, error) {
 	deposits, err := s.repo.GetByUser(ctx, req.UserId)
 	if err != nil {
@@ -51,6 +55,7 @@ func (s *DepositService) GetByUser(ctx context.Context, req *common.UserIdReques
 	return res, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (s *DepositService) GetById(ctx context.Context, req *common.IdRequest) (*deposit.Deposit, error) {
 	d, err := s.repo.GetById(ctx, req.Id)
 	if err != nil {
@@ -60,6 +65,7 @@ func (s *DepositService) GetById(ctx context.Context, req *common.IdRequest) (*d
 	return s.toProto(d), nil
 }
 
+// Create persists a new record through DepositService.
 func (s *DepositService) Create(ctx context.Context, req *deposit.Deposit) (*deposit.Deposit, error) {
 	d, err := s.repo.Create(ctx, s.fromProto(req))
 	if err != nil {
@@ -69,6 +75,7 @@ func (s *DepositService) Create(ctx context.Context, req *deposit.Deposit) (*dep
 	return s.toProto(d), nil
 }
 
+// Replenish adds funds to the requested deposit through DepositService.
 func (s *DepositService) Replenish(ctx context.Context, req *common.AmountRequest) (*deposit.Deposit, error) {
 	d, err := s.repo.Replenish(ctx, req.Id, req.Amount)
 	if err != nil {
@@ -78,6 +85,7 @@ func (s *DepositService) Replenish(ctx context.Context, req *common.AmountReques
 	return s.toProto(d), nil
 }
 
+// Delete removes the requested record through DepositService.
 func (s *DepositService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	err := s.repo.Delete(ctx, req.Id)
 	if err != nil {
@@ -87,6 +95,7 @@ func (s *DepositService) Delete(ctx context.Context, req *common.IdRequest) (*co
 	return &common.Empty{}, nil
 }
 
+// toProto maps the domain model to its protobuf representation.
 func (s *DepositService) toProto(input *core.Deposit) *deposit.Deposit {
 	if input == nil {
 		return nil
@@ -103,6 +112,7 @@ func (s *DepositService) toProto(input *core.Deposit) *deposit.Deposit {
 	}
 }
 
+// fromProto maps a protobuf message to the domain model.
 func (s *DepositService) fromProto(input *deposit.Deposit) *core.Deposit {
 	if input == nil {
 		return nil
@@ -118,6 +128,3 @@ func (s *DepositService) fromProto(input *deposit.Deposit) *core.Deposit {
 		Status:       core.DepositStatus(input.Status),
 	}
 }
-
-
-

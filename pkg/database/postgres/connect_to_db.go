@@ -1,29 +1,30 @@
 package postgres
 
 import (
-	configs "github.com/Suinar/Bank-repository-service/internal/configs"
-	"log"
+	"context"
+	"fmt"
 
+	configs "github.com/Suinar/Bank-repository-service/internal/configs"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
-func NewPostgresDB(cfg *configs.Config) *sqlx.DB {
-	db, err := sqlx.Connect("postgres", cfg.Postgres.DBUrl)
+// NewPostgresDB opens and verifies a bounded PostgreSQL connection pool.
+func NewPostgresDB(ctx context.Context, cfg *configs.Config) (*sqlx.DB, error) {
+	db, err := sqlx.Open("postgres", cfg.Postgres.DBUrl)
 	if err != nil {
-		log.Fatal(err)
+		return nil, fmt.Errorf("open PostgreSQL: %w", err)
 	}
 
 	db.SetMaxOpenConns(cfg.Postgres.MaxOpenConns)
 	db.SetMaxIdleConns(cfg.Postgres.MaxIdleConns)
+	db.SetConnMaxLifetime(cfg.Postgres.ConnMaxLifetime)
+	db.SetConnMaxIdleTime(cfg.Postgres.ConnMaxIdleTime)
 
-	if err := db.Ping(); err != nil {
-		db.Close()
-		log.Fatal(err)
+	if err := db.PingContext(ctx); err != nil {
+		_ = db.Close()
+		return nil, fmt.Errorf("ping PostgreSQL: %w", err)
 	}
 
-	return db
+	return db, nil
 }
-
-
-

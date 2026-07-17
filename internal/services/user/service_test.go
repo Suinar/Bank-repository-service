@@ -1,12 +1,12 @@
 package user
 
 import (
+	"context"
+	user "github.com/Suinar/Bank-proto/repository/user"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
-	user "github.com/Suinar/Bank-proto/repository/user"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -308,7 +308,7 @@ func TestUserService_Delete_Success(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(req.Id, nil).
+		Return(nil).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -328,7 +328,7 @@ func TestUserService_Delete_Error(t *testing.T) {
 	repository.
 		EXPECT().
 		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(int64(0), errors.TestError).
+		Return(errors.TestError).
 		Times(1)
 
 	result, err := sut.Delete(ctx, req)
@@ -366,6 +366,15 @@ func TestUserService_toCore_Success(t *testing.T) {
 	assert.Equal(t, &expected, result)
 }
 
+func TestUserService_Mappers_Nil(t *testing.T) {
+	t.Parallel()
+
+	_, sut, _ := NewSUT(t)
+
+	assert.Nil(t, sut.toProto(nil))
+	assert.Nil(t, sut.fromProto(nil))
+}
+
 func NewSUT(t *testing.T) (*mocks.MockIUserRepository, *UserService, context.Context) {
 	t.Helper()
 
@@ -391,6 +400,3 @@ func AssertUserEqual(t *testing.T, expected *core.User, actual *user.User) {
 	assert.Equal(t, expected.PhoneNumber, actual.PhoneNumber)
 	assert.Equal(t, expected.PasswordHash, actual.PasswordHash)
 }
-
-
-

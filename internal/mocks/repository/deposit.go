@@ -5,10 +5,10 @@
 package mocks
 
 import (
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	context "context"
 	reflect "reflect"
 
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -123,6 +123,3 @@ func (mr *MockIDepositRepositoryMockRecorder) Replenish(ctx, id, amount interfac
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Replenish", reflect.TypeOf((*MockIDepositRepository)(nil).Replenish), ctx, id, amount)
 }
-
-
-

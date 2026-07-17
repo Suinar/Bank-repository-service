@@ -1,12 +1,13 @@
 package account
 
 import (
-	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
-//go:generate mockgen -source=interfaces_repository.go -destination=../../../mocks/repository/account.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces_repository.go -destination=../../../mocks/repository/account.go -package=mocks
 
+// IAccountRepository defines the behavior required at this layer boundary.
 type IAccountRepository interface {
 	GetAll(ctx context.Context) ([]core.Account, error)
 	GetByUser(ctx context.Context, userId int64) ([]core.Account, error)
@@ -17,6 +18,3 @@ type IAccountRepository interface {
 	Update(ctx context.Context, id int64, input *core.AccountUpdateInput) (*core.Account, error)
 	Delete(ctx context.Context, id int64) error
 }
-
-
-

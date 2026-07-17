@@ -13,14 +13,17 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// CurrencyRepository persists and retrieves its domain model in PostgreSQL.
 type CurrencyRepository struct {
 	db *sqlx.DB
 }
 
+// NewCurrencyRepository creates a ready-to-use currency repository.
 func NewCurrencyRepository(db *sqlx.DB) *CurrencyRepository {
 	return &CurrencyRepository{db: db}
 }
 
+// GetAll returns all records available through CurrencyRepository.
 func (r *CurrencyRepository) GetAll(ctx context.Context) ([]core.Currency, error) {
 	query := `
 SELECT id, name, symbol, iso_code, minor_units
@@ -35,6 +38,7 @@ FROM currencies`
 	return currencies, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *CurrencyRepository) GetById(ctx context.Context, id int64) (*core.Currency, error) {
 	query := `
 SELECT id, name, symbol, iso_code, minor_units
@@ -54,6 +58,7 @@ WHERE id = $1`
 	return &currency, nil
 }
 
+// GetByIso returns records matching the requested iso lookup.
 func (r *CurrencyRepository) GetByIso(ctx context.Context, isoCode string) (*core.Currency, error) {
 	query := `
 SELECT id, name, symbol, iso_code, minor_units
@@ -73,6 +78,7 @@ WHERE iso_code = $1`
 	return &currency, nil
 }
 
+// GetBySymbol returns records matching the requested symbol lookup.
 func (r *CurrencyRepository) GetBySymbol(ctx context.Context, symbol rune) (*core.Currency, error) {
 	query := `
 SELECT id, name, symbol, iso_code, minor_units
@@ -92,31 +98,30 @@ WHERE symbol = $1`
 	return &currency, nil
 }
 
+// Create persists a new record through CurrencyRepository.
 func (r *CurrencyRepository) Create(ctx context.Context, input *core.Currency) (*core.Currency, error) {
 	query := `
 INSERT INTO currencies (name, symbol, iso_code, minor_units)
 VALUES (:name, :symbol, :iso_code, :minor_units)
 RETURNING id, name, symbol, iso_code, minor_units`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
-	if rows.Next() {
-		var created core.Currency
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+
+	var created core.Currency
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
 
-	return nil, errror.InternalServerError
+	return &created, nil
 }
 
+// Update applies the requested changes through CurrencyRepository.
 func (r *CurrencyRepository) Update(ctx context.Context, id int64, input *core.CurrencyUpdateInput) (*core.Currency, error) {
-	setParts := make([]string, 0)
-	args := make([]interface{}, 0)
+	setParts := make([]string, 0, 5)
+	args := make([]interface{}, 0, 5)
 	argId := 1
 
 	if input.Name != nil {
@@ -172,6 +177,7 @@ RETURNING id, name, symbol, iso_code, minor_units
 	return &updated, nil
 }
 
+// Delete removes the requested record through CurrencyRepository.
 func (r *CurrencyRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 DELETE FROM currencies
@@ -193,6 +199,3 @@ WHERE id = $1`
 
 	return nil
 }
-
-
-

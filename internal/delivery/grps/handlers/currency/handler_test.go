@@ -1,10 +1,10 @@
 package currency
 
 import (
-	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/service"
+	"context"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/services"
 	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -144,6 +144,34 @@ func TestCurrencyHandler_GetByIso_Error(t *testing.T) {
 	assert.ErrorIs(t, err, errors.TestError)
 }
 
+func TestCurrencyHandler_GetBySymbol_Success(t *testing.T) {
+	t.Parallel()
+
+	service, sut, ctx := NewSUT(t)
+	req := fixture.NewSymbolRequestProto()
+	expected := fixture.NewCurrencyProto()
+
+	service.EXPECT().GetBySymbol(gomock.Any(), gomock.Eq(req)).Return(expected, nil).Times(1)
+
+	result, err := sut.GetBySymbol(ctx, req)
+
+	require.NoError(t, err)
+	assert.Equal(t, expected, result)
+}
+
+func TestCurrencyHandler_GetBySymbol_Error(t *testing.T) {
+	t.Parallel()
+
+	service, sut, ctx := NewSUT(t)
+	req := fixture.NewSymbolRequestProto()
+
+	service.EXPECT().GetBySymbol(gomock.Any(), gomock.Eq(req)).Return(nil, errors.TestError).Times(1)
+
+	result, err := sut.GetBySymbol(ctx, req)
+
+	require.ErrorIs(t, err, errors.TestError)
+	assert.Nil(t, result)
+}
 func TestCurrencyHandler_Create_Success(t *testing.T) {
 	t.Parallel()
 
@@ -287,6 +315,3 @@ func NewSUT(t *testing.T) (*mocks.MockICurrencyService, *CurrencyHandler, contex
 
 	return service, sut, context.Background()
 }
-
-
-

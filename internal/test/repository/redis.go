@@ -1,8 +1,8 @@
 package repository
 
 import (
-	config "github.com/Suinar/Bank-repository-service/internal/configs"
 	"context"
+	config "github.com/Suinar/Bank-repository-service/internal/configs"
 	"testing"
 	"time"
 
@@ -10,14 +10,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// TestRedisDB wraps a Redis client with integration-test helpers.
 type TestRedisDB struct {
 	DB *redis.Client
 }
 
+// NewTestRedisDB creates a ready-to-use test redis d b.
 func NewTestRedisDB(t *testing.T) *TestRedisDB {
 	t.Helper()
 
-	cfg := config.LoadTestConfig()
+	cfg, err := config.LoadTestConfig()
+	require.NoError(t, err)
 
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     cfg.Redis.Addr,
@@ -28,7 +31,7 @@ func NewTestRedisDB(t *testing.T) *TestRedisDB {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	err := rdb.Ping(ctx).Err()
+	err = rdb.Ping(ctx).Err()
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
@@ -40,10 +43,13 @@ func NewTestRedisDB(t *testing.T) *TestRedisDB {
 	}
 }
 
+// Cleanup removes data created by the current integration test from TestRedisDB.
 func (t *TestRedisDB) Cleanup(tb testing.TB, keys ...string) {
 	tb.Helper()
 
 	if len(keys) == 0 {
+		err := t.DB.FlushDB(context.Background()).Err()
+		require.NoError(tb, err)
 		return
 	}
 
@@ -51,6 +57,7 @@ func (t *TestRedisDB) Cleanup(tb testing.TB, keys ...string) {
 	require.NoError(tb, err)
 }
 
+// Seed inserts deterministic data into TestRedisDB for an integration test.
 func (t *TestRedisDB) Seed(tb testing.TB, key string, value any, expiration time.Duration) {
 	tb.Helper()
 
@@ -58,12 +65,10 @@ func (t *TestRedisDB) Seed(tb testing.TB, key string, value any, expiration time
 	require.NoError(tb, err)
 }
 
+// Exec executes a test operation against TestRedisDB and asserts success.
 func (t *TestRedisDB) Exec(tb testing.TB, fn func(rdb *redis.Client) error) {
 	tb.Helper()
 
 	err := fn(t.DB)
 	require.NoError(tb, err)
 }
-
-
-

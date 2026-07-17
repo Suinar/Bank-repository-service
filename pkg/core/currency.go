@@ -1,5 +1,6 @@
 package core
 
+// Currency represents the persistent domain state of a bank currency.
 type Currency struct {
 	Id int64 `json:"id" db:"id"`
 
@@ -11,6 +12,7 @@ type Currency struct {
 	MinorUnits int8 `json:"minor_units" db:"minor_units"`
 }
 
+// CurrencyCreateInput carries validated fields for a domain mutation.
 type CurrencyCreateInput struct {
 	Name string `json:"name" db:"name"`
 
@@ -20,6 +22,7 @@ type CurrencyCreateInput struct {
 	MinorUnits int8 `json:"minor_units" db:"minor_units"`
 }
 
+// CurrencyUpdateInput carries validated fields for a domain mutation.
 type CurrencyUpdateInput struct {
 	Name *string `json:"name" db:"name"`
 
@@ -28,6 +31,3 @@ type CurrencyUpdateInput struct {
 
 	MinorUnits *int8 `json:"minor_units" db:"minor_units"`
 }
-
-
-

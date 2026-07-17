@@ -1,10 +1,10 @@
 package deposit
 
 import (
-	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/service"
+	"context"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/services"
 	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
-	"context"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -287,6 +287,3 @@ func NewSUT(t *testing.T) (*mocks.MockIDepositService, *DepositHandler, context.
 
 	return service, sut, context.Background()
 }
-
-
-

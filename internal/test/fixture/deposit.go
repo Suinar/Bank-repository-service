@@ -1,10 +1,11 @@
 package fixture
 
 import (
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
+// NewDepositCore creates a ready-to-use deposit core.
 func NewDepositCore() core.Deposit {
 	return core.Deposit{
 		Id:           TestId,
@@ -17,6 +18,7 @@ func NewDepositCore() core.Deposit {
 	}
 }
 
+// NewDepositCoreInputId creates a ready-to-use deposit core input id.
 func NewDepositCoreInputId(id int64) core.Deposit {
 	return core.Deposit{
 		Id:           id,
@@ -29,6 +31,7 @@ func NewDepositCoreInputId(id int64) core.Deposit {
 	}
 }
 
+// NewDepositCoreInputAmount creates a ready-to-use deposit core input amount.
 func NewDepositCoreInputAmount(amount int64) core.Deposit {
 	return core.Deposit{
 		Id:           TestId,
@@ -40,6 +43,8 @@ func NewDepositCoreInputAmount(amount int64) core.Deposit {
 		Status:       core.DepositStatusActive,
 	}
 }
+
+// NewDepositProto creates a ready-to-use deposit proto.
 func NewDepositProto() *deposit.Deposit {
 	return &deposit.Deposit{
 		Id:           TestId,
@@ -52,6 +57,7 @@ func NewDepositProto() *deposit.Deposit {
 	}
 }
 
+// NewDepositListProto creates a ready-to-use deposit list proto.
 func NewDepositListProto() *deposit.DepositList {
 	return &deposit.DepositList{
 		Deposits: []*deposit.Deposit{
@@ -60,6 +66,3 @@ func NewDepositListProto() *deposit.DepositList {
 		},
 	}
 }
-
-
-

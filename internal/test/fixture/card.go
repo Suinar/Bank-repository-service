@@ -1,10 +1,11 @@
 package fixture
 
 import (
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	card "github.com/Suinar/Bank-proto/repository/card"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 )
 
+// NewCardCore creates a ready-to-use card core.
 func NewCardCore() core.Card {
 	return core.Card{
 		Id:          TestId,
@@ -17,6 +18,7 @@ func NewCardCore() core.Card {
 	}
 }
 
+// NewCardCoreInputIdAndNumber creates a ready-to-use card core input id and number.
 func NewCardCoreInputIdAndNumber(id int64, number string) core.Card {
 	return core.Card{
 		Id:          id,
@@ -29,6 +31,7 @@ func NewCardCoreInputIdAndNumber(id int64, number string) core.Card {
 	}
 }
 
+// NewCardCoreInputStatus creates a ready-to-use card core input status.
 func NewCardCoreInputStatus(status core.CardStatus) core.Card {
 	return core.Card{
 		Id:          TestId,
@@ -41,6 +44,7 @@ func NewCardCoreInputStatus(status core.CardStatus) core.Card {
 	}
 }
 
+// NewCardProto creates a ready-to-use card proto.
 func NewCardProto() *card.Card {
 	return &card.Card{
 		Id:          TestId,
@@ -53,6 +57,7 @@ func NewCardProto() *card.Card {
 	}
 }
 
+// NewCardListProto creates a ready-to-use card list proto.
 func NewCardListProto() *card.CardList {
 	return &card.CardList{
 		Cards: []*card.Card{
@@ -62,11 +67,9 @@ func NewCardListProto() *card.CardList {
 	}
 }
 
+// NewCardNumberRequestProto creates a ready-to-use card number request proto.
 func NewCardNumberRequestProto() *card.CardNumberRequest {
 	return &card.CardNumberRequest{
 		Number: TestCardNumber,
 	}
 }
-
-
-

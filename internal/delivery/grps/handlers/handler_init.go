@@ -10,6 +10,7 @@ import (
 	service "github.com/Suinar/Bank-repository-service/internal/services"
 )
 
+// Handlers groups the gRPC handlers registered by the server.
 type Handlers struct {
 	AccountHandler  *account.AccountHandler
 	CardHandler     *card.CardHandler
@@ -19,6 +20,7 @@ type Handlers struct {
 	UserHandler     *user.UserHandler
 }
 
+// InitHandlers wires the dependencies required by handlers.
 func InitHandlers(services *service.Services) *Handlers {
 	return &Handlers{
 		AccountHandler:  account.NewAccountHandler(services.AccountService),
@@ -29,6 +31,3 @@ func InitHandlers(services *service.Services) *Handlers {
 		UserHandler:     user.NewUserHandler(services.UserService),
 	}
 }
-
-
-

@@ -1,2 +1,6 @@
-
-
+﻿.idea/
+.env
+.env.test
+*.exe
+bin/
+coverage.out

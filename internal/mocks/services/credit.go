@@ -5,11 +5,11 @@
 package mocks
 
 import (
-	common "github.com/Suinar/Bank-proto/repository/common"
-	credit "github.com/Suinar/Bank-proto/repository/credit"
 	context "context"
 	reflect "reflect"
 
+	common "github.com/Suinar/Bank-proto/repository/common"
+	credit "github.com/Suinar/Bank-proto/repository/credit"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -125,6 +125,3 @@ func (mr *MockICreditServiceMockRecorder) Repay(ctx, req interface{}) *gomock.Ca
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Repay", reflect.TypeOf((*MockICreditService)(nil).Repay), ctx, req)
 }
-
-
-

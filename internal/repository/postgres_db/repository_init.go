@@ -11,6 +11,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// Repositories groups the PostgreSQL repository dependencies used by services.
 type Repositories struct {
 	AccountRepository  *account.AccountRepository
 	CardRepository     *card.CardRepository
@@ -20,6 +21,7 @@ type Repositories struct {
 	UserRepository     *user.UserRepository
 }
 
+// InitRepositories wires the dependencies required by repositories.
 func InitRepositories(db *sqlx.DB) *Repositories {
 	return &Repositories{
 		AccountRepository:  account.NewAccountRepository(db),
@@ -30,6 +32,3 @@ func InitRepositories(db *sqlx.DB) *Repositories {
 		UserRepository:     user.NewUserRepository(db),
 	}
 }
-
-
-

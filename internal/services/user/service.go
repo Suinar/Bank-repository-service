@@ -1,22 +1,25 @@
 package user
 
 import (
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/user"
-	"context"
+	"github.com/Suinar/Bank-repository-service/pkg/core"
 
 	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/user"
 )
 
+// UserService coordinates the application use cases for its domain.
 type UserService struct {
 	repo repository.IUserRepository
 }
 
+// NewUserService creates a ready-to-use user service.
 func NewUserService(repo repository.IUserRepository) *UserService {
 	return &UserService{repo: repo}
 }
 
+// GetAll returns all records available through UserService.
 func (s *UserService) GetAll(ctx context.Context, req *common.Empty) (*user.UserList, error) {
 	users, err := s.repo.GetAll(ctx)
 	if err != nil {
@@ -34,6 +37,7 @@ func (s *UserService) GetAll(ctx context.Context, req *common.Empty) (*user.User
 	return res, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (s *UserService) GetById(ctx context.Context, req *common.IdRequest) (*user.User, error) {
 	user, err := s.repo.GetById(ctx, req.Id)
 	if err != nil {
@@ -43,6 +47,7 @@ func (s *UserService) GetById(ctx context.Context, req *common.IdRequest) (*user
 	return s.toProto(user), nil
 }
 
+// GetByEmail returns records matching the requested email lookup.
 func (s *UserService) GetByEmail(ctx context.Context, req *user.EmailRequest) (*user.User, error) {
 	user, err := s.repo.GetByEmail(ctx, req.Email)
 	if err != nil {
@@ -52,6 +57,7 @@ func (s *UserService) GetByEmail(ctx context.Context, req *user.EmailRequest) (*
 	return s.toProto(user), nil
 }
 
+// GetByPhoneNumber returns records matching the requested phone number lookup.
 func (s *UserService) GetByPhoneNumber(ctx context.Context, req *user.PhoneNumberRequest) (*user.User, error) {
 	user, err := s.repo.GetByPhoneNumber(ctx, req.PhoneNumber)
 	if err != nil {
@@ -61,6 +67,7 @@ func (s *UserService) GetByPhoneNumber(ctx context.Context, req *user.PhoneNumbe
 	return s.toProto(user), nil
 }
 
+// Create persists a new record through UserService.
 func (s *UserService) Create(ctx context.Context, req *user.User) (*user.User, error) {
 	user, err := s.repo.Create(ctx, s.fromProto(req))
 	if err != nil {
@@ -70,6 +77,7 @@ func (s *UserService) Create(ctx context.Context, req *user.User) (*user.User, e
 	return s.toProto(user), nil
 }
 
+// Update applies the requested changes through UserService.
 func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error) {
 	u, err := s.repo.Update(ctx, req.Id, &core.UserUpdateInput{
 		FirstName:  req.Input.FirstName,
@@ -84,6 +92,7 @@ func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (
 	return s.toProto(u), nil
 }
 
+// Delete removes the requested record through UserService.
 func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	err := s.repo.Delete(ctx, req.Id)
 	if err != nil {
@@ -93,6 +102,7 @@ func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*commo
 	return &common.Empty{}, nil
 }
 
+// toProto maps the domain model to its protobuf representation.
 func (s *UserService) toProto(input *core.User) *user.User {
 	if input == nil {
 		return nil
@@ -109,6 +119,7 @@ func (s *UserService) toProto(input *core.User) *user.User {
 	}
 }
 
+// fromProto maps a protobuf message to the domain model.
 func (s *UserService) fromProto(input *user.User) *core.User {
 	if input == nil {
 		return nil
@@ -124,6 +135,3 @@ func (s *UserService) fromProto(input *user.User) *core.User {
 		PasswordHash: input.PasswordHash,
 	}
 }
-
-
-

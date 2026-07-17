@@ -5,11 +5,11 @@
 package mocks
 
 import (
-	common "github.com/Suinar/Bank-proto/repository/common"
-	currency "github.com/Suinar/Bank-proto/repository/currency"
 	context "context"
 	reflect "reflect"
 
+	common "github.com/Suinar/Bank-proto/repository/common"
+	currency "github.com/Suinar/Bank-proto/repository/currency"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -140,6 +140,3 @@ func (mr *MockICurrencyServiceMockRecorder) Update(ctx, req interface{}) *gomock
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockICurrencyService)(nil).Update), ctx, req)
 }
-
-
-

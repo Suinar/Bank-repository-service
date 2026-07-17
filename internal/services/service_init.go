@@ -11,6 +11,7 @@ import (
 	user "github.com/Suinar/Bank-repository-service/internal/services/user"
 )
 
+// Services groups the initialized application services.
 type Services struct {
 	AccountService  *account.AccountService
 	CardService     *card.CardService
@@ -20,6 +21,7 @@ type Services struct {
 	UserService     *user.UserService
 }
 
+// InitServices wires the dependencies required by services.
 func InitServices(repositories *repository.Repositories, caches *cache.Caches) *Services {
 	return &Services{
 		AccountService:  account.NewAccountService(repositories.AccountRepository),
@@ -30,6 +32,3 @@ func InitServices(repositories *repository.Repositories, caches *cache.Caches) *
 		UserService:     user.NewUserService(repositories.UserRepository),
 	}
 }
-
-
-

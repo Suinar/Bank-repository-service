@@ -1,11 +1,12 @@
 package credit
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/credit"
-	"context"
 )
 
+// ICreditHandler defines the behavior required at this layer boundary.
 type ICreditHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*credit.CreditList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*credit.CreditList, error)
@@ -14,6 +15,3 @@ type ICreditHandler interface {
 	Repay(ctx context.Context, req *common.AmountRequest) (*credit.Credit, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

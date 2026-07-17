@@ -1,11 +1,12 @@
 package card
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/card"
 	"github.com/Suinar/Bank-proto/repository/common"
-	"context"
 )
 
+// ICardHandler defines the behavior required at this layer boundary.
 type ICardHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*card.CardList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*card.CardList, error)
@@ -15,6 +16,3 @@ type ICardHandler interface {
 	Create(ctx context.Context, req *card.Card) (*card.Card, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

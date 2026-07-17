@@ -1,11 +1,12 @@
 package user
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/user"
-	"context"
 )
 
+// IUserHandler defines the behavior required at this layer boundary.
 type IUserHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*user.UserList, error)
 	GetById(ctx context.Context, req *common.IdRequest) (*user.User, error)
@@ -15,6 +16,3 @@ type IUserHandler interface {
 	Update(ctx context.Context, req *user.UpdateUserRequest) (*user.User, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

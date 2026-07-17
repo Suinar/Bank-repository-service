@@ -1,23 +1,26 @@
 package deposit
 
 import (
-	errror "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"context"
 	"database/sql"
 	"errors"
+	errror "github.com/Suinar/Bank-repository-service/pkg"
+	core "github.com/Suinar/Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )
 
+// DepositRepository persists and retrieves its domain model in PostgreSQL.
 type DepositRepository struct {
 	db *sqlx.DB
 }
 
+// NewDepositRepository creates a ready-to-use deposit repository.
 func NewDepositRepository(db *sqlx.DB) *DepositRepository {
 	return &DepositRepository{db: db}
 }
 
+// GetAll returns all records available through DepositRepository.
 func (r *DepositRepository) GetAll(ctx context.Context) ([]core.Deposit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
@@ -32,6 +35,7 @@ FROM deposits`
 	return deposits, nil
 }
 
+// GetByUser returns records matching the requested user lookup.
 func (r *DepositRepository) GetByUser(ctx context.Context, userId int64) ([]core.Deposit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
@@ -51,6 +55,7 @@ WHERE user_id = $1`
 	return deposits, nil
 }
 
+// GetById returns records matching the requested id lookup.
 func (r *DepositRepository) GetById(ctx context.Context, id int64) (*core.Deposit, error) {
 	query := `
 SELECT id, user_id, currency_id, amount, interest_rate, term_months, status
@@ -70,28 +75,27 @@ WHERE id = $1`
 	return &deposit, nil
 }
 
+// Create persists a new record through DepositRepository.
 func (r *DepositRepository) Create(ctx context.Context, input *core.Deposit) (*core.Deposit, error) {
 	query := `
 INSERT INTO deposits (user_id, currency_id, amount, interest_rate, term_months, status)
 VALUES (:user_id, :currency_id, :amount, :interest_rate, :term_months, :status)
 RETURNING id, user_id, currency_id, amount, interest_rate, term_months, status;`
 
-	rows, err := r.db.NamedQueryContext(ctx, query, input)
+	namedQuery, args, err := sqlx.Named(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
-	defer rows.Close()
 
-	if rows.Next() {
-		var created core.Deposit
-		if err := rows.StructScan(&created); err != nil {
-			return nil, errror.InternalServerError
-		}
-		return &created, nil
+	var created core.Deposit
+	if err := r.db.QueryRowxContext(ctx, r.db.Rebind(namedQuery), args...).StructScan(&created); err != nil {
+		return nil, errror.InternalServerError
 	}
-	return nil, errror.InternalServerError
+
+	return &created, nil
 }
 
+// Replenish adds funds to the requested deposit through DepositRepository.
 func (r *DepositRepository) Replenish(ctx context.Context, id int64, amount int64) (*core.Deposit, error) {
 	query := `
 UPDATE deposits
@@ -114,6 +118,7 @@ RETURNING id, user_id, currency_id, amount, interest_rate, term_months, status`
 	return &deposit, nil
 }
 
+// Delete removes the requested record through DepositRepository.
 func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 	query := `
 	DELETE FROM deposits
@@ -136,6 +141,3 @@ func (r *DepositRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
-
-
-

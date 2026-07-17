@@ -1,11 +1,12 @@
 package account
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/account"
 	"github.com/Suinar/Bank-proto/repository/common"
-	"context"
 )
 
+// IAccountHandler defines the behavior required at this layer boundary.
 type IAccountHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*account.AccountList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*account.AccountList, error)
@@ -16,6 +17,3 @@ type IAccountHandler interface {
 	Update(ctx context.Context, req *account.UpdateAccountRequest) (*account.Account, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-

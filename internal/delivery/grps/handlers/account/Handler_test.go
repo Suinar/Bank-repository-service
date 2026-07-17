@@ -1,7 +1,7 @@
 package account
 
 import (
-	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/service"
+	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/services"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
 	errors "github.com/Suinar/Bank-repository-service/pkg"
 
@@ -376,6 +376,3 @@ func NewSUT(t *testing.T) (*mocks.MockIAccountService, *AccountHandler, context.
 
 	return service, sut, context.Background()
 }
-
-
-

@@ -1,11 +1,12 @@
 package deposit
 
 import (
+	"context"
 	"github.com/Suinar/Bank-proto/repository/common"
 	"github.com/Suinar/Bank-proto/repository/deposit"
-	"context"
 )
 
+// IDepositHandler defines the behavior required at this layer boundary.
 type IDepositHandler interface {
 	GetAll(ctx context.Context, req *common.Empty) (*deposit.DepositList, error)
 	GetByUser(ctx context.Context, req *common.UserIdRequest) (*deposit.DepositList, error)
@@ -14,6 +15,3 @@ type IDepositHandler interface {
 	Replenish(ctx context.Context, req *common.AmountRequest) (*deposit.Deposit, error)
 	Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error)
 }
-
-
-
