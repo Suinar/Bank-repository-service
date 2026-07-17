@@ -3,6 +3,7 @@ module github.com/Suinar/Bank-repository-service
 go 1.25.5
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/Suinar/Bank-proto v0.0.0-20260708211510-a6886b359a44
 	github.com/golang/mock v1.6.0
 	github.com/jmoiron/sqlx v1.4.0
@@ -36,4 +37,3 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-

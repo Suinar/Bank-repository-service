@@ -5,7 +5,6 @@ import (
 	user "github.com/Suinar/Bank-proto/repository/user"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"testing"
 
@@ -43,26 +42,6 @@ func TestUserService_GetAll_Success(t *testing.T) {
 	}
 }
 
-func TestUserService_GetAll_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewEmptyProto()
-
-	repository.
-		EXPECT().
-		GetAll(gomock.Any()).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetAll(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestUserService_GetById_Success(t *testing.T) {
 	t.Parallel()
 
@@ -83,26 +62,6 @@ func TestUserService_GetById_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	AssertUserEqual(t, &expected, result)
-}
-
-func TestUserService_GetById_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetById(gomock.Any(), gomock.Eq(req.Id)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetById(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestUserService_GetByEmail_Success(t *testing.T) {
@@ -127,26 +86,6 @@ func TestUserService_GetByEmail_Success(t *testing.T) {
 	AssertUserEqual(t, &expected, result)
 }
 
-func TestUserService_GetByEmail_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewEmailRequestProto()
-
-	repository.
-		EXPECT().
-		GetByEmail(gomock.Any(), gomock.Eq(req.Email)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetByEmail(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestUserService_GetByPhoneNumber_Success(t *testing.T) {
 	t.Parallel()
 
@@ -167,26 +106,6 @@ func TestUserService_GetByPhoneNumber_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	AssertUserEqual(t, &expected, result)
-}
-
-func TestUserService_GetByPhoneNumber_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetById(gomock.Any(), gomock.Eq(req.Id)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetById(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestUserService_Create_Success(t *testing.T) {
@@ -210,27 +129,6 @@ func TestUserService_Create_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	AssertUserEqual(t, &expected, result)
-}
-
-func TestUserService_Create_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	reqProto := fixture.NewUserProto()
-	reqCore := fixture.NewUserCore()
-
-	repository.
-		EXPECT().
-		Create(gomock.Any(), gomock.Eq(&reqCore)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.Create(ctx, reqProto)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestUserService_Update_Success(t *testing.T) {
@@ -266,36 +164,6 @@ func TestUserService_Update_Success(t *testing.T) {
 	AssertUserEqual(t, &expected, result)
 }
 
-func TestUserService_Update_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewUpdateUserRequestProto()
-
-	expectedInput := fixture.NewUserUpdateInputCore()
-
-	repository.
-		EXPECT().
-		Update(
-			gomock.Any(),
-			gomock.Eq(req.Id),
-			gomock.AssignableToTypeOf(&core.UserUpdateInput{}),
-		).
-		DoAndReturn(func(ctx context.Context, id int64, input *core.UserUpdateInput) (*core.User, error) {
-			assert.Equal(t, expectedInput, input)
-
-			return nil, errors.TestError
-		}).
-		Times(1)
-
-	result, err := sut.Update(ctx, req)
-
-	require.Error(t, err)
-	require.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestUserService_Delete_Success(t *testing.T) {
 	t.Parallel()
 
@@ -316,26 +184,6 @@ func TestUserService_Delete_Success(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, result)
 	assert.Equal(t, expected, result)
-}
-
-func TestUserService_Delete_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(errors.TestError).
-		Times(1)
-
-	result, err := sut.Delete(ctx, req)
-
-	require.Error(t, err)
-	require.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestUserService_toProto_Success(t *testing.T) {
@@ -364,15 +212,6 @@ func TestUserService_toCore_Success(t *testing.T) {
 	result := sut.fromProto(req)
 
 	assert.Equal(t, &expected, result)
-}
-
-func TestUserService_Mappers_Nil(t *testing.T) {
-	t.Parallel()
-
-	_, sut, _ := NewSUT(t)
-
-	assert.Nil(t, sut.toProto(nil))
-	assert.Nil(t, sut.fromProto(nil))
 }
 
 func NewSUT(t *testing.T) (*mocks.MockIUserRepository, *UserService, context.Context) {

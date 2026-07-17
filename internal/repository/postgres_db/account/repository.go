@@ -19,6 +19,8 @@ type AccountRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewAccountRepository creates a ready-to-use account repository.
 func NewAccountRepository(db *sqlx.DB) *AccountRepository {
 	return &AccountRepository{db: db}
@@ -87,7 +89,7 @@ INSERT INTO accounts (user_id, currency_id, name, balance, status)
 VALUES (:user_id, :currency_id, :name, :balance, :status)
 RETURNING id, user_id, currency_id, name, balance, status;`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}
@@ -162,14 +164,14 @@ func (r *AccountRepository) Update(ctx context.Context, id int64, input *core.Ac
 		argId++
 	}
 
+	if len(setParts) == 0 {
+		return nil, errror.BadRequest
+	}
+
 	setParts = append(setParts, "updated_at = NOW()")
 
 	args = append(args, id)
 	args = append(args, core.AccountStatusClosed)
-
-	if len(setParts) == 0 {
-		return nil, errror.BadRequest
-	}
 
 	query := fmt.Sprintf(`
 UPDATE accounts

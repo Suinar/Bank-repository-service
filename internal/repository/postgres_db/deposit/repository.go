@@ -15,6 +15,8 @@ type DepositRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewDepositRepository creates a ready-to-use deposit repository.
 func NewDepositRepository(db *sqlx.DB) *DepositRepository {
 	return &DepositRepository{db: db}
@@ -82,7 +84,7 @@ INSERT INTO deposits (user_id, currency_id, amount, interest_rate, term_months, 
 VALUES (:user_id, :currency_id, :amount, :interest_rate, :term_months, :status)
 RETURNING id, user_id, currency_id, amount, interest_rate, term_months, status;`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}

@@ -17,6 +17,8 @@ type UserRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewUserRepository creates a ready-to-use user repository.
 func NewUserRepository(db *sqlx.DB) *UserRepository {
 	return &UserRepository{db: db}
@@ -104,7 +106,7 @@ INSERT INTO users (first_name, middle_name, last_name, email, phone_number)
 VALUES (:first_name, :middle_name, :last_name, :email, :phone_number)
 RETURNING id, first_name, middle_name, last_name, email, phone_number;`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}

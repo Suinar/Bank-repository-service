@@ -15,6 +15,8 @@ type CreditRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewCreditRepository creates a ready-to-use credit repository.
 func NewCreditRepository(db *sqlx.DB) *CreditRepository {
 	return &CreditRepository{db: db}
@@ -82,7 +84,7 @@ INSERT INTO credits (user_id, currency_id, amount, monthly_payment, status)
 VALUES (:user_id, :currency_id, :amount, :monthly_payment, :status)
 Returning id, user_id, currency_id, amount, monthly_payment, status;`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}

@@ -18,6 +18,8 @@ type CurrencyRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewCurrencyRepository creates a ready-to-use currency repository.
 func NewCurrencyRepository(db *sqlx.DB) *CurrencyRepository {
 	return &CurrencyRepository{db: db}
@@ -105,7 +107,7 @@ INSERT INTO currencies (name, symbol, iso_code, minor_units)
 VALUES (:name, :symbol, :iso_code, :minor_units)
 RETURNING id, name, symbol, iso_code, minor_units`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}

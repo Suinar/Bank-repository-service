@@ -17,6 +17,8 @@ type CardRepository struct {
 	db *sqlx.DB
 }
 
+var bindNamed = sqlx.Named
+
 // NewCardRepository creates a ready-to-use card repository.
 func NewCardRepository(db *sqlx.DB) *CardRepository {
 	return &CardRepository{db: db}
@@ -129,7 +131,7 @@ INSERT INTO cards (user_id, account_id, number, expiry_month, expiry_year, statu
 VALUES (:user_id, :account_id, :number, :expiry_month, :expiry_year, :status)
 RETURNING id, user_id, account_id, number, expiry_month, expiry_year, status;`
 
-	namedQuery, args, err := sqlx.Named(query, input)
+	namedQuery, args, err := bindNamed(query, input)
 	if err != nil {
 		return nil, errror.InternalServerError
 	}

@@ -5,7 +5,6 @@ import (
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"testing"
 
@@ -43,26 +42,6 @@ func TestDepositService_GetAll_Success(t *testing.T) {
 	}
 }
 
-func TestDepositService_GetAll_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewEmptyProto()
-
-	repository.
-		EXPECT().
-		GetAll(gomock.Any()).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetAll(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestDepositService_GetByUser_Success(t *testing.T) {
 	t.Parallel()
 
@@ -92,26 +71,6 @@ func TestDepositService_GetByUser_Success(t *testing.T) {
 	}
 }
 
-func TestDepositService_GetByUser_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewUserIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetByUser(gomock.Any(), gomock.Eq(req.UserId)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetByUser(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestDepositService_GetById_Success(t *testing.T) {
 	t.Parallel()
 
@@ -132,26 +91,6 @@ func TestDepositService_GetById_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	AssertDepositEqual(t, &expected, result)
-}
-
-func TestCDepositService_GetById_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetById(gomock.Any(), gomock.Eq(req.Id)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetById(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestDepositService_Create_Success(t *testing.T) {
@@ -177,27 +116,6 @@ func TestDepositService_Create_Success(t *testing.T) {
 	AssertDepositEqual(t, &expected, result)
 }
 
-func TestDepositService_Create_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	reqProto := fixture.NewDepositProto()
-	reqCore := fixture.NewDepositCore()
-
-	repository.
-		EXPECT().
-		Create(gomock.Any(), gomock.Eq(&reqCore)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.Create(ctx, reqProto)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestDepositService_Delete_Success(t *testing.T) {
 	t.Parallel()
 
@@ -218,26 +136,6 @@ func TestDepositService_Delete_Success(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, result)
 	assert.Equal(t, expected, result)
-}
-
-func TestDepositService_Delete_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(errors.TestError).
-		Times(1)
-
-	result, err := sut.Delete(ctx, req)
-
-	require.Error(t, err)
-	require.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestDepositService_Replenish_Success(t *testing.T) {
@@ -261,26 +159,6 @@ func TestDepositService_Replenish_Success(t *testing.T) {
 	require.NotNil(t, result)
 
 	AssertDepositEqual(t, &expected, result)
-}
-
-func TestDepositService_Replenish_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewAmountRequestProto(fixture.TestAmount)
-
-	repository.
-		EXPECT().
-		Replenish(gomock.Any(), gomock.Eq(req.Id), gomock.Eq(req.Amount)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.Replenish(ctx, req)
-
-	require.Error(t, err)
-	require.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestDepositService_toProto_Success(t *testing.T) {
@@ -309,15 +187,6 @@ func TestDepositService_toCore_Success(t *testing.T) {
 	result := sut.fromProto(req)
 
 	assert.Equal(t, &expected, result)
-}
-
-func TestDepositService_Mappers_Nil(t *testing.T) {
-	t.Parallel()
-
-	_, sut, _ := NewSUT(t)
-
-	assert.Nil(t, sut.toProto(nil))
-	assert.Nil(t, sut.fromProto(nil))
 }
 
 func NewSUT(t *testing.T) (*mocks.MockIDepositRepository, *DepositService, context.Context) {

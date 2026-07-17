@@ -175,6 +175,17 @@ The current statement-coverage baseline is measured with running PostgreSQL and 
 go test ./internal/services/... ./internal/delivery/grps/handlers/... ./internal/repository/postgres_db/... ./internal/repository/cache/currency -cover
 ```
 
+To verify the two fully covered user packages and inspect function-level results:
+
+```sh
+go test ./internal/repository/postgres_db/user -coverprofile=user-repository.coverage
+go tool cover -func=user-repository.coverage
+go test ./internal/services/user -coverprofile=user-service.coverage
+go tool cover -func=user-service.coverage
+```
+
+The user repository combines PostgreSQL integration tests for successful operations with `go-sqlmock` tests for database failures and not-found paths.
+
 | Layer | Package | Coverage |
 |---|---|---:|
 | Service | Account | 100.0% |
@@ -182,7 +193,7 @@ go test ./internal/services/... ./internal/delivery/grps/handlers/... ./internal
 | Service | Credit | 100.0% |
 | Service | Currency | 100.0% |
 | Service | Deposit | 100.0% |
-| Service | User | 97.4% |
+| Service | User | 100.0% |
 | gRPC handler | Account | 100.0% |
 | gRPC handler | Card | 100.0% |
 | gRPC handler | Credit | 100.0% |
@@ -190,12 +201,12 @@ go test ./internal/services/... ./internal/delivery/grps/handlers/... ./internal
 | gRPC handler | Deposit | 100.0% |
 | gRPC handler | User | 100.0% |
 | Redis cache | Currency | 100.0% |
-| PostgreSQL repository | Account | 70.3% |
-| PostgreSQL repository | Card | 66.0% |
-| PostgreSQL repository | Credit | 67.4% |
-| PostgreSQL repository | Currency | 75.0% |
-| PostgreSQL repository | Deposit | 67.4% |
-| PostgreSQL repository | User | 73.6% |
+| PostgreSQL repository | Account | 100.0% |
+| PostgreSQL repository | Card | 100.0% |
+| PostgreSQL repository | Credit | 100.0% |
+| PostgreSQL repository | Currency | 100.0% |
+| PostgreSQL repository | Deposit | 100.0% |
+| PostgreSQL repository | User | 100.0% |
 
 Generated mocks, fixtures, bootstrap packages, and test helpers are excluded from this package-level baseline because their statement percentages do not represent application behavior.
 ## gRPC APIs

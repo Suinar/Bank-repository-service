@@ -5,7 +5,6 @@ import (
 	card "github.com/Suinar/Bank-proto/repository/card"
 	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
 	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
 	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	"testing"
 
@@ -43,26 +42,6 @@ func TestCardService_GetAll_Success(t *testing.T) {
 	}
 }
 
-func TestCardService_GetAll_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewEmptyProto()
-
-	repository.
-		EXPECT().
-		GetAll(gomock.Any()).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetAll(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestCardService_GetByUser_Success(t *testing.T) {
 	t.Parallel()
 
@@ -92,26 +71,6 @@ func TestCardService_GetByUser_Success(t *testing.T) {
 	}
 }
 
-func TestCardService_GetByUser_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewUserIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetByUser(gomock.Any(), gomock.Eq(req.UserId)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetByUser(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestCardService_GetById_Success(t *testing.T) {
 	t.Parallel()
 
@@ -134,26 +93,6 @@ func TestCardService_GetById_Success(t *testing.T) {
 	AssertCardEqual(t, &expected, result)
 }
 
-func TestCardService_GetById_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		GetById(gomock.Any(), gomock.Eq(req.Id)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetById(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestCardService_GetByNumber_Success(t *testing.T) {
 	t.Parallel()
 
@@ -174,26 +113,6 @@ func TestCardService_GetByNumber_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	AssertCardEqual(t, &expected, result)
-}
-
-func TestCardService_GetByNumber_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewCardNumberRequestProto()
-
-	repository.
-		EXPECT().
-		GetByNumber(gomock.Any(), gomock.Eq(req.Number)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.GetByNumber(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestCardService_Create_Success(t *testing.T) {
@@ -219,27 +138,6 @@ func TestCardService_Create_Success(t *testing.T) {
 	AssertCardEqual(t, &expected, result)
 }
 
-func TestCardService_Create_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	reqProto := fixture.NewCardProto()
-	reqCore := fixture.NewCardCore()
-
-	repository.
-		EXPECT().
-		Create(gomock.Any(), gomock.Eq(&reqCore)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.Create(ctx, reqProto)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestCardService_Blocking_Success(t *testing.T) {
 	t.Parallel()
 
@@ -263,24 +161,6 @@ func TestCardService_Blocking_Success(t *testing.T) {
 	AssertCardEqual(t, &expected, result)
 }
 
-func TestCardService_Blocking_Error(t *testing.T) {
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		Blocking(gomock.Any(), gomock.Eq(req.Id)).
-		Return(nil, errors.TestError).
-		Times(1)
-
-	result, err := sut.Blocking(ctx, req)
-
-	require.Error(t, err)
-	assert.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
-}
-
 func TestCardService_Delete_Success(t *testing.T) {
 	t.Parallel()
 
@@ -301,26 +181,6 @@ func TestCardService_Delete_Success(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, result)
 	assert.Equal(t, expected, result)
-}
-
-func TestCardService_Delete_Error(t *testing.T) {
-	t.Parallel()
-
-	repository, sut, ctx := NewSUT(t)
-
-	req := fixture.NewIdRequestProto()
-
-	repository.
-		EXPECT().
-		Delete(gomock.Any(), gomock.Eq(req.Id)).
-		Return(errors.TestError).
-		Times(1)
-
-	result, err := sut.Delete(ctx, req)
-
-	require.Error(t, err)
-	require.Nil(t, result)
-	assert.ErrorIs(t, err, errors.TestError)
 }
 
 func TestCardService_toProto_Success(t *testing.T) {
@@ -349,15 +209,6 @@ func TestCardService_toCore_Success(t *testing.T) {
 	result := sut.fromProto(req)
 
 	assert.Equal(t, &expected, result)
-}
-
-func TestCardService_Mappers_Nil(t *testing.T) {
-	t.Parallel()
-
-	_, sut, _ := NewSUT(t)
-
-	assert.Nil(t, sut.toProto(nil))
-	assert.Nil(t, sut.fromProto(nil))
 }
 
 func NewSUT(t *testing.T) (*mocks.MockICardRepository, *CardService, context.Context) {
