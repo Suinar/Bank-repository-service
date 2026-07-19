@@ -8,8 +8,8 @@ import (
 	context "context"
 	reflect "reflect"
 
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
 	gomock "github.com/golang/mock/gomock"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // MockICurrencyCache is a mock of ICurrencyCache interface.

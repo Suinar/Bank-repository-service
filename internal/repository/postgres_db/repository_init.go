@@ -1,12 +1,12 @@
 package repository
 
 import (
-	account "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/account"
-	card "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/card"
-	credit "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/credit"
-	currency "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/currency"
-	deposit "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/deposit"
-	user "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/user"
+	account "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/account"
+	card "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/card"
+	credit "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/credit"
+	currency "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/currency"
+	deposit "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/deposit"
+	user "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/user"
 
 	"github.com/jmoiron/sqlx"
 )

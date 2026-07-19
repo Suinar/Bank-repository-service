@@ -5,7 +5,7 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
-	service "github.com/Suinar/Bank-repository-service/internal/services/currency"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/currency"
 )
 
 // CurrencyHandler adapts gRPC requests to the application service contract.

@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
-	configs "github.com/Suinar/Bank-repository-service/internal/configs"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	configs "github.com/kVinsom/Bank-repository-service/internal/configs"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 	"testing"
 
 	"github.com/jmoiron/sqlx"

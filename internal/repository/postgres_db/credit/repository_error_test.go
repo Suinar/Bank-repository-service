@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	connectToDB "github.com/Suinar/Bank-repository-service/internal/test/repository"
-	pkgerrors "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	connectToDB "github.com/kVinsom/Bank-repository-service/internal/test/repository"
+	pkgerrors "github.com/kVinsom/Bank-repository-service/pkg"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"

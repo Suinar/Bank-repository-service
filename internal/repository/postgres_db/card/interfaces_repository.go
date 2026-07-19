@@ -2,7 +2,7 @@ package card
 
 import (
 	"context"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 //go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces_repository.go -destination=../../../mocks/repository/card.go -package=mocks

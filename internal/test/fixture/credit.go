@@ -2,7 +2,7 @@ package fixture
 
 import (
 	credit "github.com/Suinar/Bank-proto/repository/credit"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewCreditCore creates a ready-to-use credit core.

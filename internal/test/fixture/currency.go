@@ -2,7 +2,7 @@ package fixture
 
 import (
 	currency "github.com/Suinar/Bank-proto/repository/currency"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewCurrencyCore creates a ready-to-use currency core.

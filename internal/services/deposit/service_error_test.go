@@ -1,8 +1,8 @@
 package deposit
 
 import (
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	errors "github.com/kVinsom/Bank-repository-service/pkg"
 	"testing"
 
 	"github.com/golang/mock/gomock"

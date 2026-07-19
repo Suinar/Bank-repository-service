@@ -5,7 +5,7 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
-	service "github.com/Suinar/Bank-repository-service/internal/services/credit"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/credit"
 )
 
 // CreditHandler adapts gRPC requests to the application service contract.

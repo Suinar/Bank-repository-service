@@ -1,7 +1,7 @@
 package cahce
 
 import (
-	configs "github.com/Suinar/Bank-repository-service/internal/configs"
+	configs "github.com/kVinsom/Bank-repository-service/internal/configs"
 	"github.com/redis/go-redis/v9"
 )
 

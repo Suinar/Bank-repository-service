@@ -1,8 +1,8 @@
 package card
 
 import (
-	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/services"
-	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
+	mocks "github.com/kVinsom/Bank-repository-service/internal/mocks/services"
+	"github.com/kVinsom/Bank-repository-service/internal/test/fixture"
 
 	"context"
 	"testing"

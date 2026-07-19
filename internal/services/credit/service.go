@@ -5,8 +5,8 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
-	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/credit"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/credit"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // CreditService coordinates the application use cases for its domain.

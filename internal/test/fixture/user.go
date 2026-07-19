@@ -2,7 +2,7 @@ package fixture
 
 import (
 	user "github.com/Suinar/Bank-proto/repository/user"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewUserCore creates a ready-to-use user core.

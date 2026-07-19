@@ -7,9 +7,9 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	pkgerrors "github.com/Suinar/Bank-repository-service/pkg"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
 	"github.com/jmoiron/sqlx"
+	pkgerrors "github.com/kVinsom/Bank-repository-service/pkg"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 	"github.com/stretchr/testify/require"
 )
 

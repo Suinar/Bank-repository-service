@@ -8,9 +8,9 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	testdb "github.com/Suinar/Bank-repository-service/internal/test/repository"
-	pkgerrors "github.com/Suinar/Bank-repository-service/pkg"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	testdb "github.com/kVinsom/Bank-repository-service/internal/test/repository"
+	pkgerrors "github.com/kVinsom/Bank-repository-service/pkg"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 	"github.com/stretchr/testify/require"
 )
 

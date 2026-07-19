@@ -4,12 +4,12 @@ import (
 	"context"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
-	cache "github.com/Suinar/Bank-repository-service/internal/repository/cache/currency"
-	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/currency"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
+	cache "github.com/kVinsom/Bank-repository-service/internal/repository/cache/currency"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/currency"
+	errors "github.com/kVinsom/Bank-repository-service/pkg"
 	"unicode/utf8"
 
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // CurrencyService coordinates the application use cases for its domain.

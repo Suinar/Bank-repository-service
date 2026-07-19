@@ -1,7 +1,7 @@
 package cache
 
 import (
-	currency "github.com/Suinar/Bank-repository-service/internal/repository/cache/currency"
+	currency "github.com/kVinsom/Bank-repository-service/internal/repository/cache/currency"
 
 	"github.com/redis/go-redis/v9"
 )

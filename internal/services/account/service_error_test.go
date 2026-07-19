@@ -2,9 +2,9 @@ package account
 
 import (
 	"context"
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	errors "github.com/kVinsom/Bank-repository-service/pkg"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 	"testing"
 
 	"github.com/golang/mock/gomock"

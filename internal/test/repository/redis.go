@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	config "github.com/Suinar/Bank-repository-service/internal/configs"
+	config "github.com/kVinsom/Bank-repository-service/internal/configs"
 	"testing"
 	"time"
 

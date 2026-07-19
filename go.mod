@@ -1,4 +1,4 @@
-module github.com/Suinar/Bank-repository-service
+module github.com/kVinsom/Bank-repository-service
 
 go 1.25.5
 

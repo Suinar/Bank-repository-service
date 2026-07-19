@@ -2,7 +2,7 @@ package fixture
 
 import (
 	account "github.com/Suinar/Bank-proto/repository/account"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewAccountCore creates a ready-to-use account core.

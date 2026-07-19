@@ -1,14 +1,14 @@
 package service
 
 import (
-	cache "github.com/Suinar/Bank-repository-service/internal/repository/cache"
-	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db"
-	account "github.com/Suinar/Bank-repository-service/internal/services/account"
-	card "github.com/Suinar/Bank-repository-service/internal/services/card"
-	credit "github.com/Suinar/Bank-repository-service/internal/services/credit"
-	currency "github.com/Suinar/Bank-repository-service/internal/services/currency"
-	deposit "github.com/Suinar/Bank-repository-service/internal/services/deposit"
-	user "github.com/Suinar/Bank-repository-service/internal/services/user"
+	cache "github.com/kVinsom/Bank-repository-service/internal/repository/cache"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db"
+	account "github.com/kVinsom/Bank-repository-service/internal/services/account"
+	card "github.com/kVinsom/Bank-repository-service/internal/services/card"
+	credit "github.com/kVinsom/Bank-repository-service/internal/services/credit"
+	currency "github.com/kVinsom/Bank-repository-service/internal/services/currency"
+	deposit "github.com/kVinsom/Bank-repository-service/internal/services/deposit"
+	user "github.com/kVinsom/Bank-repository-service/internal/services/user"
 )
 
 // Services groups the initialized application services.

@@ -1,13 +1,13 @@
 package handler
 
 import (
-	account "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/account"
-	card "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/card"
-	credit "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/credit"
-	currency "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/currency"
-	deposit "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/deposit"
-	user "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/user"
-	service "github.com/Suinar/Bank-repository-service/internal/services"
+	account "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/account"
+	card "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/card"
+	credit "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/credit"
+	currency "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/currency"
+	deposit "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/deposit"
+	user "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/user"
+	service "github.com/kVinsom/Bank-repository-service/internal/services"
 )
 
 // Handlers groups the gRPC handlers registered by the server.

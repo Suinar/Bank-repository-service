@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	errror "github.com/Suinar/Bank-repository-service/pkg"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	errror "github.com/kVinsom/Bank-repository-service/pkg"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 
 	"github.com/jmoiron/sqlx"
 )

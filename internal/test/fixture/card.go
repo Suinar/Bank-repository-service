@@ -2,7 +2,7 @@ package fixture
 
 import (
 	card "github.com/Suinar/Bank-proto/repository/card"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewCardCore creates a ready-to-use card core.

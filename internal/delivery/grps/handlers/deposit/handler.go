@@ -5,7 +5,7 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
-	service "github.com/Suinar/Bank-repository-service/internal/services/deposit"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/deposit"
 )
 
 // DepositHandler adapts gRPC requests to the application service contract.

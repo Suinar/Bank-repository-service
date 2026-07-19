@@ -1,9 +1,9 @@
 package currency
 
 import (
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	test "github.com/Suinar/Bank-repository-service/internal/test/repository"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	test "github.com/kVinsom/Bank-repository-service/internal/test/repository"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 	"strconv"
 
 	"context"

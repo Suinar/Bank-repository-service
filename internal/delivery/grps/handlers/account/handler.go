@@ -5,7 +5,7 @@ import (
 
 	account "github.com/Suinar/Bank-proto/repository/account"
 	common "github.com/Suinar/Bank-proto/repository/common"
-	service "github.com/Suinar/Bank-repository-service/internal/services/account"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/account"
 )
 
 // AccountHandler adapts gRPC requests to the application service contract.

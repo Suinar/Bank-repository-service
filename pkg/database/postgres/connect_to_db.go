@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	configs "github.com/Suinar/Bank-repository-service/internal/configs"
 	"github.com/jmoiron/sqlx"
+	configs "github.com/kVinsom/Bank-repository-service/internal/configs"
 	_ "github.com/lib/pq"
 )
 

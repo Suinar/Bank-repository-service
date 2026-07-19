@@ -4,17 +4,17 @@ import (
 	"log"
 	"net"
 
-	config "github.com/Suinar/Bank-repository-service/internal/configs"
-	accountHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/account"
-	cardHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/card"
-	creditHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/credit"
-	currencyHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/currency"
-	depositHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/deposit"
-	userHandler "github.com/Suinar/Bank-repository-service/internal/delivery/grps/handlers/user"
+	config "github.com/kVinsom/Bank-repository-service/internal/configs"
+	accountHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/account"
+	cardHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/card"
+	creditHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/credit"
+	currencyHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/currency"
+	depositHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/deposit"
+	userHandler "github.com/kVinsom/Bank-repository-service/internal/delivery/grps/handlers/user"
 
 	"google.golang.org/grpc"
 
-	service "github.com/Suinar/Bank-repository-service/internal/services"
+	service "github.com/kVinsom/Bank-repository-service/internal/services"
 
 	accountProto "github.com/Suinar/Bank-proto/repository/account"
 	cardProto "github.com/Suinar/Bank-proto/repository/card"

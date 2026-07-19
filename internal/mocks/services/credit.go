@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
+	gomock "github.com/golang/mock/gomock"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
-	gomock "github.com/golang/mock/gomock"
 )
 
 // MockICreditService is a mock of ICreditService interface.

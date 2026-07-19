@@ -2,7 +2,7 @@ package fixture
 
 import (
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // NewDepositCore creates a ready-to-use deposit core.

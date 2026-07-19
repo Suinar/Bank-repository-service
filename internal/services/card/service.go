@@ -5,8 +5,8 @@ import (
 
 	card "github.com/Suinar/Bank-proto/repository/card"
 	common "github.com/Suinar/Bank-proto/repository/common"
-	repository "github.com/Suinar/Bank-repository-service/internal/repository/postgres_db/card"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/card"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
 // CardService coordinates the application use cases for its domain.

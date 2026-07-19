@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	connectToDB "github.com/Suinar/Bank-repository-service/internal/test/repository"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	connectToDB "github.com/kVinsom/Bank-repository-service/internal/test/repository"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 
 	"github.com/stretchr/testify/require"
 )

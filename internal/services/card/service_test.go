@@ -3,9 +3,9 @@ package card
 import (
 	"context"
 	card "github.com/Suinar/Bank-proto/repository/card"
-	mocks "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	mocks "github.com/kVinsom/Bank-repository-service/internal/mocks/repository"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 	"testing"
 
 	"github.com/golang/mock/gomock"

@@ -5,7 +5,7 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	user "github.com/Suinar/Bank-proto/repository/user"
-	service "github.com/Suinar/Bank-repository-service/internal/services/user"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/user"
 )
 
 // UserHandler adapts gRPC requests to the application service contract.

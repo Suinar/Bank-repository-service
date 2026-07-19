@@ -1,10 +1,10 @@
 package currency
 
 import (
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	test "github.com/Suinar/Bank-repository-service/internal/test/repository"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
-	"github.com/Suinar/Bank-repository-service/pkg/core"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	test "github.com/kVinsom/Bank-repository-service/internal/test/repository"
+	errors "github.com/kVinsom/Bank-repository-service/pkg"
+	"github.com/kVinsom/Bank-repository-service/pkg/core"
 
 	"context"
 	"testing"

@@ -1,8 +1,8 @@
 package currency
 
 import (
-	"github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	errors "github.com/Suinar/Bank-repository-service/pkg"
+	"github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	errors "github.com/kVinsom/Bank-repository-service/pkg"
 	"testing"
 
 	"github.com/golang/mock/gomock"

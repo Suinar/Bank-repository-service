@@ -3,10 +3,10 @@ package currency
 import (
 	"context"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
-	mocksCech "github.com/Suinar/Bank-repository-service/internal/mocks/cache"
-	mocksRep "github.com/Suinar/Bank-repository-service/internal/mocks/repository"
-	fixture "github.com/Suinar/Bank-repository-service/internal/test/fixture"
-	core "github.com/Suinar/Bank-repository-service/pkg/core"
+	mocksCech "github.com/kVinsom/Bank-repository-service/internal/mocks/cache"
+	mocksRep "github.com/kVinsom/Bank-repository-service/internal/mocks/repository"
+	fixture "github.com/kVinsom/Bank-repository-service/internal/test/fixture"
+	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 	"testing"
 	"unicode/utf8"
 

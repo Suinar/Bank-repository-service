@@ -5,7 +5,7 @@ import (
 
 	card "github.com/Suinar/Bank-proto/repository/card"
 	common "github.com/Suinar/Bank-proto/repository/common"
-	service "github.com/Suinar/Bank-repository-service/internal/services/card"
+	service "github.com/kVinsom/Bank-repository-service/internal/services/card"
 )
 
 // CardHandler adapts gRPC requests to the application service contract.
