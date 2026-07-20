@@ -136,3 +136,40 @@ func TestUserRepository_Delete_Errors(t *testing.T) {
 		})
 	}
 }
+
+func TestUserRepository_ChangePassword_Errors(t *testing.T) {
+	tests := []struct {
+		name              string
+		result            sql.Result
+		dbError, expected error
+	}{
+		{"exec", nil, databaseError, pkgerrors.InternalServerError},
+		{"rows affected", sqlmock.NewErrorResult(databaseError), nil, pkgerrors.InternalServerError},
+		{"not found", sqlmock.NewResult(0, 0), nil, pkgerrors.NotFound},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			repo, mock := newMockRepository(t)
+			expectation := mock.ExpectExec("UPDATE users").WithArgs("password", int64(1))
+			if tt.dbError != nil {
+				expectation.WillReturnError(tt.dbError)
+			} else {
+				expectation.WillReturnResult(tt.result)
+			}
+			require.ErrorIs(t, repo.ChangePassword(context.Background(), 1, "password"), tt.expected)
+			require.NoError(t, mock.ExpectationsWereMet())
+		})
+	}
+}
+
+func TestUserRepository_ChangePassword_Success(t *testing.T) {
+	repo, mock := newMockRepository(t)
+	mock.ExpectExec("UPDATE users").
+		WithArgs("password", int64(1)).
+		WillReturnResult(sqlmock.NewResult(0, 1))
+
+	err := repo.ChangePassword(context.Background(), 1, "password")
+
+	require.NoError(t, err)
+	require.NoError(t, mock.ExpectationsWereMet())
+}

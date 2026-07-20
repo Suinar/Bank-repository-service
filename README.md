@@ -222,6 +222,23 @@ The service provides repository operations for:
 
 Protocol definitions are provided by the `github.com/Suinar/Bank-proto` module.
 
+### User operations
+
+The user layers support the following operations:
+
+| Method | Input | Result |
+|---|---|---|
+| `GetAll` | Empty request | User list |
+| `GetById` | User ID | User |
+| `GetByEmail` | Email address | User |
+| `GetByPhoneNumber` | Phone number | User |
+| `Create` | User data | Created user |
+| `Update` | User ID and profile fields | Updated user |
+| `ChangePassword` | User ID and new password | Empty response |
+| `Delete` | User ID | Empty response |
+
+`ChangePassword` accepts a user ID and a new password, stores the password in the `password_hash` column, and refreshes `updated_at`. The repository returns `NotFound` when the user does not exist and maps database failures to `InternalServerError`.
+
 ## Architecture
 
 ```text

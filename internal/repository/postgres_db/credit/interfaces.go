@@ -5,7 +5,7 @@ import (
 	"github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 
-//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces_repository.go -destination=../../../mocks/repository/credit.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interfaces.go -destination=../../../mocks/repository/credit.go -package=mocks
 
 // ICreditRepository defines the behavior required at this layer boundary.
 type ICreditRepository interface {

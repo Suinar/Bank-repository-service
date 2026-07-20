@@ -165,6 +165,24 @@ func TestUserHandler_Delete_Success(t *testing.T) {
 	assert.Equal(t, expected, result)
 }
 
+func TestUserHandler_ChangePassword_Success(t *testing.T) {
+	t.Parallel()
+
+	service, sut, ctx := NewSUT(t)
+	req := fixture.NewChangePasswordRequestProto()
+	expected := fixture.NewEmptyProto()
+
+	service.EXPECT().
+		ChangePassword(gomock.Any(), gomock.Eq(req)).
+		Return(expected, nil).
+		Times(1)
+
+	result, err := sut.ChangePassword(ctx, req)
+
+	require.NoError(t, err)
+	assert.Equal(t, expected, result)
+}
+
 func NewSUT(t *testing.T) (*mocks.MockIUserService, *UserHandler, context.Context) {
 	t.Helper()
 

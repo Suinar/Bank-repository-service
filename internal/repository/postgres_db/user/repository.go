@@ -169,6 +169,30 @@ func (r *UserRepository) Update(ctx context.Context, id int64, input *core.UserU
 	return &updated, nil
 }
 
+// ChangePassword updates the password hash for the requested user.
+func (r *UserRepository) ChangePassword(ctx context.Context, id int64, password string) error {
+	query := `
+UPDATE users
+SET password_hash = $1, updated_at = NOW()
+WHERE id = $2`
+
+	result, err := r.db.ExecContext(ctx, query, password, id)
+	if err != nil {
+		return errror.InternalServerError
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return errror.InternalServerError
+	}
+
+	if rowsAffected == 0 {
+		return errror.NotFound
+	}
+
+	return nil
+}
+
 // Delete removes the requested record through UserRepository.
 func (r *UserRepository) Delete(ctx context.Context, id int64) error {
 	query := `

@@ -163,3 +163,21 @@ func TestUserHandler_Delete_Error(t *testing.T) {
 
 	assert.ErrorIs(t, err, errors.TestError)
 }
+
+func TestUserHandler_ChangePassword_Error(t *testing.T) {
+	t.Parallel()
+
+	service, sut, ctx := NewSUT(t)
+	req := fixture.NewChangePasswordRequestProto()
+
+	service.EXPECT().
+		ChangePassword(gomock.Any(), gomock.Eq(req)).
+		Return(nil, errors.TestError).
+		Times(1)
+
+	result, err := sut.ChangePassword(ctx, req)
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.ErrorIs(t, err, errors.TestError)
+}

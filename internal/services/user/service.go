@@ -92,6 +92,15 @@ func (s *UserService) Update(ctx context.Context, req *user.UpdateUserRequest) (
 	return s.toProto(u), nil
 }
 
+// ChangePassword updates the password for the requested user.
+func (s *UserService) ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error) {
+	if err := s.repo.ChangePassword(ctx, req.Id, req.NewPassword); err != nil {
+		return nil, err
+	}
+
+	return &common.Empty{}, nil
+}
+
 // Delete removes the requested record through UserService.
 func (s *UserService) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	err := s.repo.Delete(ctx, req.Id)

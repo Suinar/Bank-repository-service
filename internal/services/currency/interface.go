@@ -7,7 +7,7 @@ import (
 	"github.com/Suinar/Bank-proto/repository/currency"
 )
 
-//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interface_service.go -destination=../../../internal/mocks/services/currency.go -package=mocks
+//go:generate go run github.com/golang/mock/mockgen@v1.6.0 -source=interface.go -destination=../../../internal/mocks/services/currency.go -package=mocks
 
 // ICurrencyService defines the behavior required at this layer boundary.
 type ICurrencyService interface {

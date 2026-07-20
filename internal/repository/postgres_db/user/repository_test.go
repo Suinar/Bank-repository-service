@@ -111,6 +111,21 @@ func TestUserRepository_Update(t *testing.T) {
 	require.Equal(t, &expected, user)
 }
 
+func TestUserRepository_ChangePassword(t *testing.T) {
+	repo, db, ctx := SetupRepositoryTest(t)
+
+	req := fixture.NewUserCore()
+	db.InsertUser(t, &req)
+
+	err := repo.ChangePassword(ctx, req.Id, fixture.TestPassword)
+	require.NoError(t, err)
+
+	var password string
+	err = db.DB.GetContext(ctx, &password, "SELECT password_hash FROM users WHERE id = $1", req.Id)
+	require.NoError(t, err)
+	require.Equal(t, fixture.TestPassword, password)
+}
+
 func TestUserRepository_Delete(t *testing.T) {
 	repo, db, ctx := SetupRepositoryTest(t)
 

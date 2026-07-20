@@ -163,6 +163,24 @@ func TestUserService_Delete_Error(t *testing.T) {
 	assert.ErrorIs(t, err, errors.TestError)
 }
 
+func TestUserService_ChangePassword_Error(t *testing.T) {
+	t.Parallel()
+
+	repository, sut, ctx := NewSUT(t)
+	req := fixture.NewChangePasswordRequestProto()
+
+	repository.EXPECT().
+		ChangePassword(gomock.Any(), req.Id, req.NewPassword).
+		Return(errors.TestError).
+		Times(1)
+
+	result, err := sut.ChangePassword(ctx, req)
+
+	require.Error(t, err)
+	assert.Nil(t, result)
+	assert.ErrorIs(t, err, errors.TestError)
+}
+
 func TestUserService_Mappers_Nil(t *testing.T) {
 	t.Parallel()
 

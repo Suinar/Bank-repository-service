@@ -49,6 +49,11 @@ func (h *UserHandler) Update(ctx context.Context, req *user.UpdateUserRequest) (
 	return h.service.Update(ctx, req)
 }
 
+// ChangePassword updates the password for the requested user.
+func (h *UserHandler) ChangePassword(ctx context.Context, req *user.ChangePasswordRequest) (*common.Empty, error) {
+	return h.service.ChangePassword(ctx, req)
+}
+
 // Delete removes the requested record through UserHandler.
 func (h *UserHandler) Delete(ctx context.Context, req *common.IdRequest) (*common.Empty, error) {
 	return h.service.Delete(ctx, req)
