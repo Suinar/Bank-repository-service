@@ -29,7 +29,7 @@ func TestAdminEnsureTopics(t *testing.T) {
 	require.Len(t, client.request.Topics, 2)
 	require.Equal(t, "bank.user.events", client.request.Topics[0].Topic)
 	require.Equal(t, 1, client.request.Topics[0].NumPartitions)
-	require.Equal(t, 1, client.request.Topics[0].ReplicationFactor)
+	require.Equal(t, 3, client.request.Topics[0].ReplicationFactor)
 }
 
 func TestAdminEnsureTopicsAcceptsExistingTopic(t *testing.T) {

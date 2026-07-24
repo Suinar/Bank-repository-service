@@ -90,6 +90,18 @@ func run() error {
 		appLog.DependencyFailed("kafka", fmt.Sprint(cfg.Kafka.Brokers), err)
 		return fmt.Errorf("initialize Kafka: %w", err)
 	}
+	if cfg.Kafka.Enabled {
+		outboxCtx, cancelOutbox := context.WithTimeout(ctx, 5*time.Second)
+		defer cancelOutbox()
+		if err := kafkaBroker.EnsureOutboxSchema(outboxCtx, db); err != nil {
+			return err
+		}
+		go func() {
+			if err := kafkaBroker.RunOutboxPublisher(ctx, db, cfg.Kafka.Brokers, cfg.Kafka.ClientID); err != nil {
+				appLog.DependencyFailed("kafka-outbox", fmt.Sprint(cfg.Kafka.Brokers), err)
+			}
+		}()
+	}
 
 	appLog.ComponentsInitializing()
 	repositories := repository.InitRepositories(db)

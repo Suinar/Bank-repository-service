@@ -11,7 +11,7 @@ import (
 
 const (
 	topicPartitions        = 1
-	topicReplicationFactor = 1
+	topicReplicationFactor = 3
 )
 
 // Admin creates the Kafka topics owned by the repository service.

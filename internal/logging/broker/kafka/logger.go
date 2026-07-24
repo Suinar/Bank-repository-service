@@ -31,3 +31,6 @@ func Retry(attempt, maxAttempts int, delay time.Duration, err error) {
 func TopicsFailed(attempts int, err error) {
 	stdlog.Printf("kafka broker: topic preparation failed attempts=%d error=%q", attempts, err)
 }
+func OutboxPublishFailed(err error) {
+	stdlog.Printf("kafka outbox: publish failed; event remains pending error=%q", err)
+}
