@@ -5,7 +5,7 @@ import (
 
 	common "github.com/Suinar/Bank-proto/repository/common"
 	credit "github.com/Suinar/Bank-proto/repository/credit"
-	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/credit"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repositories/postgres/credit"
 	core "github.com/kVinsom/Bank-repository-service/pkg/core"
 )
 

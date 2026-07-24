@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	gomock "github.com/golang/mock/gomock"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	deposit "github.com/Suinar/Bank-proto/repository/deposit"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockIDepositService is a mock of IDepositService interface.

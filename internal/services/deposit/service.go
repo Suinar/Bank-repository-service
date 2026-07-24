@@ -6,7 +6,7 @@ import (
 	"github.com/Suinar/Bank-proto/repository/deposit"
 	"github.com/kVinsom/Bank-repository-service/pkg/core"
 
-	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/deposit"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repositories/postgres/deposit"
 )
 
 // DepositService coordinates the application use cases for its domain.
