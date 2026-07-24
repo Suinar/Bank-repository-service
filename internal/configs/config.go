@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	log "github.com/kVinsom/Bank-repository-service/internal/logging/config"
 	"github.com/spf13/viper"
 )
 
@@ -48,6 +49,7 @@ type Config struct {
 	Kafka struct {
 		Enabled       bool
 		Brokers       []string
+		Topics        []string
 		ClientID      string
 		ConsumerGroup string
 	}
@@ -56,7 +58,9 @@ type Config struct {
 // LoadConfig reads, validates, and returns the application configuration.
 func LoadConfig() (*Config, error) {
 	v := newViper()
+	log.Loading(".env")
 	if err := readOptionalEnvFile(v, ".env"); err != nil {
+		log.LoadingFailed(".env", err)
 		return nil, err
 	}
 
@@ -72,6 +76,7 @@ func LoadConfig() (*Config, error) {
 	fillKafka(cfg, v)
 
 	if err := cfg.Validate(); err != nil {
+		log.ValidationFailed(err)
 		return nil, err
 	}
 	return cfg, nil
@@ -114,6 +119,9 @@ func (cfg *Config) Validate() error {
 	if cfg.Kafka.Enabled && len(cfg.Kafka.Brokers) == 0 {
 		return errors.New("KAFKA_BROKERS is required when Kafka is enabled")
 	}
+	if cfg.Kafka.Enabled && len(cfg.Kafka.Topics) == 0 {
+		return errors.New("KAFKA_TOPICS is required when Kafka is enabled")
+	}
 	return nil
 }
 
@@ -135,6 +143,7 @@ func newViper() *viper.Viper {
 	v.SetDefault("REDIS_POOL_SIZE", 10)
 	v.SetDefault("REDIS_MIN_IDLE", 2)
 	v.SetDefault("KAFKA_ENABLED", false)
+	v.SetDefault("KAFKA_TOPICS", "bank.user.events,bank.account.events,bank.card.events,bank.credit.events,bank.deposit.events,bank.currency.events")
 	v.SetDefault("KAFKA_CLIENT_ID", "bank-repository-service")
 	v.SetDefault("KAFKA_CONSUMER_GROUP", "bank-repository-service")
 	v.SetDefault("TEST_DB_HOST", "localhost")
@@ -153,6 +162,7 @@ func readOptionalEnvFile(v *viper.Viper, name string) error {
 	path, err := findFile(name)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
+			log.FileNotFound(name)
 			return nil
 		}
 		return err
@@ -161,6 +171,7 @@ func readOptionalEnvFile(v *viper.Viper, name string) error {
 	if err := v.ReadInConfig(); err != nil {
 		return fmt.Errorf("read %s: %w", name, err)
 	}
+	log.FileLoaded(name)
 	return nil
 }
 
@@ -230,6 +241,11 @@ func fillKafka(cfg *Config, v *viper.Viper) {
 	for _, broker := range strings.Split(v.GetString("KAFKA_BROKERS"), ",") {
 		if broker = strings.TrimSpace(broker); broker != "" {
 			cfg.Kafka.Brokers = append(cfg.Kafka.Brokers, broker)
+		}
+	}
+	for _, topic := range strings.Split(v.GetString("KAFKA_TOPICS"), ",") {
+		if topic = strings.TrimSpace(topic); topic != "" {
+			cfg.Kafka.Topics = append(cfg.Kafka.Topics, topic)
 		}
 	}
 }

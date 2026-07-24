@@ -1,0 +1,211 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bank-repository-postgres-init
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository-postgres
+    app.kubernetes.io/part-of: bank
+data:
+  01-schema.sql: |
+    CREATE TABLE IF NOT EXISTS users (
+        id BIGSERIAL PRIMARY KEY,
+        first_name VARCHAR(50) NOT NULL,
+        middle_name VARCHAR(50),
+        last_name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        phone_number VARCHAR(15) UNIQUE NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS currencies (
+        id BIGSERIAL PRIMARY KEY,
+        name VARCHAR(50) UNIQUE NOT NULL,
+        symbol VARCHAR(5) NOT NULL,
+        iso_code VARCHAR(4) UNIQUE NOT NULL,
+        minor_units SMALLINT NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS accounts (
+        id BIGSERIAL PRIMARY KEY,
+        user_id BIGINT NOT NULL REFERENCES users(id),
+        currency_id BIGINT NOT NULL REFERENCES currencies(id),
+        balance BIGINT NOT NULL,
+        name VARCHAR(20) NOT NULL,
+        status SMALLINT NOT NULL CHECK (status IN (0, 1, 2)),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS cards (
+        id BIGSERIAL PRIMARY KEY,
+        user_id BIGINT NOT NULL REFERENCES users(id),
+        account_id BIGINT NOT NULL REFERENCES accounts(id),
+        number VARCHAR(19) UNIQUE NOT NULL,
+        expiry_year SMALLINT NOT NULL,
+        expiry_month SMALLINT NOT NULL,
+        status SMALLINT NOT NULL CHECK (status IN (0, 1, 2, 3)),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS credits (
+        id BIGSERIAL PRIMARY KEY,
+        user_id BIGINT NOT NULL REFERENCES users(id),
+        currency_id BIGINT NOT NULL REFERENCES currencies(id),
+        amount BIGINT NOT NULL,
+        monthly_payment BIGINT NOT NULL,
+        status SMALLINT NOT NULL CHECK (status IN (0, 1, 2)),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS deposits (
+        id BIGSERIAL PRIMARY KEY,
+        user_id BIGINT NOT NULL REFERENCES users(id),
+        currency_id BIGINT NOT NULL REFERENCES currencies(id),
+        amount BIGINT NOT NULL,
+        interest_rate REAL NOT NULL,
+        term_months SMALLINT NOT NULL,
+        status SMALLINT NOT NULL CHECK (status IN (0, 1, 2)),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP
+    );
+  02-indexes.sql: |
+    CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts (user_id);
+    CREATE INDEX IF NOT EXISTS idx_accounts_currency_id ON accounts (currency_id);
+    CREATE INDEX IF NOT EXISTS idx_cards_user_id ON cards (user_id);
+    CREATE INDEX IF NOT EXISTS idx_cards_account_id ON cards (account_id);
+    CREATE INDEX IF NOT EXISTS idx_credits_user_id ON credits (user_id);
+    CREATE INDEX IF NOT EXISTS idx_credits_currency_id ON credits (currency_id);
+    CREATE INDEX IF NOT EXISTS idx_deposits_user_id ON deposits (user_id);
+    CREATE INDEX IF NOT EXISTS idx_deposits_currency_id ON deposits (currency_id);
+    CREATE INDEX IF NOT EXISTS idx_currencies_symbol ON currencies (symbol);
+    CREATE INDEX IF NOT EXISTS idx_currencies_minor_units ON currencies (minor_units);
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bank-repository-postgres-data
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository-postgres
+    app.kubernetes.io/part-of: bank
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-repository-postgres
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository-postgres
+    app.kubernetes.io/part-of: bank
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bank-repository-postgres
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bank-repository-postgres
+        app.kubernetes.io/part-of: bank
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 70
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: bank-repository-config
+                  key: DB_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: bank-repository-config
+                  key: DB_NAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bank-repository-secret
+                  key: DB_PASSWORD
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: bank-repository-postgres-data
+        - name: init
+          configMap:
+            name: bank-repository-postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-repository-postgres
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository-postgres
+    app.kubernetes.io/part-of: bank
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: bank-repository-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+      protocol: TCP
