@@ -4,8 +4,8 @@ import (
 	"context"
 	common "github.com/Suinar/Bank-proto/repository/common"
 	currency "github.com/Suinar/Bank-proto/repository/currency"
-	cache "github.com/kVinsom/Bank-repository-service/internal/repository/cache/currency"
-	repository "github.com/kVinsom/Bank-repository-service/internal/repository/postgres_db/currency"
+	cache "github.com/kVinsom/Bank-repository-service/internal/repositories/cache/currency"
+	repository "github.com/kVinsom/Bank-repository-service/internal/repositories/postgres/currency"
 	errors "github.com/kVinsom/Bank-repository-service/pkg"
 	"unicode/utf8"
 

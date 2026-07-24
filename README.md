@@ -26,6 +26,7 @@ Go microservice that owns persistence operations for the banking platform. It ex
 - Environment-first configuration
 - Optional local `.env` file
 - Standard gRPC health service
+- Structured lifecycle, dependency, Kafka, and gRPC request logging
 - Graceful termination for containers and Kubernetes
 - Unit and integration tests
 - Reproducible GoMock generation
@@ -38,19 +39,23 @@ Go microservice that owns persistence operations for the banking platform. It ex
 ├── cmd/app/                         # Application entry point
 ├── internal/
 │   ├── configs/                     # Environment and .env configuration
-│   ├── delivery/grps/               # gRPC server and handlers
+│   ├── delivery/grpc/               # gRPC server and handlers
 │   ├── mocks/                       # Generated GoMock implementations
-│   ├── repository/
+│   ├── repositories/
 │   │   ├── cache/                   # Redis repositories
-│   │   └── postgres_db/             # PostgreSQL repositories
+│   │   └── postgres/                # PostgreSQL repositories
 │   ├── services/                    # Application services
 │   └── test/                        # Fixtures and integration-test helpers
 ├── pkg/
 │   ├── core/                        # Domain models
 │   └── database/                    # PostgreSQL and Redis connections
 ├── docker/postgres/migration/       # Development and test database SQL
-├── compose.yaml                     # PostgreSQL, Redis, Kafka, and app profiles
-├── Dockerfile                       # Multi-stage non-root image
+├── docker/
+│   ├── app/
+│   │   ├── Dockerfile               # Multi-stage non-root image
+│   │   └── Dockerfile.dockerignore  # Application image build context exclusions
+│   ├── docker-compose.yml           # PostgreSQL, Redis, Kafka, and app profiles
+│   └── postgres/                    # Database initialization scripts
 ├── .env.example                     # Configuration template
 └── Makefile                         # Development commands
 ```
@@ -93,14 +98,14 @@ Keep passwords and future Kafka credentials in secrets, never in Git. `.env` and
 ### Local infrastructure
 
 ```sh
-docker compose up -d postgres redis
+docker compose -f docker/docker-compose.yml up -d postgres redis
 go run ./cmd/app
 ```
 
 ### Application in Docker
 
 ```sh
-docker compose --profile app up -d --build
+docker compose -f docker/docker-compose.yml --profile app up -d --build
 ```
 
 ### Kafka
@@ -108,14 +113,26 @@ docker compose --profile app up -d --build
 Kafka is optional and runs only when its profile is selected:
 
 ```sh
-docker compose --profile kafka up -d kafka
+docker compose -f docker/docker-compose.yml --profile kafka up -d kafka
 ```
 
 Run the application and Kafka together:
 
 ```sh
-docker compose --profile app --profile kafka up -d --build
+docker compose -f docker/docker-compose.yml --profile app --profile kafka up -d --build
 ```
+
+Host ports can be changed without changing container-to-container addresses:
+`DB_HOST_PORT`, `REDIS_HOST_PORT`, `KAFKA_HOST_PORT`, and `GRPC_HOST_PORT`.
+
+Kafka topic initialization is enabled by default. The repository service creates
+the configured `KAFKA_TOPICS` in its target cluster before it starts accepting
+gRPC requests. Creation is idempotent, so this can safely point to the broker
+embedded in `Bank-backend`.
+
+Kubernetes manifests for the application, PostgreSQL, Redis, autoscaling, and
+disruption policy are under `docker/kubernetes`. They expect the shared `bank`
+namespace and the main backend Kafka Service named `kafka`.
 
 ## Make commands
 
@@ -172,13 +189,13 @@ Repository test packages share one test database and are serialized through a Po
 The current statement-coverage baseline is measured with running PostgreSQL and Redis dependencies:
 
 ```sh
-go test ./internal/services/... ./internal/delivery/grps/handlers/... ./internal/repository/postgres_db/... ./internal/repository/cache/currency -cover
+go test ./internal/services/... ./internal/delivery/grpc/handler/... ./internal/repositories/postgres/... ./internal/repositories/cache/currency -cover
 ```
 
 To verify the two fully covered user packages and inspect function-level results:
 
 ```sh
-go test ./internal/repository/postgres_db/user -coverprofile=user-repository.coverage
+go test ./internal/repositories/postgres/user -coverprofile=user-repository.coverage
 go tool cover -func=user-repository.coverage
 go test ./internal/services/user -coverprofile=user-service.coverage
 go tool cover -func=user-service.coverage

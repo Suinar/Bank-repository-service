@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bank-repository
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository
+    app.kubernetes.io/part-of: bank
+automountServiceAccountToken: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-repository
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository
+    app.kubernetes.io/part-of: bank
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bank-repository
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bank-repository
+        app.kubernetes.io/part-of: bank
+    spec:
+      serviceAccountName: bank-repository
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: bank-repository
+          # Docker Desktop can use the locally built image with this name.
+          image: bank-repository-service:local
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: bank-repository-config
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bank-repository-secret
+                  key: DB_PASSWORD
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bank-repository-secret
+                  key: REDIS_PASSWORD
+          ports:
+            - name: grpc
+              containerPort: 50052
+              protocol: TCP
+          startupProbe:
+            exec:
+              command:
+                - /app/repository-service
+                - healthcheck
+            periodSeconds: 3
+            timeoutSeconds: 3
+            failureThreshold: 30
+          readinessProbe:
+            exec:
+              command:
+                - /app/repository-service
+                - healthcheck
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command:
+                - /app/repository-service
+                - healthcheck
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 16Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-repository
+  namespace: bank
+  labels:
+    app.kubernetes.io/name: bank-repository
+    app.kubernetes.io/part-of: bank
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: bank-repository
+  ports:
+    - name: grpc
+      port: 50052
+      targetPort: grpc
+      protocol: TCP
